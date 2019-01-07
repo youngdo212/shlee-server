@@ -1,0 +1,53 @@
+.sticky-nav {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0px;
+  width: 100vw; height: 100px;
+  padding: 0px 90px;
+  background: #fff;
+  z-index: 1;
+  transition: transform .7s;
+  transform: translate3d(0, -100%, 0);
+}
+
+.sticky-nav--visible {
+  transform: none;
+}
+
+.sticky-nav__logo-wrap {
+  float: left;
+  height: 100%;
+
+  // vertical-align helper
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.sticky-nav__logo {
+  display: inline-block;
+  width: 120px; height: 60px;
+  background: no-repeat center/100% url(../images/yambo_black.png);
+  vertical-align: middle;
+}
+
+.sticky-nav__menu-wrap {
+  float: right;
+  height: 100%;
+
+  // vertical-align helper
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.sticky-nav__menu {
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,8 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@import 'partials/base';
 
-p {
-  color: pink;
-}
+@import 'partials/reset';
+@import 'partials/header';
+@import 'partials/nav';
+@import 'partials/sticky-nav';
+@import 'partials/section';
+@import 'partials/footer';
+@import 'partials/project';
+@import 'partials/modal';
+@import 'partials/menu';
+@import 'partials/loader';
