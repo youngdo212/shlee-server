@@ -85,7 +85,7 @@ header {
   display: inline-block;
   width: 170px;
   height: 80px;
-  background: no-repeat center/100% url(../images/yambo_white.png);
+  background: no-repeat center/100% url("../images/yambo_white.png");
   vertical-align: middle; }
 
 .nav__menu-wrap {
@@ -156,7 +156,7 @@ header {
   display: inline-block;
   width: 120px;
   height: 60px;
-  background: no-repeat center/100% url(../images/yambo_black.png);
+  background: no-repeat center/100% url("../images/yambo_black.png");
   vertical-align: middle; }
 
 .sticky-nav__menu-wrap {
@@ -192,7 +192,7 @@ footer {
 .footer__logo {
   width: 130px;
   height: 60px;
-  background: no-repeat center/100% url(../images/yambo_black.png);
+  background: no-repeat center/100% url("../images/yambo_black.png");
   margin: auto; }
 
 .footer__info-wrap {
@@ -448,7 +448,7 @@ footer {
   transform: translate3d(-50%, -50%, 0);
   width: 50px;
   height: 50px;
-  background: no-repeat center/100% url("../img/loading-icon.gif"); }
+  background: no-repeat center/100% url("../images/loading-icon.gif"); }
 
 .modal__loading-icon--invisible {
   visibility: hidden; }
