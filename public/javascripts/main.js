@@ -25,7 +25,7 @@ const projectSectionView = new ProjectSectionView({
 const loader = new Loader({
   loader: document.querySelector('.loader'),
   handler: projectSectionView.addProject.bind(projectSectionView),
-  url: 'http://127.0.0.1:3000/javascripts/projectsAll.json',
+  url: 'http://127.0.0.1:3000/api/project',
 })
 
 const showreelButton = document.querySelector('.header__showreel');

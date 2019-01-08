@@ -17,14 +17,14 @@ export default class Modal {
     })
   }
 
-  activate({video, title}) {
+  activate({videoUrl, title}) {
     if(!title) this.details.classList.add('modal__details--deactive'); // when showreel is clicked
     
     this.video.addEventListener('load', () => {
       this.loadingIcon.classList.add('modal__loading-icon--invisible');
     }, {once: true})
 
-    this.video.src = video;
+    this.video.src = videoUrl;
     this.title.textContent = title || "";
     this.modal.classList.remove('modal--deactive');
     this.modal.classList.add('modal--active');

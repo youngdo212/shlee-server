@@ -24,10 +24,10 @@ export default class Loader {
   }
 
   execute(data) {
-    const projectsAll = JSON.parse(data);
-    const projects = projectsAll[this.index++];
+    const projects = JSON.parse(data);
 
-    !!projects ? this.handler(projects) : this.observer.unobserve(this.loader);
+    this.handler(projects);
+    this.observer.unobserve(this.loader);
     this.loader.classList.remove('loader--loading');
   }
 }

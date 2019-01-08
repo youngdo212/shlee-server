@@ -1,7 +1,7 @@
-export const projectView = ({title, image}) => {
+export const projectView = ({title, thumbnailImageUrl}) => {
   return (
     `<div class="project project--invisible">
-      <img class="project__image" src="${image}" alt="${title}">
+      <img class="project__image" src="${thumbnailImageUrl}" alt="${title}">
       <div class="project__header">
         <div class="project__title">${title}</div>
       </div>
