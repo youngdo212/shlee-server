@@ -36,7 +36,7 @@ table {
 
 header {
   position: relative;
-  height: 50vh;
+  height: 60vh;
   overflow: hidden; }
 
 .header__video {
@@ -177,7 +177,7 @@ header {
 
 section {
   width: 100vw;
-  margin: 130px auto 0px auto; }
+  margin: 50px auto 0px auto; }
 
 footer {
   width: 100vw;
