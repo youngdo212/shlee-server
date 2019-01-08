@@ -16,12 +16,4 @@ export const menuItems = [
     name: 'Info',
     path: '/test',
   },
-  {
-    name: 'News',
-    path: '/test',
-  },
-  {
-    name: 'About',
-    path: '/test',
-  },
 ]

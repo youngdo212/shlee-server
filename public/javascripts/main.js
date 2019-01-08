@@ -42,6 +42,7 @@ const navigationMenuView = new MenuView({
 const stickyNavigationMenuView = new MenuView({
   menuItems,
   wrapper: document.querySelector('.sticky-nav__menu'),
+  color: '#fff',
 })
 
 const header = new Header({

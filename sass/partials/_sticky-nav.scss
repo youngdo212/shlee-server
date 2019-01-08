@@ -4,7 +4,7 @@
   top: 0px;
   width: 100vw; height: 100px;
   padding: 0px 90px;
-  background: #fff;
+  background: #000;
   z-index: 1;
   transition: transform .7s;
   transform: translate3d(0, -100%, 0);
@@ -30,7 +30,7 @@
 .sticky-nav__logo {
   display: inline-block;
   width: 120px; height: 60px;
-  background: no-repeat center/100% url('../images/yambo_black.png');
+  background: no-repeat center/100% url('../images/yambo_white.png');
   vertical-align: middle;
 }
 

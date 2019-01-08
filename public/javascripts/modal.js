@@ -6,7 +6,6 @@ export default class Modal {
     this.video = this.modal.querySelector('.modal__video > iframe');
     this.loadingIcon = this.modal.querySelector('.modal__loading-icon');
     this.title = this.modal.querySelector('.modal__title');
-    this.description = this.modal.querySelector('.modal__description');
 
     this.registerCloseButtonHandler(this.deactivate.bind(this));
   }
@@ -18,8 +17,8 @@ export default class Modal {
     })
   }
 
-  activate({video, title, description}) {
-    if(!title && !description) this.details.classList.add('modal__details--deactive');
+  activate({video, title}) {
+    if(!title) this.details.classList.add('modal__details--deactive'); // when showreel is clicked
     
     this.video.addEventListener('load', () => {
       this.loadingIcon.classList.add('modal__loading-icon--invisible');
@@ -27,7 +26,6 @@ export default class Modal {
 
     this.video.src = video;
     this.title.textContent = title || "";
-    this.description.textContent = description || "";
     this.modal.classList.remove('modal--deactive');
     this.modal.classList.add('modal--active');
   }
@@ -36,7 +34,6 @@ export default class Modal {
     this.modal.addEventListener('transitionend', () => {
       this.video.src = "";
       this.title.textContent = "";
-      this.description.textContent = "";
       this.details.classList.remove('modal__details--deactive');
       this.loadingIcon.classList.remove('modal__loading-icon--invisible');
     }, {once: true});

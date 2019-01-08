@@ -2,111 +2,62 @@
   "0" : [
     {
       "title": "Oppo R17",
-      "description": "Oppo R17",
       "image": "./images/oppo-r17.jpg",
-      "video": "https://player.vimeo.com/video/290298594?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "49.5%",
-      "heightRatio": "28.71%",
-      "marginRight": "1%"
+      "video": "https://player.vimeo.com/video/290298594?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Xiaomi Redmi Note 5",
-      "description": "Our favorite spot for 2018 is all about Palms & Neons",
       "image": "./images/Xiami-e7-Thumbnail.jpg",
-      "video": "https://player.vimeo.com/video/257688554?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "49.5%",
-      "heightRatio": "28.71%",
-      "marginRight": "0px"
+      "video": "https://player.vimeo.com/video/257688554?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Google Cloud 2018",
-      "titleColor": "#333",
-      "description": "3D Illustration for the primary marketing website.",
-      "image": "./images/google-cloud.jpg",
-      "width": "60%",
-      "heightRatio": "30%",
-      "marginRight": "1%"
+      "image": "./images/google-cloud.jpg"
     },
     {
       "title": "WIX Mobile Adi",
-      "description": "The Future of Website Creation: Wix Artificial Design Intelligence",
-      "image": "./images/wix.jpg",
-      "width": "39%",
-      "heightRatio": "30.3%",
-      "marginRight": "0px"
+      "image": "./images/wix.jpg"
     },
     {
       "title": "Xiaomi Redmi 5",
-      "description": "Redmi 5 Official Video Presentation",
       "image": "./images/xiaomi-redmi-5.webp",
-      "video": "https://player.vimeo.com/video/248691038?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "1%"
+      "video": "https://player.vimeo.com/video/248691038?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Asus Zenbook",
-      "description": "4K cinematic trailer",
       "image": "./images/asus.jpg",
-      "video": "https://player.vimeo.com/video/226137037?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "1%"
+      "video": "https://player.vimeo.com/video/226137037?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Vivo Y71",
-      "description": "In Store Vertical Presentation of The Vivo Y71 Phone",
       "image": "./images/vivo.jpg",
-      "video": "https:////player.vimeo.com/video/267199600?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "0px"
+      "video": "https:////player.vimeo.com/video/267199600?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     }
   ],
 
   "1" : [
     {
       "title": "Bombo",
-      "description": "A Series of Three",
-      "image": "./images/bombo.jpg",
-      "width": "49.5%",
-      "heightRatio": "28.71%",
-      "marginRight": "1%"
+      "image": "./images/bombo.jpg"
     },
     {
       "title": "Xiaomi Mix Mi 2",
-      "description": "Official Video Presentation",
       "image": "./images/Xiaomi-Mix-Mi-2.jpg",
-      "video": "https://player.vimeo.com/video/246752704?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "49.5%",
-      "heightRatio": "28.71%",
-      "marginRight": "0px"
+      "video": "https://player.vimeo.com/video/246752704?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Lola Marsh",
-      "description": "Wishing Girl",
       "image": "./images/lola-marsh.jpg",
-      "video": "https://player.vimeo.com/video/215997853?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "1%"
+      "video": "https://player.vimeo.com/video/215997853?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Magnificence",
-      "description": "TVC Spot",
       "image": "./images/magnificence.jpg",
-      "video": "https://player.vimeo.com/video/296589486?title=0&byline=0&portrait=0&badge=0&color=ffffff",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "1%"
+      "video": "https://player.vimeo.com/video/296589486?title=0&byline=0&portrait=0&badge=0&color=ffffff"
     },
     {
       "title": "Plus is More",
-      "description": "Heart Care +",
-      "image": "./images/plus-is-more.jpg",
-      "width": "32.66%",
-      "heightRatio": "29.394%",
-      "marginRight": "0px"
+      "image": "./images/plus-is-more.jpg"
     }
   ]
 }

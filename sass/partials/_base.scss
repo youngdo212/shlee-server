@@ -1,6 +1,10 @@
-$main-width: 90vw;
+$main-width: 100vw;
 
 $video-width: 70vw;
 $video-height-ratio: 56.5%;
 
-$underline-color: rgb(83, 192, 196);
+$main-color: rgb(83, 192, 196);
+
+body {
+  background: #000;
+}
