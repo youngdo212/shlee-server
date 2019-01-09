@@ -51,7 +51,7 @@
 .project__title {
   color: #fff;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 400;
   transition: transform .5s;
   transform: translate3d(0, -150%, 0);
 }
@@ -83,13 +83,14 @@
 
 .project__quick-view-icon {
   vertical-align: middle;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #fff;
-  margin-right: 3px;
+  margin-right: 2px;
 }
 
 .project__quick-view-text {
   vertical-align: middle;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 300;
   color: #fff;
 }
