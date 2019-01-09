@@ -1,8 +1,9 @@
 import {ajax, Observer} from './helper.js';
 
 export default class Loader {
-  constructor({loader, handler, url}) {
-    this.index = 0;
+  constructor({loader, handler, url, limit = 4}) {
+    this.offset = 0;
+    this.limit = limit;
     this.loader = loader;
     this.handler = handler;
     this.url = url;
@@ -18,16 +19,17 @@ export default class Loader {
 
     ajax({
       method: 'GET',
-      url: this.url,
+      url: `${this.url}?limit=${this.limit}&offset=${this.offset}`,
       callback: this.execute.bind(this),
     });
+
+    this.offset += this.limit;
   }
 
   execute(data) {
     const projects = JSON.parse(data);
 
-    this.handler(projects);
-    this.observer.unobserve(this.loader);
+    projects.length ? this.handler(projects) : this.observer.unobserve(this.loader);
     this.loader.classList.remove('loader--loading');
   }
 }
