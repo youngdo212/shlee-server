@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
-const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api.js');
 
 const app = express();
@@ -20,9 +19,9 @@ app.use(sassMiddleware({
   sourceMap: true,
   prefix: '/stylesheets'
 }));
+app.use('/project/:id', express.static(path.join(__dirname, 'public/project')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', apiRouter);
-app.use('/users', usersRouter);
 
 module.exports = app;

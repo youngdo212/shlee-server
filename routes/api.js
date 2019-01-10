@@ -12,4 +12,14 @@ router.get('/project', (req, res, next) => {
   });
 });
 
+router.get('/project/:id', (req, res, next) => {
+  const projectId = Number(req.params.id);
+
+  db.query('SELECT image_url as imageUrl FROM project_image WHERE project_id = ?', [projectId], (err, images) => {
+    if(err) throw err;
+
+    res.send(images);
+  });
+});
+
 module.exports = router;

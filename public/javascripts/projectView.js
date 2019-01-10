@@ -29,7 +29,7 @@ export default class ProjectView {
     if(!this.quickViewButton) return;
     
     this.quickViewButton.addEventListener('click', (e) => {
-      e.stopPropagation();
+      e.preventDefault();
       handler(this.project);
     });
   }
