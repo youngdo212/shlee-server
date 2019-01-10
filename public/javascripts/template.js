@@ -23,3 +23,13 @@ export const menuItemView = ({name, path, color = "#000"}) => {
     </a>`
   );
 }
+
+export const navigation = (items) => {
+  return `
+    <ul class="navigation__item-list navigation__item-list--deactive">
+      ${items.reduce((html, item) => {
+        return html + `<li class="navigation__item"><a class="navigation__item-name" href="${item.path}">${item.name}</a></li>`
+      }, '')}
+    </ul>
+    <div class="navigation__button"></div>`;
+}

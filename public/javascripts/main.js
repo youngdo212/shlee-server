@@ -1,17 +1,21 @@
-import stickyNavigation from './stickyNavigation.js';
+import Navigation from './navigation.js';
 import Modal from './modal.js';
 import ProjectSectionView from './projectSectionView.js';
-import MenuView from './menuView.js';
 import Header from './header.js';
 import FooterForm from './footerForm.js';
 import Loader from './loader.js';
 
-import {showreel, menuItems} from './data.js';
+import {showreel} from './data.js';
 
-const nav = new stickyNavigation({
-  navigation: document.querySelector('.sticky-nav'),
-  disableTop: document.querySelector('header').offsetHeight,
-})
+const navigation = new Navigation({
+  element: document.querySelector('.navigation'),
+  header: document.querySelector('header'),
+  items: [
+    {name: 'Work', path: '/work'},
+    {name: 'Lab', path: '/lab'},
+    {name: 'Info', path: '/info'},
+  ],
+});
 
 const modal = new Modal({
   modal: document.querySelector('.modal'),
@@ -31,19 +35,6 @@ const loader = new Loader({
 const showreelButton = document.querySelector('.header__showreel');
 
 showreelButton.addEventListener('click', modal.activate.bind(modal, showreel));
-
-const navigationMenuView = new MenuView({
-  menuItems,
-  wrapper: document.querySelector('.nav__menu'),
-  toggleButton: document.querySelector('.nav__menu-button'),
-  color: '#fff',
-})
-
-const stickyNavigationMenuView = new MenuView({
-  menuItems,
-  wrapper: document.querySelector('.sticky-nav__menu'),
-  color: '#fff',
-})
 
 const header = new Header({
   header: document.querySelector('header'),
