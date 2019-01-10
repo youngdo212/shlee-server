@@ -29,7 +29,12 @@ export default class Loader {
   execute(data) {
     const projects = JSON.parse(data);
 
-    projects.length ? this.handler(projects) : this.observer.unobserve(this.loader);
+    projects.length ? this.handler(projects) : this.stop();
     this.loader.classList.remove('loader--loading');
+  }
+
+  stop() {
+    this.observer.unobserve(this.loader);
+    this.loader.classList.add('loader--stop');
   }
 }

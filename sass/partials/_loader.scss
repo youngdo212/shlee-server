@@ -1,7 +1,11 @@
 .loader {
   width: $main-width;
-  margin: 0px auto 15px auto;
+  margin: 0px auto;
   visibility: hidden;
+
+  &--stop {
+    display: none;
+  }
 }
 
 .loader--loading {

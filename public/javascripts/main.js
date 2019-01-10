@@ -1,11 +1,7 @@
 import Navigation from './navigation.js';
 import Modal from './modal.js';
 import ProjectSectionView from './projectSectionView.js';
-import Header from './header.js';
-import FooterForm from './footerForm.js';
 import Loader from './loader.js';
-
-import {showreel} from './data.js';
 
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
@@ -34,15 +30,6 @@ const loader = new Loader({
 
 const showreelButton = document.querySelector('.header__showreel');
 
-showreelButton.addEventListener('click', modal.activate.bind(modal, showreel));
-
-const header = new Header({
-  header: document.querySelector('header'),
-})
-
-const footerForm = new FooterForm({
-  form: document.querySelector('.footer__form'),
-  formMessage: document.querySelector('.footer__form-message'),
-  submitMessage: 'Thank you for subscribing!',
-  rejectMessage: 'Please enter a valid email address.',
-})
+showreelButton.addEventListener('click', modal.activate.bind(modal, {
+  videoUrl: 'https://player.vimeo.com/video/295556349?title=0&byline=0&portrait=0&badge=0&color=ffffff',
+}));
