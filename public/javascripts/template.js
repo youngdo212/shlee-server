@@ -31,5 +31,8 @@ export const navigation = (items) => {
         return html + `<li class="navigation__item"><a class="navigation__item-name" href="${item.path}">${item.name}</a></li>`
       }, '')}
     </ul>
-    <div class="navigation__button"></div>`;
+    <div class="navigation__button"></div>
+    <div class="navigation__title-wrap">
+      <a class="navigation__title" href="/">sung hwan lee</a>
+    </div>`;
 }
