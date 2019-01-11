@@ -194,7 +194,7 @@ footer {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 1.2s, opacity 1.2s; }
+  transition: opacity 1.3s; }
   .project:hover .project__image {
     transform: scale(1.05); }
   .project:hover .project__header {
@@ -207,8 +207,7 @@ footer {
     transform: none; }
 
 .project--invisible {
-  opacity: 0;
-  transform: translate3d(0px, 5%, 0px); }
+  opacity: 0; }
 
 .project__image {
   width: 100%;
