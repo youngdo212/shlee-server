@@ -24,6 +24,6 @@ export const navigation = (items) => {
     </ul>
     <div class="navigation__button"></div>
     <div class="navigation__title-wrap">
-      <a class="navigation__title" href="/">sung hwan lee</a>
+      <a class="navigation__title" href="/">SungHwan Lee</a>
     </div>`;
 }

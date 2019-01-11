@@ -1,8 +1,8 @@
-import Navigation from './navigation.js';
-import SectionProject from './sectionProject.js';
-import Loader from './loader.js';
-import Modal from './modal.js';
-import Controller from './controller.js';
+import Navigation from '../navigation.js';
+import SectionProject from '../sectionProject.js';
+import Loader from '../loader.js';
+import Modal from '../modal.js';
+import Controller from '../controller.js';
 
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
