@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/project', (req, res, next) => {
   const {limit, offset} = req.query;
 
-  db.query('SELECT * FROM project LIMIT ? OFFSET ?', [Number(limit), Number(offset)], (err, projects) => {
+  db.query('SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project LIMIT ? OFFSET ?', [Number(limit), Number(offset)], (err, projects) => {
     if(err) throw err;
 
     res.send(projects);
