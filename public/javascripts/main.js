@@ -1,7 +1,8 @@
 import Navigation from './navigation.js';
-import Modal from './modal.js';
-import ProjectSectionView from './projectSectionView.js';
+import SectionProject from './sectionProject.js';
 import Loader from './loader.js';
+import Modal from './modal.js';
+import Controller from './controller.js';
 
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
@@ -13,23 +14,23 @@ const navigation = new Navigation({
   ],
 });
 
-const modal = new Modal({
-  modal: document.querySelector('.modal'),
-})
+const view = {
+  section: new SectionProject({
+    element: document.querySelector('section'),
+  }),
+  loader: new Loader({
+    element: document.querySelector('.loader'),
+    url: 'http://127.0.0.1:3000/api/project',
+  }),
+  modal: new Modal({
+    modal: document.querySelector('.modal'),
+  }),
+}
 
-const projectSectionView = new ProjectSectionView({
-  wrapper: document.querySelector('section'),
-  quickViewHandler: modal.activate.bind(modal),
-})
-
-const loader = new Loader({
-  loader: document.querySelector('.loader'),
-  handler: projectSectionView.addProject.bind(projectSectionView),
-  url: 'http://127.0.0.1:3000/api/project',
-})
+const controller = new Controller(view);
 
 const showreelButton = document.querySelector('.header__showreel');
 
-showreelButton.addEventListener('click', modal.activate.bind(modal, {
+showreelButton.addEventListener('click', view.modal.open.bind(view.modal, {
   videoUrl: 'https://player.vimeo.com/video/295556349?title=0&byline=0&portrait=0&badge=0&color=ffffff',
 }));

@@ -1,40 +1,45 @@
 import {ajax, Observer} from './helper.js';
 
 export default class Loader {
-  constructor({loader, handler, url, limit = 4}) {
-    this.offset = 0;
-    this.limit = limit;
-    this.loader = loader;
-    this.handler = handler;
+  constructor({element, url, limit = 4}) {
+    this.$loader = element;
     this.url = url;
+    this.limit = limit;
+    this.offset = 0;
+    this.handler = null;
+
     this.observer = new Observer({
-      callback: this.load.bind(this),
+      callback: this._load.bind(this),
     })
-    this.observer.observe(this.loader);
-    this.load();
+    this.observer.observe(this.$loader);
+    this._load();
   }
 
-  load() {
-    this.loader.classList.add('loader--loading');
+  bindAddItems(handler) {
+    this.handler = handler;
+  }
+
+  _load() {
+    this.$loader.classList.add('loader--loading');
 
     ajax({
       method: 'GET',
       url: `${this.url}?limit=${this.limit}&offset=${this.offset}`,
-      callback: this.execute.bind(this),
+      callback: this._execute.bind(this),
     });
 
     this.offset += this.limit;
   }
 
-  execute(data) {
-    const projects = JSON.parse(data);
+  _execute(data) {
+    const item = JSON.parse(data);
 
-    projects.length ? this.handler(projects) : this.stop();
-    this.loader.classList.remove('loader--loading');
+    this.$loader.classList.remove('loader--loading');
+    item.length ? this.handler(item) : this._stop();
   }
 
-  stop() {
-    this.observer.unobserve(this.loader);
-    this.loader.classList.add('loader--stop');
+  _stop() {
+    this.observer.unobserve(this.$loader);
+    this.$loader.classList.add('loader--stop');
   }
 }

@@ -8,17 +8,17 @@ export default class Modal {
     this.title = this.modal.querySelector('.modal__title');
     this.moreButton = this.modal.querySelector('.modal__more-button');
 
-    this.registerCloseButtonHandler(this.deactivate.bind(this));
+    this._registerCloseButtonHandler(this._close.bind(this));
   }
 
-  registerCloseButtonHandler(handler) {
+  _registerCloseButtonHandler(handler) {
     this.closeButton.addEventListener('click', (e) => {
       e.stopPropagation();
       handler();
     })
   }
 
-  activate({id, title, videoUrl}) {
+  open({id, title, videoUrl}) {
     if(!title) this.details.classList.add('modal__details--deactive'); // when showreel is clicked
     
     this.video.addEventListener('load', () => {
@@ -32,7 +32,7 @@ export default class Modal {
     this.modal.classList.add('modal--active');
   }
 
-  deactivate() {
+  _close() {
     this.modal.addEventListener('transitionend', () => {
       this.video.src = "";
       this.title.textContent = "";

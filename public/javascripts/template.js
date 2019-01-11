@@ -1,6 +1,6 @@
-export const projectView = ({id, title, thumbnailImageUrl}) => {
+export const project = ({id, title, thumbnailImageUrl, videoUrl}) => {
   return (
-    `<a class="project project--invisible" href="/project/${id}">
+    `<a class="project project--invisible" href="/project/${id}" data-id="${id}" data-title="${title}" data-video-url="${videoUrl}">
       <img class="project__image" src="${thumbnailImageUrl}" alt="${title}">
       <div class="project__header">
         <div class="project__title">${title}</div>
@@ -11,15 +11,6 @@ export const projectView = ({id, title, thumbnailImageUrl}) => {
           <span class="project__quick-view-text">Quick view</span>
         </div>
       </div>
-    </a>`
-  );
-}
-
-export const menuItemView = ({name, path, color = "#000"}) => {
-  return (
-    `<a href="${path}" style="color: ${color}" class="menu-item">
-      <div class="menu-item__name">${name}</div>
-      <div class="menu-item__underline"></div>
     </a>`
   );
 }
