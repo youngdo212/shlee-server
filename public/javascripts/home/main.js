@@ -30,5 +30,5 @@ const controller = new Controller(view);
 const showreelButton = document.querySelector('.header__showreel');
 
 showreelButton.addEventListener('click', view.modal.open.bind(view.modal, {
-  videoUrl: 'https://player.vimeo.com/video/295556349?title=0&byline=0&portrait=0&badge=0&color=ffffff',
+  videoUrl: 'https://player.vimeo.com/video/193029459?title=0&byline=0&portrait=0',
 }));
