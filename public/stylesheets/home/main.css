@@ -93,7 +93,7 @@ table {
     transition: opacity .3s, transform .3s; }
   .navigation__item:nth-last-child(1) {
     margin-right: 30px; }
-  .navigation__item:hover:after {
+  .navigation__item:hover:after, .navigation__item--active:after {
     transform: none;
     opacity: 1; }
 

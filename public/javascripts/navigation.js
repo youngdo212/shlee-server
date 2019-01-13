@@ -1,7 +1,7 @@
 import {navigation as template} from './template.js';
 
 export default class Navigation {
-  constructor({element, header, items}) {
+  constructor({element, items, header = null, activeItemIndex = null}) {
     this.$navigation = element;
     this.$header = header;
     this.$itemList = null;
@@ -10,12 +10,18 @@ export default class Navigation {
     this.isButtonActive = false;
     this.previousScrollTop = 0;
 
-    this._render(items);
+    this._render({
+      items,
+      activeItemIndex,
+    });
     this._registerListener();
   }
 
-  _render(items) {
-    this.$navigation.innerHTML = template(items);
+  _render({items, activeItemIndex}) {
+    this.$navigation.innerHTML = template({
+      items,
+      activeItemIndex
+    });
 
     // bind rendered element
     this.$itemList = this.$navigation.querySelector('.navigation__item-list');
@@ -33,6 +39,8 @@ export default class Navigation {
   }
 
   _isEscaped() {
+    if(!this.$header) return false;
+
     const currentScrollTop = document.documentElement.scrollTop;
 
     return currentScrollTop > this.$header.offsetHeight + this.$header.offsetTop;

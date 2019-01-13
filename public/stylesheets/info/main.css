@@ -1,6 +1,6 @@
 body {
   background: #000;
-  font-family: 'Roboto', 'Noto Sans KR', sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
@@ -34,34 +34,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-header {
-  position: relative;
-  height: 0px;
-  padding-top: 27%;
-  margin-top: 120px;
-  overflow: hidden; }
-
-.header__content {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%; }
-
-.header__image {
-  width: 100%; }
-
-.header__title {
-  position: absolute;
-  top: 15%;
-  left: 5%;
-  font-size: 5.5vw;
-  font-weight: 500;
-  color: #fff; }
-
 .navigation {
   box-sizing: border-box;
   width: 100%;
+  height: 90px;
   text-align: right;
   z-index: 1;
   padding: 0 90px; }
@@ -74,7 +50,6 @@ header {
     position: fixed;
     top: 0px;
     left: 0px;
-    height: 90px;
     background: #000; }
   .navigation--collapse {
     transform: translate3d(0, -100%, 0); }
@@ -169,80 +144,60 @@ header {
   color: #fff;
   text-decoration: none; }
 
-section {
-  width: 90vw;
-  margin: 50px auto; }
+.info__profile, .info__phone, .info__email, .info__tool1, .info__tool2 {
+  font-size: 1.5rem;
+  font-weight: 300; }
 
-.snapshot {
-  width: 100%;
-  margin-bottom: 2vw;
-  transition: opacity 1.3s; }
-  .snapshot--invisible {
-    opacity: 0; }
-
-.loader {
-  width: 90vw;
-  margin: 0px auto;
-  visibility: hidden; }
-  .loader--stop {
-    display: none; }
-
-.loader--loading {
-  visibility: visible; }
-
-.loading-icon {
-  width: 60px;
-  height: 60px;
-  background: no-repeat center/100% url("../../images/loading-icon.gif");
-  margin: auto; }
-
-.video-wrap {
-  width: 90vw;
-  margin: 50px auto 0px auto; }
-
-.video {
+.info {
   position: relative;
-  height: 0px;
-  padding-top: 56.5%; }
-
-.video-content {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%; }
-
-.video__loading-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 45px;
-  height: 45px;
-  transform: translate3d(-50%, -50%, 0);
-  background: no-repeat center/100% url("../../images/loading-icon.gif"); }
-  .video__loading-icon--disappear {
-    display: none; }
-
-.detail-list {
-  width: 90vw;
-  margin: 50px auto; }
-
-.detail-list-item {
-  line-height: 1.3; }
-  .detail-list-item--role {
-    margin-top: 20px; }
-
-.detail-list-item__name {
-  display: inline-block;
-  width: 100px;
-  height: 100%;
-  font-size: 1.3rem;
-  font-weight: 300;
-  color: #fff; }
-
-.detail-list-item__description {
+  padding: 410px 0;
   color: #fff;
-  font-size: 1.2rem;
-  font-weight: 100; }
+  text-align: center; }
+  .info:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../../images/Pingpong.jpg") center/auto 100% no-repeat;
+    z-index: -1;
+    opacity: 0.6; }
+
+.info__title {
+  font-size: 3rem;
+  font-weight: 500; }
+
+.info__profile {
+  margin-top: 20px; }
+
+.info__phone {
+  margin-top: 160px; }
+
+.info__email {
+  margin-top: 40px; }
+
+.info__tools {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 100px; }
+
+.info__tool1 {
+  margin-top: 20px; }
+
+.info__tool2 {
+  margin-top: 20px; }
+
+.info__socials {
+  margin-top: 160px; }
+
+.info__socials-icon {
+  font-size: 2.3rem;
+  margin-right: 30px;
+  color: #fff; }
+  .info__socials-icon:last-child {
+    margin-right: 0px; }
+  .info__socials-icon:hover {
+    color: #53c0c4; }
 
 /*# sourceMappingURL=main.css.map */

@@ -80,7 +80,7 @@
     margin-right: 30px;
   }
 
-  &:hover:after {
+  &:hover:after, &--active:after {
     transform: none;
     opacity: 1;
   }

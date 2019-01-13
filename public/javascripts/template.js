@@ -1,8 +1,8 @@
-export const navigation = (items) => {
+export const navigation = ({items, activeItemIndex}) => {
   return `
     <ul class="navigation__item-list navigation__item-list--deactive">
-      ${items.reduce((html, item) => {
-        return html + `<li class="navigation__item"><a class="navigation__item-name" href="${item.path}">${item.name}</a></li>`
+      ${items.reduce((html, item, index) => {
+        return html + `<li class="navigation__item ${index === activeItemIndex ? 'navigation__item--active' : ''}"><a class="navigation__item-name" href="${item.path}">${item.name}</a></li>`
       }, '')}
     </ul>
     <div class="navigation__button"></div>

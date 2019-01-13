@@ -1,0 +1,75 @@
+%info-normal-text {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.info {
+  position: relative;
+  padding: 410px 0;
+  color: #fff;
+  text-align: center;
+
+  // background image
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('../../images/Pingpong.jpg') center / auto 100% no-repeat;
+    z-index: -1;
+    opacity: 0.6;
+  }
+}
+
+.info__title {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.info__profile {
+  @extend %info-normal-text;
+  margin-top: 20px;
+}
+
+.info__phone {
+  @extend %info-normal-text;
+  margin-top: 160px;
+}
+
+.info__email {
+  @extend %info-normal-text;
+  margin-top: 40px;
+}
+
+.info__tools {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 100px;
+}
+
+.info__tool1 {
+  @extend %info-normal-text;
+  margin-top: 20px;
+}
+
+.info__tool2 {
+  @extend %info-normal-text;
+  margin-top: 20px;
+}
+
+.info__socials {
+  margin-top: 160px;
+}
+
+.info__socials-icon {
+  font-size: 2.3rem;
+  margin-right: 30px;
+  color: #fff;
+
+  &:last-child {
+    margin-right: 0px;
+  }
+
+  &:hover {
+    color: $main-color;
+  }
+}
