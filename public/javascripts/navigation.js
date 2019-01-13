@@ -35,7 +35,7 @@ export default class Navigation {
   _isEscaped() {
     const currentScrollTop = document.documentElement.scrollTop;
 
-    return currentScrollTop > this.$header.offsetHeight;
+    return currentScrollTop > this.$header.offsetHeight + this.$header.offsetTop;
   }
 
   _isScrolledUp() {
