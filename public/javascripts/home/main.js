@@ -18,7 +18,7 @@ const view = {
   }),
   loader: new Loader({
     element: document.querySelector('.loader'),
-    url: 'http://127.0.0.1:3000/api/project',
+    url: `${window.location.origin}/api/project`,
   }),
   modal: new Modal({
     modal: document.querySelector('.modal'),
