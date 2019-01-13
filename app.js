@@ -24,4 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', apiRouter);
 
+app.use((req, res) => {
+  res.status(404).send('Sorry! NOT FOUND');
+});
+
 module.exports = app;
