@@ -4,14 +4,12 @@ import Loader from '../loader.js';
 import Modal from '../modal.js';
 import Controller from '../controller.js';
 
+import {navigationItems} from '../data.js';
+
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
   header: document.querySelector('header'),
-  items: [
-    {name: 'Work', path: '/work'},
-    {name: 'Lab', path: '/lab'},
-    {name: 'Info', path: '/info'},
-  ],
+  items: navigationItems,
 });
 
 const view = {

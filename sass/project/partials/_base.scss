@@ -1,0 +1,15 @@
+$main-color: rgb(83, 192, 196);
+$main-width: 90vw;
+
+$header-height-ratio: 27%; // compares to header width
+
+$video-height-ratio: 56.5%; // compares to video width
+
+$detached-navigation-height: 120px;
+$attached-navigation-height: 90px;
+
+
+body {
+  background: #000;
+  font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+}

@@ -1,0 +1,9 @@
+.snapshot {
+  width: 100%;
+  margin-bottom: 2vw;
+  transition: opacity 1.3s;
+
+  &--invisible {
+    opacity: 0;
+  }
+}

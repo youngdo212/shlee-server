@@ -1,0 +1,34 @@
+.detail-list {
+  width: $main-width;
+  margin: 50px auto;
+}
+
+.detail-list-item {
+  line-height: 1.3;
+
+  &--client {
+
+  }
+
+  &--agency {
+
+  }
+
+  &--role {
+    margin-top: 20px;
+  }
+}
+
+.detail-list-item__name {
+  display: inline-block;
+  width: 100px; height: 100%;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: #fff;
+}
+
+.detail-list-item__description {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 100;
+}

@@ -1,4 +1,25 @@
 header {
-  width: 100%; height: 100px;
-  background: red;
+  position: relative;
+  height: 0px;
+  padding-top: $header-height-ratio;
+  margin-top: $detached-navigation-height;
+  overflow: hidden;
+}
+
+.header__content {
+  position: absolute;
+  top: 0px; left: 0px;
+  width: 100%; height: 100%;
+}
+
+.header__image {
+  width: 100%;
+}
+
+.header__title {
+  position: absolute;
+  top: 15%; left: 5%;
+  font-size: 5.5vw;
+  font-weight: 500;
+  color: #fff;
 }
