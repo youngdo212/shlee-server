@@ -225,7 +225,7 @@ section {
 
 .detail-list {
   width: 90vw;
-  margin: 50px auto; }
+  margin: 50px auto 300px auto; }
 
 .detail-list-item {
   line-height: 1.3; }
