@@ -9,18 +9,22 @@ export default class Loader {
     this.offset = 0;
     this.handler = null;
 
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if(!entry.isIntersecting) return;
-
-        this._load();
-      });
-    });
+    this.observer = this._createObserver(this._load.bind(this));
     this.observer.observe(this.$loader);
   }
 
   bindAddItems(handler) {
     this.handler = handler;
+  }
+
+  _createObserver(handler) {
+    return new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(!entry.isIntersecting) return;
+
+        handler();
+      });
+    });
   }
 
   _load() {
