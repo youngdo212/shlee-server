@@ -6,7 +6,8 @@ router.get('/project', (req, res, next) => {
   const {limit, offset, category} = req.query;
   const whereClause = category ? `WHERE category = ${db.escape(category)}` : '';
   const limitClause = `LIMIT ${Number(limit)} OFFSET ${Number(offset)}`;
-  const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project ${whereClause} ${limitClause}`;
+  const orderClause = `ORDER BY id DESC`;
+  const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project ${whereClause} ${orderClause} ${limitClause}`;
 
   db.query(sql, (err, projects) => {
     if(err) throw err;
