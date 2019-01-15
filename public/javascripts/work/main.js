@@ -21,6 +21,7 @@ const view = {
     element: document.querySelector('.loader'),
     url: `${window.location.origin}/api/project`,
     queryString: {category: 'work'},
+    limit: 12,
   }),
   modal: new Modal({
     modal: document.querySelector('.modal'),
