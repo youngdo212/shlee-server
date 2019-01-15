@@ -139,7 +139,7 @@ table {
   transform: translate3d(-50%, -50%, 0); }
 
 .navigation__title {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 500;
   color: #fff;
   text-decoration: none; }
