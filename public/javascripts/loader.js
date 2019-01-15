@@ -1,9 +1,10 @@
 import {ajax} from './helper.js';
 
 export default class Loader {
-  constructor({element, url, limit = 4}) {
+  constructor({element, url, queryString = {}, limit = 4}) {
     this.$loader = element;
     this.url = url;
+    this.queryString = this._createQueryString(queryString);
     this.limit = limit;
     this.offset = 0;
     this.handler = null;
@@ -27,7 +28,7 @@ export default class Loader {
 
     ajax({
       method: 'GET',
-      url: `${this.url}?limit=${this.limit}&offset=${this.offset}`,
+      url: `${this.url}?limit=${this.limit}&offset=${this.offset}&${this.queryString}`,
       callback: this._execute.bind(this),
     });
 
@@ -44,5 +45,9 @@ export default class Loader {
   _stop() {
     this.observer.unobserve(this.$loader);
     this.$loader.classList.add('loader--stop');
+  }
+
+  _createQueryString(oQueryString) {
+    return Object.entries(oQueryString).reduce((qs, keyValuePair, index) => qs + `${index === 0 ? '' : '&'}${keyValuePair[0]}=${keyValuePair[1]}`, '');
   }
 }

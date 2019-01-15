@@ -1,0 +1,19 @@
+.loader {
+  width: $main-width;
+  margin: 0px auto;
+  visibility: hidden;
+
+  &--stop {
+    display: none;
+  }
+}
+
+.loader--loading {
+  visibility: visible;
+}
+
+.loading-icon {
+  width: 60px; height: 60px;
+  background: no-repeat center/100% url('../../images/loading-icon.gif');
+  margin: auto;
+}

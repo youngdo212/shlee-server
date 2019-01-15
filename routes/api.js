@@ -3,9 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/project', (req, res, next) => {
-  const {limit, offset} = req.query;
+  const {limit, offset, category} = req.query;
+  const whereClause = category ? `WHERE category = ${db.escape(category)}` : '';
+  const limitClause = `LIMIT ${Number(limit)} OFFSET ${Number(offset)}`;
+  const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project ${whereClause} ${limitClause}`;
 
-  db.query('SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project LIMIT ? OFFSET ?', [Number(limit), Number(offset)], (err, projects) => {
+  db.query(sql, (err, projects) => {
     if(err) throw err;
 
     res.send(projects);
