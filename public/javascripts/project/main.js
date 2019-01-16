@@ -18,7 +18,7 @@ const view = {
   loader: new Loader({
     element: document.querySelector('.loader'),
     url: `${window.location.origin}/api${window.location.pathname.replace(/\/project/, '/project/snapshot')}`,
-    limit: 3,
+    limit: 4,
   }),
 };
 

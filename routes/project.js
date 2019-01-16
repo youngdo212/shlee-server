@@ -5,7 +5,7 @@ const db = require('../lib/db.js');
 router.get('/:id', (req, res) => {
   const projectId = req.params.id;
 
-  db.query('SELECT title, header_image_url as headerImageUrl, client, agency, role FROM project WHERE id = ?', [projectId], (err, projects) => {
+  db.query('SELECT title, header_image_url as headerImageUrl, client, agency, role, snapshot_column as snapshotColumn FROM project WHERE id = ?', [projectId], (err, projects) => {
     if(err) throw err;
 
     const project = projects[0];

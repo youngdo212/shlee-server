@@ -28,8 +28,8 @@ export const project = ({id, title, thumbnailImageUrl, videoUrl}) => {
   );
 }
 
-export const snapshot = ({title, imageUrl}) => {
-  return `<img class="snapshot snapshot--invisible" src="${imageUrl}" alt="${title}">`;
+export const snapshot = ({title, imageUrl, widthRatio}) => {
+  return `<img class="snapshot snapshot--invisible" style="width: ${widthRatio}%" src="${imageUrl}" alt="${title}">`;
 };
 
 export const detailListItem = ({client, agency, role}) => {
