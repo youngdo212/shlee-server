@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    link(href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400|Roboto:100,300,400,500" rel="stylesheet")
+    link(rel="stylesheet" href="/stylesheets/project/main.css")
+    title project
+  body
+    nav.navigation.navigation--detached
+    header
+      div.header__content
+        img.header__image(src=headerImageUrl alt="header-image")
+        div.header__title #{title}
+    each videoUrl in videoUrls
+      div.video-wrap
+        div.video
+          div.video-content
+            iframe(src=videoUrl width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+    section
+    div.loader
+      div.loading-icon
+    ul.detail-list
+      li.detail-list-item.detail-list-item--client 
+        span.detail-list-item__name Client
+        span.detail-list-item__description #{client}
+      li.detail-list-item.detail-list-item--agency 
+        span.detail-list-item__name Agency
+        span.detail-list-item__description #{agency}
+      li.detail-list-item.detail-list-item--role 
+        span.detail-list-item__name Role
+        span.detail-list-item__description #{role}
+    script(type="module" src="/javascripts/project/main.js")

@@ -5,6 +5,7 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
 const apiRouter = require('./routes/api.js');
+const projectRouter = require('./routes/project.js');
 
 const app = express();
 
@@ -23,14 +24,10 @@ app.use(sassMiddleware({
   sourceMap: true,
   prefix: '/stylesheets'
 }));
-app.use('/project/:id', express.static(path.join(__dirname, 'public/project')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/project', projectRouter);
 app.use('/api', apiRouter);
-
-app.get('/pug', (req, res, next) => {
-  res.render('index', {title: 'pug', message: 'hello mando'});
-});
 
 app.use((req, res) => {
   res.status(404).send('Sorry! NOT FOUND');
