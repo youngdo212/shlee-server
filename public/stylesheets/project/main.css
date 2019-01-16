@@ -49,12 +49,15 @@ header {
   height: 100%; }
 
 .header__image {
-  width: 100%; }
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translate3d(0, -50%, 0); }
 
 .header__title {
   position: absolute;
   top: 13%;
-  left: 50%;
+  left: 10%;
   font-size: 2.3vw;
   font-weight: 500;
   color: #fff;
