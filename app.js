@@ -27,6 +27,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/project', projectRouter);
+app.get('/info', (req, res) => {
+  res.render('info');
+});
 app.use('/api', apiRouter);
 
 app.use((req, res) => {

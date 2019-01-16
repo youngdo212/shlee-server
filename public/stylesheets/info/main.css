@@ -145,12 +145,14 @@ table {
   text-decoration: none; }
 
 .info__profile, .info__phone, .info__email, .info__tool1, .info__tool2 {
-  font-size: 1.5rem;
+  font-size: 1.4vw;
   font-weight: 300; }
 
 .info {
+  box-sizing: border-box;
   position: relative;
-  padding: 410px 0;
+  width: 100vw;
+  height: 100vw;
   color: #fff;
   text-align: center; }
   .info:after {
@@ -160,39 +162,56 @@ table {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../../images/Pingpong.jpg") center/auto 100% no-repeat;
+    background: url("../../images/Pingpong.jpg") center/100% no-repeat;
     z-index: -1;
     opacity: 0.6; }
 
 .info__title {
-  font-size: 3rem;
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  font-size: 3.5vw;
   font-weight: 500; }
 
 .info__profile {
-  margin-top: 20px; }
+  position: absolute;
+  top: 26%;
+  width: 100%; }
 
 .info__phone {
-  margin-top: 160px; }
+  position: absolute;
+  top: 46%;
+  width: 100%; }
 
 .info__email {
-  margin-top: 40px; }
+  position: absolute;
+  top: 50%;
+  width: 100%; }
 
 .info__tools {
-  font-size: 1.5rem;
+  font-size: 2vw;
   font-weight: 500;
-  margin-top: 100px; }
+  position: absolute;
+  top: 67%;
+  width: 100%; }
 
 .info__tool1 {
-  margin-top: 20px; }
+  position: absolute;
+  top: 72%;
+  width: 100%; }
 
 .info__tool2 {
-  margin-top: 20px; }
+  position: absolute;
+  top: 75%;
+  width: 100%; }
 
 .info__socials {
-  margin-top: 160px; }
+  position: absolute;
+  top: 92%;
+  width: 100%; }
 
 .info__socials-icon {
-  font-size: 2.3rem;
+  font-size: 2.3vw;
   margin-right: 30px;
   color: #fff; }
   .info__socials-icon:last-child {
