@@ -19,6 +19,7 @@ const view = {
   loader: new Loader({
     element: document.querySelector('.loader'),
     url: `${window.location.origin}/api/project`,
+    limit: 12,
   }),
   modal: new Modal({
     modal: document.querySelector('.modal'),
