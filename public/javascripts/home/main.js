@@ -4,12 +4,13 @@ import Loader from '../loader.js';
 import Modal from '../modal.js';
 import Controller from '../controller.js';
 
-import {navigationItems} from '../data.js';
+// only support video header in desktop
+if(!window.matchMedia('only screen and (max-width: 425px)').matches) document.querySelector('.header__video').src = '/videos/reel.mp4';
 
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
   header: document.querySelector('header'),
-  items: navigationItems,
+  isMobile: window.matchMedia('only screen and (max-width: 425px)').matches,
 });
 
 const view = {

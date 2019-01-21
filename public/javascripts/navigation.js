@@ -1,38 +1,22 @@
-import {navigation as template} from './template.js';
-
 export default class Navigation {
-  constructor({element, items, header = null, activeItemIndex = null}) {
+  constructor({element, header = null, isMobile = false}) {
     this.$navigation = element;
     this.$header = header;
-    this.$itemList = null;
-    this.$button = null;
+    this.$itemList = this.$navigation.querySelector('.navigation__item-list');
+    this.$button = this.$navigation.querySelector('.navigation__button');
     this.isAttached = false; // is attached to viewport
     this.isButtonActive = false;
     this.previousScrollTop = 0;
+    this.isMobile = isMobile;
 
-    this._render({
-      items,
-      activeItemIndex,
-    });
     this._registerListener();
-  }
-
-  _render({items, activeItemIndex}) {
-    this.$navigation.innerHTML = template({
-      items,
-      activeItemIndex
-    });
-
-    // bind rendered element
-    this.$itemList = this.$navigation.querySelector('.navigation__item-list');
-    this.$button = this.$navigation.querySelector('.navigation__button');
   }
 
   _registerListener() {
     window.addEventListener('scroll', () => {
       this._isEscaped() ? this._attach() : this._detach();
       this._isScrolledUp() ? this._expand() : this._collapse();
-      this.previousScrollTop = document.documentElement.scrollTop;
+      this.previousScrollTop = window.scrollY;
     })
 
     this.$button.addEventListener('click', this._toggleButton.bind(this));
@@ -41,13 +25,13 @@ export default class Navigation {
   _isEscaped() {
     if(!this.$header) return false;
 
-    const currentScrollTop = document.documentElement.scrollTop;
+    const currentScrollTop = window.scrollY;
 
     return currentScrollTop > this.$header.offsetHeight + this.$header.offsetTop;
   }
 
   _isScrolledUp() {
-    const currentScrollTop = document.documentElement.scrollTop;
+    const currentScrollTop = window.scrollY;
 
     return currentScrollTop < this.previousScrollTop;
   }
@@ -55,9 +39,11 @@ export default class Navigation {
   // attach to viewport
   _attach() {
     this.isAttached && this.$navigation.classList.add('navigation--stay-attached');
-    !this.isAttached && this.$itemList.classList.add('navigation__item-list--active');
-    !this.isAttached && this.$itemList.classList.remove('navigation__item-list--deactive');
-    !this.isAttached && this.$button.classList.add('navigation__button--disappear');
+    if(!this.isMobile) {
+      !this.isAttached && this.$itemList.classList.add('navigation__item-list--active');
+      !this.isAttached && this.$itemList.classList.remove('navigation__item-list--deactive');
+      !this.isAttached && this.$button.classList.add('navigation__button--disappear');
+    }
     this.$navigation.classList.add('navigation--attached');
     this.$navigation.classList.remove('navigation--detached');
     this.isAttached = true;
@@ -66,9 +52,11 @@ export default class Navigation {
   // detach to viewport
   _detach() {
     this.$navigation.classList.add('navigation--detached');
-    this.isAttached && this.$itemList.classList.add('navigation__item-list--deactive');
-    this.isAttached && this.$itemList.classList.remove('navigation__item-list--active');
-    this.isAttached && this.$button.classList.remove('navigation__button--disappear');
+    if(!this.isMobile) {
+      this.isAttached && this.$itemList.classList.add('navigation__item-list--deactive');
+      this.isAttached && this.$itemList.classList.remove('navigation__item-list--active');
+      this.isAttached && this.$button.classList.remove('navigation__button--disappear');
+    }
     this.$navigation.classList.remove('navigation--attached');
     this.$navigation.classList.remove('navigation--stay-attached');
     this.isAttached = false;

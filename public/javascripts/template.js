@@ -1,16 +1,3 @@
-export const navigation = ({items, activeItemIndex}) => {
-  return `
-    <ul class="navigation__item-list navigation__item-list--deactive">
-      ${items.reduce((html, item, index) => {
-        return html + `<li class="navigation__item ${index === activeItemIndex ? 'navigation__item--active' : ''}"><a class="navigation__item-name" href="${item.path}">${item.name}</a></li>`
-      }, '')}
-    </ul>
-    <div class="navigation__button"></div>
-    <div class="navigation__title-wrap">
-      <a class="navigation__title" href="/">SungHwan Lee</a>
-    </div>`;
-};
-
 export const project = ({id, title, thumbnailImageUrl, videoUrl}) => {
   return (
     `<a class="project project--invisible" href="/project/${id}" data-id="${id}" data-title="${title}" data-video-url="${videoUrl}">

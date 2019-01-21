@@ -1,4 +1,4 @@
-import {ajax} from './helper.js';
+import {ajax, Observer} from './helper.js';
 
 export default class Loader {
   constructor({element, url, queryString = {}, limit = 4}) {
@@ -9,22 +9,12 @@ export default class Loader {
     this.offset = 0;
     this.handler = null;
 
-    this.observer = this._createObserver(this._load.bind(this));
+    this.observer = new Observer(this._load.bind(this));
     this.observer.observe(this.$loader);
   }
 
   bindAddItems(handler) {
     this.handler = handler;
-  }
-
-  _createObserver(handler) {
-    return new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if(!entry.isIntersecting) return;
-
-        handler();
-      });
-    });
   }
 
   _load() {

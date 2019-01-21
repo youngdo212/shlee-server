@@ -3,6 +3,10 @@ header {
   height: 60vh;
   overflow: hidden;
 
+  @media only screen and (max-width: 425px) {
+    height: $navigation-height;
+  }
+
   &:hover .header__cover {
     opacity: 1;
   }
@@ -22,6 +26,10 @@ header {
   background: rgba(0,0,0,0.8);
   opacity: 0;
   transition: opacity .5s;
+
+  @media only screen and (max-width: 425px) {
+    display: none;
+  }
 }
 
 .header__showreel {

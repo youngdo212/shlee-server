@@ -5,6 +5,7 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
 const apiRouter = require('./routes/api.js');
+const homeRouter = require('./routes/home.js');
 const projectRouter = require('./routes/project.js');
 
 const app = express();
@@ -26,10 +27,9 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', homeRouter);
+app.get('/info', (req, res) => res.render('info'));
 app.use('/project', projectRouter);
-app.get('/info', (req, res) => {
-  res.render('info');
-});
 app.use('/api', apiRouter);
 
 app.use((req, res) => {

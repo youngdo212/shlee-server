@@ -1,17 +1,11 @@
 import {project as template} from './template.js';
+import {Observer} from './helper.js';
 
 export default class SectionProject {
   constructor({element}) {
     this.$section = element;
     this.showItemHandler = null;
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if(!entry.isIntersecting) return;
-
-        const project = entry.target;
-        this._makeProjectVisible(project);
-      });
-    });
+    this.observer = new Observer(this._makeProjectVisible.bind(this));
   }
 
   bindShowItem(handler) {
