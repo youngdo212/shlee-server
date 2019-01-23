@@ -8,6 +8,7 @@ router.get('/', (req, res, next) => {
 
     res.render('work', {
       menuItems,
+      activeMenuIndex: 0,
     });
   });
 });

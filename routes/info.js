@@ -6,7 +6,10 @@ router.get('/', (req, res) => {
   db.query('SELECT * FROM menu', (err, menuItems) => {
     if(err) throw err;
 
-    res.render('info', {menuItems});
+    res.render('info', {
+      menuItems,
+      activeMenuIndex: 2,
+    });
   });
 });
 
