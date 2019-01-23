@@ -57,13 +57,13 @@
   }
 
   @media only screen and (max-width: 425px) {
+    position: relative;
     display: block;
     box-sizing: border-box;
     position: fixed;
     top: $navigation-height;
     width: 100%; height: calc(100vh - #{$navigation-height});
     background: rgba(0, 0, 0, 0.8);
-    padding: 150px 100px;
   }
 }
 
@@ -87,13 +87,14 @@
   }
 
   @media only screen and (max-width: 425px) {
+    position: absolute;
+    top: 50%; left: 50%;
     display: block;
     text-align: center;
-    margin: 30px 0;
 
-    &:nth-last-child(1) {
-      margin-right: 0px;
-    }
+    &:nth-child(1) { transform: translate3d(-50%, -250%, 0); }
+    &:nth-child(2) { transform: translate3d(-50%, -50%, 0); }
+    &:nth-child(3) { transform: translate3d(-50%, 150%, 0); }
   }
 }
 

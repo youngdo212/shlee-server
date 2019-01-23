@@ -106,14 +106,14 @@ header {
     visibility: hidden; }
   @media only screen and (max-width: 425px) {
     .navigation__item-list {
+      position: relative;
       display: block;
       box-sizing: border-box;
       position: fixed;
       top: 90px;
       width: 100%;
       height: calc(100vh - 90px);
-      background: rgba(0, 0, 0, 0.8);
-      padding: 150px 100px; } }
+      background: rgba(0, 0, 0, 0.8); } }
 
 .menu-animation {
   opacity: 0;
@@ -130,11 +130,17 @@ header {
     opacity: 1; }
   @media only screen and (max-width: 425px) {
     .navigation__item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
       display: block;
-      text-align: center;
-      margin: 30px 0; }
-      .navigation__item:nth-last-child(1) {
-        margin-right: 0px; } }
+      text-align: center; }
+      .navigation__item:nth-child(1) {
+        transform: translate3d(-50%, -250%, 0); }
+      .navigation__item:nth-child(2) {
+        transform: translate3d(-50%, -50%, 0); }
+      .navigation__item:nth-child(3) {
+        transform: translate3d(-50%, 150%, 0); } }
 
 .navigation__item-name {
   display: inline-block;
