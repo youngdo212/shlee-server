@@ -7,6 +7,8 @@ const sassMiddleware = require('node-sass-middleware');
 const apiRouter = require('./routes/api.js');
 const homeRouter = require('./routes/home.js');
 const projectRouter = require('./routes/project.js');
+const workRouter = require('./routes/work');
+const labRouter = require('./routes/lab');
 const infoRouter = require('./routes/info.js');
 
 const app = express();
@@ -29,9 +31,11 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
-app.use('/info', infoRouter);
-app.use('/project', projectRouter);
 app.use('/api', apiRouter);
+app.use('/project', projectRouter);
+app.use('/work', workRouter);
+app.use('/lab', labRouter);
+app.use('/info', infoRouter);
 
 app.use((req, res) => {
   res.status(404).send('Sorry! NOT FOUND');

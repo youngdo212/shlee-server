@@ -1,0 +1,32 @@
+doctype html
+html(lang="ko")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700")
+    link(rel="stylesheet" href="/stylesheets/work/main.css")
+    title work
+  body
+    header
+    include navigation.pug
+    section
+    div.loader
+      div.loading-icon
+    footer
+    div.modal
+      div.modal__close-button
+        div.modal__close-button-line1
+        div.modal__close-button-line2
+      div.modal__content
+        div.modal__video-wrap
+          div.modal__video
+            iframe(width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+          div.modal__loading-icon
+        div.modal__details
+          div.modal__title
+          a.modal__more-button(href="")
+            div.modal__more-button-text See the full project
+            div.modal__more-button-underline
+    script(type="module" src="/javascripts/work/main.js")
+      

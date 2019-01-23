@@ -4,13 +4,10 @@ import Loader from '../loader.js';
 import Modal from '../modal.js';
 import Controller from '../controller.js';
 
-import {navigationItems} from '../data.js';
-
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
   header: document.querySelector('header'),
-  items: navigationItems,
-  activeItemIndex: 1,
+  isMobile: window.matchMedia('only screen and (max-width: 425px)').matches,
 });
 
 const view = {
