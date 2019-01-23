@@ -35,17 +35,20 @@ table {
   border-spacing: 0; }
 
 .navigation {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 90px;
   text-align: right;
   z-index: 1;
   padding: 0 90px; }
+  @media only screen and (max-width: 425px) {
+    .navigation {
+      padding: 0px; } }
   .navigation--detached {
     position: absolute;
     top: 0px;
-    left: 0px;
-    height: 120px; }
+    left: 0px; }
   .navigation--attached {
     position: fixed;
     top: 0px;
@@ -72,6 +75,16 @@ table {
     transition: opacity .5s, visibility .1s .5s;
     opacity: 0;
     visibility: hidden; }
+  @media only screen and (max-width: 425px) {
+    .navigation__item-list {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8); } }
 
 .menu-animation {
   opacity: 0;
@@ -79,10 +92,37 @@ table {
 
 .navigation__item {
   display: inline-block;
-  margin-right: 20px;
-  transform: translate3d(0, 3px, 0);
+  margin: 0 20px 0 0;
+  transform: translate3d(0, 3px, 0); }
+  .navigation__item:nth-last-child(1) {
+    margin-right: 30px; }
+  .navigation__item:hover .navigation__item-name:after, .navigation__item--active .navigation__item-name:after {
+    transform: none;
+    opacity: 1; }
+  @media only screen and (max-width: 425px) {
+    .navigation__item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      text-align: center;
+      margin: 0; }
+      .navigation__item:nth-child(1) {
+        transform: translate3d(-50%, -250%, 0); }
+      .navigation__item:nth-child(2) {
+        transform: translate3d(-50%, -50%, 0); }
+      .navigation__item:nth-child(3) {
+        transform: translate3d(-50%, 150%, 0); } }
+
+.navigation__item-name {
+  display: inline-block;
+  line-height: 1.3;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #fff;
+  text-decoration: none;
   overflow: hidden; }
-  .navigation__item:after {
+  .navigation__item-name:after {
     content: '';
     display: block;
     width: 100%;
@@ -91,18 +131,6 @@ table {
     transform: translate3d(-100%, 0, 0);
     opacity: 0;
     transition: opacity .3s, transform .3s; }
-  .navigation__item:nth-last-child(1) {
-    margin-right: 30px; }
-  .navigation__item:hover:after, .navigation__item--active:after {
-    transform: none;
-    opacity: 1; }
-
-.navigation__item-name {
-  line-height: 1.3;
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: #fff;
-  text-decoration: none; }
 
 .navigation__button {
   position: relative;
@@ -111,6 +139,9 @@ table {
   height: 27px;
   vertical-align: middle;
   cursor: pointer; }
+  @media only screen and (max-width: 425px) {
+    .navigation__button {
+      margin-right: 30px; } }
   .navigation__button::before, .navigation__button::after {
     position: absolute;
     top: 50%;
@@ -146,7 +177,8 @@ table {
 
 .info__profile, .info__phone, .info__email, .info__tool1, .info__tool2 {
   font-size: 1.4vw;
-  font-weight: 300; }
+  font-weight: 300;
+  line-height: 1.3; }
 
 .info {
   box-sizing: border-box;
@@ -155,6 +187,10 @@ table {
   height: 100vw;
   color: #fff;
   text-align: center; }
+  @media only screen and (max-width: 425px) {
+    .info {
+      height: auto;
+      padding: 150px 0px; } }
   .info:after {
     content: '';
     position: absolute;
@@ -165,6 +201,9 @@ table {
     background: url("../../images/Pingpong.jpg") center/100% no-repeat;
     z-index: -1;
     opacity: 0.6; }
+    @media only screen and (max-width: 425px) {
+      .info:after {
+        background-size: auto 100%; } }
 
 .info__title {
   position: absolute;
@@ -172,21 +211,40 @@ table {
   width: 100%;
   font-size: 3.5vw;
   font-weight: 500; }
+  @media only screen and (max-width: 425px) {
+    .info__title {
+      position: static;
+      font-size: 8vw; } }
 
 .info__profile {
   position: absolute;
   top: 26%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__profile {
+      position: static;
+      font-size: 4vw;
+      margin-top: 10px; } }
 
 .info__phone {
   position: absolute;
   top: 46%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__phone {
+      position: static;
+      font-size: 4vw;
+      margin-top: 100px; } }
 
 .info__email {
   position: absolute;
   top: 50%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__email {
+      position: static;
+      font-size: 4vw;
+      margin-top: 20px; } }
 
 .info__tools {
   font-size: 2vw;
@@ -194,21 +252,46 @@ table {
   position: absolute;
   top: 67%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__tools {
+      position: static;
+      font-size: 6vw;
+      margin-top: 100px; } }
 
 .info__tool1 {
   position: absolute;
   top: 72%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__tool1 {
+      box-sizing: border-box;
+      position: static;
+      font-size: 4vw;
+      margin-top: 10px;
+      padding: 0px 30vw;
+      line-height: 1.8; } }
 
 .info__tool2 {
   position: absolute;
   top: 75%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__tool2 {
+      box-sizing: border-box;
+      position: static;
+      font-size: 4vw;
+      margin-top: 15px;
+      padding: 0px 30vw;
+      line-height: 1.8; } }
 
 .info__socials {
   position: absolute;
   top: 92%;
   width: 100%; }
+  @media only screen and (max-width: 425px) {
+    .info__socials {
+      position: static;
+      margin-top: 60px; } }
 
 .info__socials-icon {
   font-size: 2.3vw;
@@ -218,5 +301,9 @@ table {
     margin-right: 0px; }
   .info__socials-icon:hover {
     color: #53c0c4; }
+  @media only screen and (max-width: 425px) {
+    .info__socials-icon {
+      position: static;
+      font-size: 8vw; } }
 
 /*# sourceMappingURL=main.css.map */
