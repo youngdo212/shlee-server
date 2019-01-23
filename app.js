@@ -36,4 +36,9 @@ app.use((req, res) => {
   res.status(404).send('Sorry! NOT FOUND');
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!')
+});
+
 module.exports = app;
