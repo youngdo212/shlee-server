@@ -3,12 +3,10 @@ import SectionSnapshot from '../sectionSnapshot.js';
 import Loader from '../loader.js';
 import Controller from '../controller.js';
 
-import {navigationItems} from '../data.js';
-
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
   header: document.querySelector('header'),
-  items: navigationItems,
+  isMobile: window.matchMedia('only screen and (max-width: 425px)').matches,
 });
 
 const view = {

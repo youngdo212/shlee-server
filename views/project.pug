@@ -8,11 +8,11 @@ html(lang="en")
     link(rel="stylesheet" href="/stylesheets/project/main.css")
     title project
   body
-    nav.navigation.navigation--detached
     header
       div.header__content
         img.header__image(src=headerImageUrl alt="header-image")
         div.header__title #{title}
+    include navigation.pug
     each videoUrl in videoUrls
       div.video-wrap
         div.video

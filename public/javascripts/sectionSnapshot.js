@@ -1,3 +1,4 @@
+import {Observer} from './helper.js';
 import {snapshot as template} from './template.js';
 
 export default class SectionSnapshot {
@@ -5,7 +6,7 @@ export default class SectionSnapshot {
     this.$section = element;
     this.column = this.$section.dataset.column;
 
-    this.observer = this._createObserver();
+    this.observer = new Observer(this._makeSnapshotVisible.bind(this));
   }
 
   addItems(items) {
@@ -14,17 +15,6 @@ export default class SectionSnapshot {
 
       this._observe(newSnapshot);
     })
-  }
-
-  _createObserver() {
-    return new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if(!entry.isIntersecting) return;
-
-        const snapshot = entry.target;
-        this._makeSnapshotVisible(snapshot);
-      });
-    });
   }
 
   _makeSnapshotVisible(snapshot) {

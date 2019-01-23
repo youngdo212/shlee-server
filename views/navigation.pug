@@ -1,0 +1,8 @@
+nav.navigation.navigation--detached
+  ul.navigation__item-list.navigation__item-list--deactive
+    each menuItem in menuItems
+      li.navigation__item
+        a.navigation__item-name(href=menuItem.path) #{menuItem.name}
+  div.navigation__button
+  div.navigation__title-wrap
+    a.navigation__title(href="/") SungHwan Lee
