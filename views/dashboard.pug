@@ -1,0 +1,80 @@
+doctype html
+html(lang="ko")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400|Roboto:100,300,400,500" rel="stylesheet")
+    link(rel="stylesheet" href="/stylesheets/dashboard/main.css")
+    title dashboard
+  body
+    div.index-section
+      div.index-section__create-button
+      ul.index-section__project-list
+        each project in projects
+          li.index-section__project
+            div.index-section__project-title= project.title
+    div.gutter
+    div.content-section
+      form.form
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="title") Title
+          input.form__input.form__input--text(
+            id="title"
+            name="title"
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="quick-view-url") Quick View Url
+          input.form__input.form__input--text(
+            id="quick-view-url"
+            name="quick-view-url"
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="client") Client
+          input.form__input.form__input--text(
+            id="client"
+            name="client"
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="agency") Agency
+          input.form__input.form__input--text(
+            id="agency"
+            name="agency"
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="role") Role
+          input.form__input.form__input--text(
+            id="role"
+            name="role"
+          )
+        div.form__member
+          span.form__member-name Catogory
+          input.form__input.form__input--radio(
+            type="radio"
+            id="work"
+            name="category"
+            value="work"
+            checked
+          )
+          label.form__label.form__label--radio(for="work") Work
+          input.form__input.form__input--radio(
+            type="radio"
+            id="lab"
+            name="category"
+            value="lab"
+          )
+          label.form__label.form__label--radio(for="lab") Lab
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="snapshot-column") Snapshot Column
+          input.form__input.form__input--number(
+            type="number"
+            id="snapshot-column"
+            name="snapshot-column"
+            value="1"
+            min="0"
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="video-url") Video Url
+          input.form__input.form__input--text(
+            id="video-url"
+            name="video-url"
+          )

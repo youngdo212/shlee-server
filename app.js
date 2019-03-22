@@ -10,6 +10,7 @@ const projectRouter = require('./routes/project.js');
 const workRouter = require('./routes/work');
 const labRouter = require('./routes/lab');
 const infoRouter = require('./routes/info.js');
+const dashboardRouter = require('./routes/dashboard');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/project', projectRouter);
 app.use('/work', workRouter);
 app.use('/lab', labRouter);
 app.use('/info', infoRouter);
+app.use('/dashboard', dashboardRouter);
 
 app.use((req, res) => {
   res.status(404).send('Sorry! NOT FOUND');

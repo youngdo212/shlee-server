@@ -1,0 +1,40 @@
+.index-section {
+  box-sizing: border-box;
+  float: left;
+  width: 30vw; height: 100vh;
+  padding: 20px;
+  background: rgb(212, 141, 141);
+  overflow: scroll;
+}
+
+.index-section__create-button {
+  width: 90px; height: 50px;
+  background: #fff;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.index-section__project-list {
+  background: rgb(252, 129, 197)
+}
+
+.index-section__project {
+  height: $index-section-project-height;
+  background: rgb(180, 84, 156);
+  padding: 0px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  &:nth-last-child() {
+    margin-bottom: 0px;
+  }
+}
+
+.index-section__project-title {
+  box-sizing: border-box;
+  line-height: $index-section-project-height;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
