@@ -18,14 +18,14 @@ export default class Modal {
     })
   }
 
-  open({id, title, videoUrl}) {
+  open({id, title, quickViewUrl}) {
     if(!title) this.details.classList.add('modal__details--deactive'); // when showreel is clicked
     
     this.video.addEventListener('load', () => {
       this.loadingIcon.classList.add('modal__loading-icon--invisible');
     }, {once: true})
 
-    this.video.src = videoUrl;
+    this.video.src = quickViewUrl;
     this.title.textContent = title || "";
     this.moreButton.href = `/project/${id}`;
     this.modal.classList.remove('modal--deactive');

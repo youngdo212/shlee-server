@@ -15,18 +15,20 @@ html(lang="ko")
             div.index-section__project-title= project.title
     div.gutter
     div.content-section
-      form.form
+      form.form(action="/project" method="post" enctype="multipart/form-data")
         div.form__member
           label.form__member-name.form__label.form__label--text(for="title") Title
           input.form__input.form__input--text(
             id="title"
             name="title"
+            required
           )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="quick-view-url") Quick View Url
           input.form__input.form__input--text(
             id="quick-view-url"
             name="quick-view-url"
+            required
           )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="client") Client
@@ -78,3 +80,32 @@ html(lang="ko")
             id="video-url"
             name="video-url"
           )
+        div.form__member
+          label.form__member-name.form__label(for="thumbnail") Thumbnail
+          input.form__input.form__input--file(
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            accept="image/*"
+            required
+          )
+        div.form__member
+          label.form__member-name.form__label(for="header-image") Header Image
+          input.form__input.form__input--file(
+            type="file"
+            id="header-image"
+            name="header-image"
+            accept="image/*"
+            required
+          )
+        div.form__member
+          label.form__member-name.form__label(for="snapshot") Snapshot
+          input.form__input.form__input--file(
+            type="file"
+            id="snapshot"
+            name="snapshot"
+            accept="image/*"
+            multiple
+            required
+          )
+        button(type="submit") submit

@@ -1,6 +1,6 @@
-export const project = ({id, title, thumbnailImageUrl, videoUrl}) => {
+export const project = ({id, title, thumbnailImageUrl, quickViewUrl}) => {
   return (
-    `<a class="project project--invisible" href="/project/${id}" data-id="${id}" data-title="${title}" data-video-url="${videoUrl}">
+    `<a class="project project--invisible" href="/project/${id}" data-id="${id}" data-title="${title}" data-quick-view-url="${quickViewUrl}">
       <img class="project__image" src="${thumbnailImageUrl}" alt="${title}">
       <div class="project__header">
         <div class="project__title">${title}</div>

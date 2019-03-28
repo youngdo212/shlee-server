@@ -1,6 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/db.js');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'public/images/');
+  },
+  filename(req, file, cb) {
+    cb(null, Date.now() + '_' + file.originalname);
+  },
+})
+const upload = multer({storage: storage});
 
 router.get('/:id', (req, res, next) => {
   const projectId = req.params.id;
@@ -37,5 +47,36 @@ router.get('/:id', (req, res, next) => {
     });
   })
 });
+
+router.post('', upload.fields([{name: 'thumbnail'}, {name: 'header-image'}, {name: 'snapshot'}]), (req, res, next) => {
+  const snapshotUrls = req.files['snapshot'].map(snapshot => snapshot.path.replace('public/', '/'));
+  const project = {
+    'title': req.body['title'],
+    'thumbnail_image_url': req.files['thumbnail'][0].path.replace('public/', '/'),
+    'quick_view_url': req.body['quick-view-url'],
+    'header_image_url': req.files['header-image'][0].path.replace('public/', '/'),
+    'client': req.body['client'],
+    'agency': req.body['agency'],
+    'role': req.body['role'],
+    'category': req.body['category'],
+    'snapshot_column': req.body['snapshot-column'],
+  };
+  
+  db.query('INSERT INTO project SET ?', project, (err, results) => {
+    if(err) throw err;
+
+    const newProjectId = results.insertId;
+
+    db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [snapshotUrls.map(snapshotUrl => [newProjectId, snapshotUrl])], (err) => {
+      if(err) throw err;
+
+      db.query('INSERT INTO video SET project_id = ? , video_url = ?', [newProjectId, req.body['video-url']], (err) => {
+        if(err) throw err;
+
+        res.redirect(302, '/dashboard');
+      });
+    });
+  });
+})
 
 module.exports = router;

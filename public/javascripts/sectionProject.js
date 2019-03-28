@@ -45,7 +45,7 @@ export default class SectionProject {
       this.showItemHandler({
         id: project.dataset.id,
         title: project.dataset.title,
-        videoUrl: project.dataset.videoUrl,
+        quickViewUrl: project.dataset.quickViewUrl,
       });
     });
   }

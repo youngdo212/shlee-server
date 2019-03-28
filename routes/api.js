@@ -7,7 +7,7 @@ router.get('/project', (req, res, next) => {
   const whereClause = category ? `WHERE category = ${db.escape(category)}` : '';
   const limitClause = `LIMIT ${Number(limit)} OFFSET ${Number(offset)}`;
   const orderClause = `ORDER BY id DESC`;
-  const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl FROM project ${whereClause} ${orderClause} ${limitClause}`;
+  const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, quick_view_url as quickViewUrl FROM project ${whereClause} ${orderClause} ${limitClause}`;
 
   db.query(sql, (err, projects) => {
     if(err) throw err;
@@ -19,7 +19,7 @@ router.get('/project', (req, res, next) => {
 router.get('/project/:id', (req, res) => {
   const projectId = Number(req.params.id);
 
-  db.query('SELECT id, title, thumbnail_image_url as thumbnailImageUrl, video_url as videoUrl, header_image_url as headerImageUrl, client, agency, role from project WHERE id = ?', [projectId], (err, results) => {
+  db.query('SELECT id, title, thumbnail_image_url as thumbnailImageUrl, quick_view_url as quickViewUrl, header_image_url as headerImageUrl, client, agency, role from project WHERE id = ?', [projectId], (err, results) => {
     if(err) throw err;
 
     const project = results[0];
