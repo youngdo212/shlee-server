@@ -15,8 +15,8 @@
 
 .form__member {
   background: rgb(247, 220, 133);
-  height: $form-member-height;
   margin-bottom: 10px;
+  overflow: hidden;
 
   &:nth-last-child() {
     margin-bottom: 0px;
@@ -24,29 +24,96 @@
 }
 
 .form__member-name {
-  display: inline-block;
-  width: 150px;
-  line-height: $form-member-height;
+  float: left;
+  width: 150px; height: 40px;
+  background: rgb(172, 172, 236);
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.form__input-wrap {
+  box-sizing: border-box;
+  float: left;
+  padding: 5px 0px;
+  background: rgb(252, 217, 217);
 }
 
 .form__input {
+  box-sizing: border-box;
+  height: 30px;
+
   &--text {
-    box-sizing: border-box;
-    width: 200px; height: 30px;
+    display: block;
+    width: 300px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+
+    &:nth-last-child(1) {
+      margin-bottom: 0px;
+    }
+  }
+
+  &--number {
+    width: 40px;
     padding: 0px 5px;
     border: 1px solid #ccc;
   }
 
-  &--number {
-    box-sizing: border-box;
-    width: 40px; height: 30px;
-    padding: 0px 5px;
-    border: 1px solid #ccc;
+  &--radio {
+    margin: 0px 5px;
+    vertical-align: middle;
+  }
+
+  &--file {
+    
   }
 }
 
 .form__label {
   &--radio {
     margin-right: 20px;
+    vertical-align: middle;
+  }
+}
+
+.form__button-wrap {
+  box-sizing: border-box;
+  float: left;
+  width: 40px; height: 40px;
+  padding: 8px;
+}
+
+.form__button {
+  &--add {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgb(102, 85, 255);
+    cursor: default;
+
+    &:hover {
+      background: rgb(48, 32, 194);
+    }
+  }
+}
+
+.added-input {
+  position: relative;
+}
+
+.added-input__button {
+  position: absolute;
+  right: 0px; top: 0px;
+  border: 0px;
+  width: 30px; height: 30px;
+  background: rgba(255, 142, 142, 0.507);
+  outline: none;
+
+  &:hover {
+    background: rgba(223, 53, 53, 0.473);
   }
 }

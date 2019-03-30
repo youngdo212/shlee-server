@@ -18,94 +18,108 @@ html(lang="ko")
       form.form(action="/project" method="post" enctype="multipart/form-data")
         div.form__member
           label.form__member-name.form__label.form__label--text(for="title") Title
-          input.form__input.form__input--text(
-            id="title"
-            name="title"
-            required
-          )
+          div.form__input-wrap
+            input.form__input.form__input--text(
+              id="title"
+              name="title"
+              required
+            )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="quick-view-url") Quick View Url
-          input.form__input.form__input--text(
-            id="quick-view-url"
-            name="quick-view-url"
-            required
-          )
+          div.form__input-wrap
+            input.form__input.form__input--text(
+              id="quick-view-url"
+              name="quick-view-url"
+              required
+            )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="client") Client
-          input.form__input.form__input--text(
-            id="client"
-            name="client"
-          )
+          div.form__input-wrap
+            input.form__input.form__input--text(
+              id="client"
+              name="client"
+            )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="agency") Agency
-          input.form__input.form__input--text(
-            id="agency"
-            name="agency"
-          )
+          div.form__input-wrap
+            input.form__input.form__input--text(
+              id="agency"
+              name="agency"
+            )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="role") Role
-          input.form__input.form__input--text(
-            id="role"
-            name="role"
-          )
+          div.form__input-wrap
+            input.form__input.form__input--text(
+              id="role"
+              name="role"
+            )
         div.form__member
           span.form__member-name Catogory
-          input.form__input.form__input--radio(
-            type="radio"
-            id="work"
-            name="category"
-            value="work"
-            checked
-          )
-          label.form__label.form__label--radio(for="work") Work
-          input.form__input.form__input--radio(
-            type="radio"
-            id="lab"
-            name="category"
-            value="lab"
-          )
-          label.form__label.form__label--radio(for="lab") Lab
+          div.form__input-wrap
+            input.form__input.form__input--radio(
+              type="radio"
+              id="work"
+              name="category"
+              value="work"
+              checked
+            )
+            label.form__label.form__label--radio(for="work") Work
+            input.form__input.form__input--radio(
+              type="radio"
+              id="lab"
+              name="category"
+              value="lab"
+            )
+            label.form__label.form__label--radio(for="lab") Lab
         div.form__member
           label.form__member-name.form__label.form__label--text(for="snapshot-column") Snapshot Column
-          input.form__input.form__input--number(
-            type="number"
-            id="snapshot-column"
-            name="snapshot-column"
-            value="1"
-            min="0"
-          )
+          div.form__input-wrap
+            input.form__input.form__input--number(
+              type="number"
+              id="snapshot-column"
+              name="snapshot-column"
+              value="1"
+              min="0"
+            )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="video-url") Video Url
-          input.form__input.form__input--text(
-            id="video-url"
-            name="video-url"
-          )
+          div.form__input-wrap.form__input-wrap--video
+            input.form__input.form__input--text(
+              id="video-url"
+              name="video-url"
+            )
+          div.form__button-wrap
+            div.form__button.form__button--add
         div.form__member
           label.form__member-name.form__label(for="thumbnail") Thumbnail
-          input.form__input.form__input--file(
-            type="file"
-            id="thumbnail"
-            name="thumbnail"
-            accept="image/*"
-            required
-          )
+          div.form__input-wrap
+            input.form__input.form__input--file(
+              type="file"
+              id="thumbnail"
+              name="thumbnail"
+              accept="image/*"
+              required
+            )
         div.form__member
           label.form__member-name.form__label(for="header-image") Header Image
-          input.form__input.form__input--file(
-            type="file"
-            id="header-image"
-            name="header-image"
-            accept="image/*"
-            required
-          )
+          div.form__input-wrap
+            input.form__input.form__input--file(
+              type="file"
+              id="header-image"
+              name="header-image"
+              accept="image/*"
+              required
+            )
         div.form__member
           label.form__member-name.form__label(for="snapshot") Snapshot
-          input.form__input.form__input--file(
-            type="file"
-            id="snapshot"
-            name="snapshot"
-            accept="image/*"
-            multiple
-            required
-          )
-        button(type="submit") submit
+          div.form__input-wrap
+            input.form__input.form__input--file(
+              type="file"
+              id="snapshot"
+              name="snapshot"
+              accept="image/*"
+              multiple
+              required
+            )
+        button.form__button.form__button--submit(type="submit") submit
+    script(type="module" src="/javascripts/dashboard/main.js")

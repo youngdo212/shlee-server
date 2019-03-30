@@ -85,32 +85,80 @@ table {
 
 .form__member {
   background: #f7dc85;
-  height: 40px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  overflow: hidden; }
   .form__member:nth-last-child() {
     margin-bottom: 0px; }
 
 .form__member-name {
-  display: inline-block;
+  float: left;
   width: 150px;
-  line-height: 40px; }
+  height: 40px;
+  background: #acacec; }
+  .form__member-name:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
 
-.form__input--text {
+.form__input-wrap {
   box-sizing: border-box;
-  width: 200px;
-  height: 30px;
-  padding: 0px 5px;
-  border: 1px solid #ccc; }
+  float: left;
+  padding: 5px 0px;
+  background: #fcd9d9; }
 
-.form__input--number {
+.form__input {
   box-sizing: border-box;
-  width: 40px;
-  height: 30px;
-  padding: 0px 5px;
-  border: 1px solid #ccc; }
+  height: 30px; }
+  .form__input--text {
+    display: block;
+    width: 300px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc; }
+    .form__input--text:nth-last-child(1) {
+      margin-bottom: 0px; }
+  .form__input--number {
+    width: 40px;
+    padding: 0px 5px;
+    border: 1px solid #ccc; }
+  .form__input--radio {
+    margin: 0px 5px;
+    vertical-align: middle; }
 
 .form__label--radio {
-  margin-right: 20px; }
+  margin-right: 20px;
+  vertical-align: middle; }
+
+.form__button-wrap {
+  box-sizing: border-box;
+  float: left;
+  width: 40px;
+  height: 40px;
+  padding: 8px; }
+
+.form__button--add {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #6655ff;
+  cursor: default; }
+  .form__button--add:hover {
+    background: #3020c2; }
+
+.added-input {
+  position: relative; }
+
+.added-input__button {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: 0px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 142, 142, 0.507);
+  outline: none; }
+  .added-input__button:hover {
+    background: rgba(223, 53, 53, 0.473); }
 
 .gutter {
   float: left;

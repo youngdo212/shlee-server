@@ -18,3 +18,11 @@ export const project = ({id, title, thumbnailImageUrl, quickViewUrl}) => {
 export const snapshot = ({title, imageUrl, widthRatio}) => {
   return `<img class="snapshot snapshot--invisible" style="width: ${widthRatio}%" src="${imageUrl}" alt="${title}">`;
 };
+
+export const addedInput = ({id, name}) => {
+  return () => `
+    <div class="added-input">
+      <input class ="form__input form__input--text" id="${id}" name="${name}">
+      <button class="added-input__button" type="button">
+    </div>`
+}

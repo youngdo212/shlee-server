@@ -50,6 +50,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('', upload.fields([{name: 'thumbnail'}, {name: 'header-image'}, {name: 'snapshot'}]), (req, res, next) => {
   const snapshotUrls = req.files['snapshot'].map(snapshot => snapshot.path.replace('public/', '/'));
+  const videoUrls = req.body['video-url'] instanceof Array ? req.body['video-url'] : [req.body['video-url']];
   const project = {
     'title': req.body['title'],
     'thumbnail_image_url': req.files['thumbnail'][0].path.replace('public/', '/'),
@@ -70,7 +71,7 @@ router.post('', upload.fields([{name: 'thumbnail'}, {name: 'header-image'}, {nam
     db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [snapshotUrls.map(snapshotUrl => [newProjectId, snapshotUrl])], (err) => {
       if(err) throw err;
 
-      db.query('INSERT INTO video SET project_id = ? , video_url = ?', [newProjectId, req.body['video-url']], (err) => {
+      db.query('INSERT INTO video (project_id, video_url) VALUES ?', [videoUrls.map(videoUrl => [newProjectId, videoUrl])], (err) => {
         if(err) throw err;
 
         res.redirect(302, '/dashboard');
