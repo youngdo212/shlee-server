@@ -100,6 +100,7 @@ html(lang="ko")
               accept="image/*"
               required
             )
+        div.thumbnail-preview
         div.form__member
           label.form__member-name.form__label(for="header-image") Header Image
           div.form__input-wrap
@@ -110,6 +111,7 @@ html(lang="ko")
               accept="image/*"
               required
             )
+        div.header-image-preview
         div.form__member
           label.form__member-name.form__label(for="snapshot") Snapshot
           div.form__input-wrap
@@ -121,5 +123,6 @@ html(lang="ko")
               multiple
               required
             )
+        div.snapshot-preview
         button.form__button.form__button--submit(type="submit") submit
     script(type="module" src="/javascripts/dashboard/main.js")
