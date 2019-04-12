@@ -1,4 +1,7 @@
 $index-section-project-height: 40px;
+$index-section-width: 350px;
+$gutter-width: 15px;
+$content-section-width: calc(100vw - #{$index-section-width} - #{$gutter-width});
 
 body {
   font-family: 'Roboto', 'Noto Sans KR', sans-serif;

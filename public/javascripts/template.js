@@ -24,6 +24,8 @@ export const addedInput = ({id, name}) => {
     <div class="added-input">
       <input class ="form__input form__input--text" id="${id}" name="${name}">
       <button class="added-input__button" type="button">
+        <i class="fas fa-minus-circle"></i>
+      </button>
     </div>`
 }
 

@@ -4,11 +4,12 @@ html(lang="ko")
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     link(href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400|Roboto:100,300,400,500" rel="stylesheet")
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
     link(rel="stylesheet" href="/stylesheets/dashboard/main.css")
     title dashboard
   body
     div.index-section
-      div.index-section__create-button
+      div.index-section__create-button 프로젝트 생성
       ul.index-section__project-list
         each project in projects
           li.index-section__project
@@ -16,6 +17,16 @@ html(lang="ko")
     div.gutter
     div.content-section
       form.form(action="/project" method="post" enctype="multipart/form-data")
+        div.thumbnail-preview-wrap
+          div.thumbnail-preview
+          label.form__label.form__label--thumbnail(for="thumbnail")
+          input.form__input.form__input--file(
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            accept="image/*"
+            required
+          )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="title") Title
           div.form__input-wrap
@@ -71,6 +82,25 @@ html(lang="ko")
               value="lab"
             )
             label.form__label.form__label--radio(for="lab") Lab
+        div.header-image-preview-wrap
+          div.header-image-preview
+          label.form__label.form__label--header-image(for="header-image")
+          input.form__input.form__input--file(
+            type="file"
+            id="header-image"
+            name="header-image"
+            accept="image/*"
+            required
+          )
+        div.form__member
+          label.form__member-name.form__label.form__label--text(for="video-url") Video Url
+          div.form__input-wrap.form__input-wrap--video
+            input.form__input.form__input--text(
+              id="video-url"
+              name="video-url"
+            )
+          div.form__button.form__button--add
+            i.fas.fa-plus-circle
         div.form__member
           label.form__member-name.form__label.form__label--text(for="snapshot-column") Snapshot Column
           div.form__input-wrap
@@ -81,48 +111,16 @@ html(lang="ko")
               value="1"
               min="0"
             )
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="video-url") Video Url
-          div.form__input-wrap.form__input-wrap--video
-            input.form__input.form__input--text(
-              id="video-url"
-              name="video-url"
-            )
-          div.form__button-wrap
-            div.form__button.form__button--add
-        div.form__member
-          label.form__member-name.form__label(for="thumbnail") Thumbnail
-          div.form__input-wrap
-            input.form__input.form__input--file(
-              type="file"
-              id="thumbnail"
-              name="thumbnail"
-              accept="image/*"
-              required
-            )
-        div.thumbnail-preview
-        div.form__member
-          label.form__member-name.form__label(for="header-image") Header Image
-          div.form__input-wrap
-            input.form__input.form__input--file(
-              type="file"
-              id="header-image"
-              name="header-image"
-              accept="image/*"
-              required
-            )
-        div.header-image-preview
-        div.form__member
-          label.form__member-name.form__label(for="snapshot") Snapshot
-          div.form__input-wrap
-            input.form__input.form__input--file(
-              type="file"
-              id="snapshot"
-              name="snapshot"
-              accept="image/*"
-              multiple
-              required
-            )
-        div.snapshot-preview
-        button.form__button.form__button--submit(type="submit") submit
+        div.snapshot-preview-wrap
+          div.snapshot-preview
+          label.form__member-name.form__label.form__label--snapshot(for="snapshot")
+          input.form__input.form__input--file(
+            type="file"
+            id="snapshot"
+            name="snapshot"
+            accept="image/*"
+            multiple
+            required
+          )
+        button.form__button.form__button--submit(type="submit") 제출
     script(type="module" src="/javascripts/dashboard/main.js")
