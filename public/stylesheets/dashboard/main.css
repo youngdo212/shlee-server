@@ -101,6 +101,8 @@ table {
   position: relative;
   width: 927px;
   margin: auto; }
+  .form--hide {
+    display: none; }
 
 .form__member {
   margin-bottom: 8px;

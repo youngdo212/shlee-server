@@ -11,6 +11,10 @@
   position: relative;
   width: 927px;
   margin: auto;
+
+  &--hide {
+    display: none;
+  }
 }
 
 .form__member {

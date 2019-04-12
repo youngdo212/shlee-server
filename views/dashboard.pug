@@ -16,7 +16,7 @@ html(lang="ko")
             div.index-section__project-title= project.title
     div.gutter
     div.content-section
-      form.form(action="/project" method="post" enctype="multipart/form-data")
+      form.form.form--hide(action="/project" method="post" enctype="multipart/form-data")
         div.thumbnail-preview-wrap
           div.thumbnail-preview
           label.form__label.form__label--thumbnail(for="thumbnail")

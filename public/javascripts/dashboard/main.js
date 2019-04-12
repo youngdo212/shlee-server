@@ -25,3 +25,10 @@ const snapshotPreview = new FilePreview({
   input: document.querySelector('#snapshot'),
   itemTemplate: snapshotPreviewItem,
 });
+
+const projectCreateButton = document.querySelector('.index-section__create-button');
+const form = document.querySelector('.form');
+
+projectCreateButton.addEventListener('click', () => {
+  form.classList.remove('form--hide');
+})
