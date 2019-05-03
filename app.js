@@ -33,7 +33,7 @@ app.use(sassMiddleware({
   prefix: '/stylesheets'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-// app.set('trust proxy', 1)
+app.set('trust proxy', 1)
 app.use(session({
   store: new RedisStore(),
   secret: 'mandosecret',
@@ -41,7 +41,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     sameSite: true,
     maxAge: 86400000,
   }
