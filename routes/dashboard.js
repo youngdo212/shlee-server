@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
   const nickname = req.session.nickname;
 
-  db.query('SELECT * FROM PROJECT', (error, projects) => {
+  db.query('SELECT * FROM project', (error, projects) => {
     if(error) throw error;
 
     res.render('dashboard', {projects, nickname});
