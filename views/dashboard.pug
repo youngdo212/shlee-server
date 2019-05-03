@@ -9,6 +9,10 @@ html(lang="ko")
     title dashboard
   body
     div.index-section
+      div.index-section__auth
+        span.index-section__nickname=nickname
+        span |
+        a.index-section__logout(href="/auth/logout") 로그아웃
       div.index-section__create-button 프로젝트 생성
       ul.index-section__project-list
         each project in projects

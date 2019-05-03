@@ -1,0 +1,25 @@
+doctype html
+html(lang="ko")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400|Roboto:100,300,400,500" rel="stylesheet")
+    link(rel="stylesheet" href="/stylesheets/login/main.css")
+    title login
+  body
+    form.form(action="/auth/login" method="post")
+      div.form__member
+        input.form__input.form__input--email(
+          type="text"
+          name="email"
+          placeholder="이메일"
+        )
+      div.form__member
+        input.form__input.form__input--password(
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+        )
+      if failed
+        div.form__message 아이디 혹은 비밀번호를 확인해주세요
+      button.form__submit(type="submit") 로그인

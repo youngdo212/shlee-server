@@ -3,6 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
 const apiRouter = require('./routes/api.js');
 const homeRouter = require('./routes/home.js');
@@ -11,6 +13,7 @@ const workRouter = require('./routes/work');
 const labRouter = require('./routes/lab');
 const infoRouter = require('./routes/info.js');
 const dashboardRouter = require('./routes/dashboard');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -30,6 +33,19 @@ app.use(sassMiddleware({
   prefix: '/stylesheets'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+// app.set('trust proxy', 1)
+app.use(session({
+  store: new RedisStore(),
+  secret: 'mandosecret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    // secure: true,
+    sameSite: true,
+    maxAge: 86400000,
+  }
+}));
 
 app.use('/', homeRouter);
 app.use('/api', apiRouter);
@@ -38,6 +54,7 @@ app.use('/work', workRouter);
 app.use('/lab', labRouter);
 app.use('/info', infoRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res) => {
   res.status(404).send('Sorry! NOT FOUND');
