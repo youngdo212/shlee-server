@@ -15,6 +15,18 @@ const infoRouter = require('./routes/info.js');
 const dashboardRouter = require('./routes/dashboard');
 const authRouter = require('./routes/auth');
 
+const sessionOptions = {
+  store: new RedisStore(),
+  secret: 'mandosecret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: true,
+    maxAge: 86400000,
+  }
+}
+
 const app = express();
 
 // view engine setup
@@ -33,19 +45,15 @@ app.use(sassMiddleware({
   prefix: '/stylesheets'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('trust proxy', 1)
-app.use(session({
-  store: new RedisStore(),
-  secret: 'mandosecret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: true,
-    sameSite: true,
-    maxAge: 86400000,
-  }
-}));
+
+// session setting for production
+if(app.get('env') === 'production') {
+  app.set('trust proxy', 1);
+  sessionOptions.cookie.secure = true;
+}
+
+app.use(session(sessionOptions));
+
 
 app.use('/', homeRouter);
 app.use('/api', apiRouter);
