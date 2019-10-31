@@ -16,7 +16,7 @@ html(lang="ko")
       div.index-section__create-button 프로젝트 생성
       ul.index-section__project-list
         each project in projects
-          li.index-section__project
+          li.index-section__project(data-id=project.id)
             div.index-section__project-title= project.title
     div.gutter
     div.content-section

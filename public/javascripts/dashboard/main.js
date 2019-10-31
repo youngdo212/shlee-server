@@ -1,6 +1,7 @@
 import AddDeleteList from '../addDeleteList.js';
 import FilePreview from '../filePreview.js';
 import {addedInput, thumbnailPreviewItem, headerImagePreviewItem, snapshotPreviewItem} from '../template.js'
+import ProjectList from './projectList.js';
 
 const videoUrlList = new AddDeleteList({
   addButton: document.querySelector('.form__button--add'),
@@ -32,3 +33,7 @@ const form = document.querySelector('.form');
 projectCreateButton.addEventListener('click', () => {
   form.classList.remove('form--hide');
 })
+
+const projectList = new ProjectList({
+  element: document.querySelector('.index-section__project-list'),
+});

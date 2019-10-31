@@ -80,4 +80,14 @@ router.post('', upload.fields([{name: 'thumbnail'}, {name: 'header-image'}, {nam
   });
 })
 
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+
+  db.query('DELETE FROM project WHERE id = ?', [id], (err) => {
+    if(err) throw err;
+
+    res.send();
+  })
+})
+
 module.exports = router;
