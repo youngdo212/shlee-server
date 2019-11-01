@@ -1,7 +1,7 @@
 .project {
   display: block;
   float: left;
-  width: 25vw; height: 25vw;
+  width: 16.6vw; height: 41.5vw;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -15,9 +15,9 @@
     width: 50vw; height: 50vw;
   }
 
-  &:hover .project__image {
-    transform: scale(1.05);
-  }
+  // &:hover .project__image {
+  //   transform: scale(1.05);
+  // }
 
   &:hover .project__header {
     opacity: 1;
@@ -41,8 +41,11 @@
 }
 
 .project__image {
-  width: 100%; height: 100%;
-  transition: transform .5s;
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  // transition: transform .5s;
 }
 
 .project__header {
