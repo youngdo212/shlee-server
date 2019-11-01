@@ -5,7 +5,7 @@ import Modal from '../modal.js';
 import Controller from '../controller.js';
 
 // only support video header in desktop
-if(!window.matchMedia('only screen and (max-width: 425px)').matches) document.querySelector('.header__video').src = '/videos/reel.mp4';
+if(!window.matchMedia('only screen and (max-width: 425px)').matches) document.querySelector('.header__video').src = '/videos/showreel.mp4';
 
 const navigation = new Navigation({
   element: document.querySelector('.navigation'),
