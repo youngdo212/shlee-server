@@ -3,3 +3,4 @@ node_modules
 /lib/db.js
 /lib/auth.js
 /public/images
+.vscode/
