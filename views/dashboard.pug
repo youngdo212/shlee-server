@@ -15,9 +15,6 @@ html(lang="ko")
         a.index-section__logout(href="/auth/logout") 로그아웃
       div.index-section__create-button 프로젝트 생성
       ul.index-section__project-list
-        each project in projects
-          li.index-section__project(data-id=project.id)
-            div.index-section__project-title= project.title
     div.gutter
     div.content-section
       form.form.form--hide(action="/project" method="post" enctype="multipart/form-data")
