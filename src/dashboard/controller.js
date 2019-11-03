@@ -9,7 +9,7 @@ export default class Controller {
     this.model = model;
     this.view = view;
 
-    this.view.bindOpenProjectForm(this.openProject.bind(this));
+    this.view.bindOpenProjectForm(this.openProjectForm.bind(this));
     this.view.bindCloseProjectForm(this.closeProjectForm.bind(this));
     this.view.bindSubmitProjectForm(this.submitProjectForm.bind(this));
     this.view.bindOpenProject(this.openProject.bind(this));

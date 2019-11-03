@@ -11,6 +11,8 @@ export default class View {
     };
 
     this.$projectList = document.querySelector('.index-section__project-list');
+    this.$projectCreateButton = document.querySelector('.index-section__create-button');
+    this.$projectForm = document.querySelector('.form');
   }
 
   /**
@@ -18,7 +20,9 @@ export default class View {
    * @param {Function(projectFormState)} hanlder Function called with project form state on click event
    */
   bindOpenProjectForm(hanlder) {
-
+    this.$projectCreateButton.addEventListener('click', () => {
+      hanlder(this.projectFormState);
+    });
   }
 
   /**
@@ -65,8 +69,8 @@ export default class View {
    * Puts the project form into edit mode
    */
   editProjectForm() {
-    // 1. change form state to edit mode(isEditing)
-    // 2. set form visible
+    this.projectFormState.isEditing = true;
+    this.$projectForm.classList.remove('form--hide');
   }
 
   /**
@@ -81,7 +85,8 @@ export default class View {
    * removes all input values in form and delete current project id in form state
    */
   clearProjectForm() {
-    // reset current project id in project form state
+    this.$projectForm.reset();
+    this.projectFormState.currentProjectId = '';
   }
 
   /**
