@@ -41,7 +41,7 @@ export default class Controller {
    * Clear project form values and closes form
    */
   closeProjectForm() {
-    if (!confirm(MESSAGE.CANCEL_TO_CREATE_NEW_PROJECT)) return;
+    if (!confirm(MESSAGE.CLOSE_PROJECT_FORM)) return;
 
     this.view.clearProjectForm();
     this.view.editProjectFormDone();

@@ -13,6 +13,7 @@ export default class View {
     this.$projectList = document.querySelector('.index-section__project-list');
     this.$projectCreateButton = document.querySelector('.index-section__create-button');
     this.$projectForm = document.querySelector('.form');
+    this.$projectFormCloseButton = document.querySelector('.form__close-button');
   }
 
   /**
@@ -30,7 +31,9 @@ export default class View {
    * @param {Function()} handler Function called on click event
    */
   bindCloseProjectForm(handler) {
-
+    this.$projectFormCloseButton.addEventListener('click', () => {
+      handler();
+    });
   }
 
   /**
@@ -77,8 +80,8 @@ export default class View {
    * Brings the project form out of edit mode
    */
   editProjectFormDone() {
-    // 1. change form state to not edit mode(isEditing)
-    // 2. set form invisible
+    this.projectFormState.isEditing = false;
+    this.$projectForm.classList.add('form--hide');
   }
 
   /**

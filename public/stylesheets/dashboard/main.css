@@ -118,6 +118,11 @@ table {
   .form--hide {
     display: none; }
 
+.form__close-button {
+  position: absolute;
+  top: -50px;
+  right: 50px; }
+
 .form__member {
   margin-bottom: 8px;
   overflow: hidden; }
