@@ -37,7 +37,9 @@ export default class Controller {
   handleProjectFormOpenButtonClick() {
     const { isOpened } = this.model.findProjectFormState();
 
-    if (isOpened && confirm(MESSAGE.CREATE_NEW_PROJECT)) {
+    if (isOpened) {
+      if (!confirm(MESSAGE.CREATE_NEW_PROJECT)) return;
+
       this.clearProjectForm();
     } else {
       this.openProjectForm();
