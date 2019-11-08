@@ -1,55 +1,43 @@
 export default class Model {
   /**
-   * @param {axios} axios
+   * Instanciates model object
    */
-  constructor(axios) {
-    this.axios = axios;
+  constructor() {
+    this.projectList = null;
+    this.projectFormState = {
+      isOpened: false,
+      title: '',
+      thumbnailImage: null,
+      quickViewUrl: '',
+      client: '',
+      agency: '',
+      role: '',
+    };
   }
 
   /**
-   * Gets a project using project id
-   * @param {Object} query
-   * @param {String} query.projectId
-   * @returns {Promise} Promise object represents a project
+   * Updates project list in app state and excute callback function
+   * @param {Array} projects
+   * @param {Funcion(projectList)} callback Function called after app state is updated
    */
-  async findProject({ projectId }) {
-
+  updateProjectList(projects, callback) {
+    this.projectList = projects;
+    callback(this.projectList.slice());
   }
 
   /**
-   * Gets all projects
-   * @returns {Promise} Promise object represents projects
+   * Gets project form
    */
-  async findAllProjects() {
-    const { data: projects } = await this.axios.get(`${document.location.origin}/project`);
-    return projects;
+  findProjectFormState() {
+    return { ...this.projectFormState };
   }
 
   /**
-   * Inserts project to database
-   * @param {Object} project
-   * @returns {Promise} Promise object represents nothing
+   * @param {Boolean} state
+   * @param {Function(projectFormState)} [callback] Function called with updated project form state
    */
-  async insertProject(project) {
-
-  }
-
-  /**
-   * Updates project to database
-   * @param {Object} project
-   * @returns {Promise} Promise object represents nothing
-   */
-  async updateProject(project) {
-
-  }
-
-  /**
-   * Deletes project and return the project
-   * @param {Object} query
-   * @param {String} query.projectId
-   * @returns {Promise} Promise object represents deleted project
-   */
-  async deleteProject({ projectId }) {
-
+  updateProjectFormState(state, callback) {
+    this.projectFormState = { ...this.projectFormState, ...state };
+    callback && callback({ ...this.projectFormState });
   }
 }

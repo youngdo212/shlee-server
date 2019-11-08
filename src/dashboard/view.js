@@ -5,98 +5,69 @@ export default class View {
    */
   constructor(template) {
     this.template = template;
-    this.projectFormState = {
-      isEditing: false,
-      currentProjectId: '',
-    };
-
     this.$projectList = document.querySelector('.index-section__project-list');
-    this.$projectCreateButton = document.querySelector('.index-section__create-button');
-    this.$projectForm = document.querySelector('.form');
+    this.$projectFormOpenButton = document.querySelector('.index-section__create-button');
     this.$projectFormCloseButton = document.querySelector('.form__close-button');
+    this.$projectForm = document.querySelector('.form');
+    this.$projectFormTitleInput = document.querySelector('#title');
   }
 
   /**
-   * Binds handler with button to create project
-   * @param {Function(projectFormState)} hanlder Function called with project form state on click event
+   * Binds handler with button to open project form
+   * @param {Function()} handler Function called after click
    */
-  bindOpenProjectForm(hanlder) {
-    this.$projectCreateButton.addEventListener('click', () => {
-      hanlder(this.projectFormState);
+  onProjectFormOpenButtonClick(handler) {
+    this.$projectFormOpenButton.addEventListener('click', () => {
+      handler();
     });
   }
 
   /**
    * Binds handler with button to close project form
-   * @param {Function()} handler Function called on click event
+   * @param {Function()} handler Function called after click
    */
-  bindCloseProjectForm(handler) {
+  onProjectFormCloseButtonClick(handler) {
     this.$projectFormCloseButton.addEventListener('click', () => {
       handler();
     });
   }
 
   /**
-   * Binds handler with project form
-   * @param {Function(project)} handler Function called with project object on submit event
+   * Adds handler to project form title input
+   * @param {Function(String)} handler Function called every input event
    */
-  bindSubmitProjectForm(handler) {
-
-  }
-
-  /**
-   * Binds handler with project list
-   * @param {Function(projectId, projectFormState)} handler Function called with target project id and project form state on click event
-   */
-  bindOpenProject(handler) {
-
-  }
-
-  /**
-   * Binds handler with project list
-   * @param {Function(projectId, projectFormState)} handler Function called with target project id and project form state on click event
-   */
-  bindRemoveProject(handler) {
-
+  onProjectFormTitleInput(handler) {
+    this.$projectFormTitleInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
   }
 
   /**
    * Renders project list again
-   * @param {Array} projects
+   * @param {Array} projectList
    */
-  renderProjectList(projects) {
-    this.$projectList.innerHTML = projects.reduce((html, project) => html + this.template.projectListItem(project), '');
+  renderProjectList(projectList) {
+    this.$projectList.innerHTML = projectList.reduce((html, project) => html + this.template.projectListItem(project), '');
   }
 
   /**
-   * Puts the project form into edit mode
+   * Change project form visibility
+   * @param {Boolean} visible
    */
-  editProjectForm() {
-    this.projectFormState.isEditing = true;
-    this.$projectForm.classList.remove('form--hide');
+  setProjectFormVisibility(visible) {
+    if (visible) {
+      this.$projectForm.classList.remove('form--hide');
+    } else {
+      this.$projectForm.classList.add('form--hide');
+    }
   }
 
   /**
-   * Brings the project form out of edit mode
+   * Change project form title input
+   * @param {Object} projectFormState
+   * @param {String} projectFormState.title
    */
-  editProjectFormDone() {
-    this.projectFormState.isEditing = false;
-    this.$projectForm.classList.add('form--hide');
-  }
-
-  /**
-   * removes all input values in form and delete current project id in form state
-   */
-  clearProjectForm() {
-    this.$projectForm.reset();
-    this.projectFormState.currentProjectId = '';
-  }
-
-  /**
-   * Sets project form with values and images. and set project id to form state
-   * @param {Project} project
-   */
-  setProjectForm(project) {
-    // set project id to form state
+  setProjectFormTitle({ title }) {
+    this.$projectFormTitleInput.value = title;
   }
 }

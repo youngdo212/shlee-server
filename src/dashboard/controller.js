@@ -1,3 +1,4 @@
+import axios from 'axios';
 import MESSAGE from './msg';
 
 export default class Controller {
@@ -9,109 +10,79 @@ export default class Controller {
     this.model = model;
     this.view = view;
 
-    this.view.bindOpenProjectForm(this.openProjectForm.bind(this));
-    this.view.bindCloseProjectForm(this.closeProjectForm.bind(this));
-    this.view.bindSubmitProjectForm(this.submitProjectForm.bind(this));
-    this.view.bindOpenProject(this.openProject.bind(this));
-    this.view.bindRemoveProject(this.removeProject.bind(this));
+    this.view.onProjectFormOpenButtonClick(this.handleProjectFormOpenButtonClick.bind(this));
+    this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
+    this.view.onProjectFormTitleInput(this.handleProjectFormTitleInput.bind(this));
   }
 
   /**
-   * Sets up view initial state
+   * Sets up inital state of model and view
    */
   async setView() {
-    const projects = await this.model.findAllProjects();
-    this.view.renderProjectList(projects);
+    const { data: projects } = await axios.get(`${document.location.origin}/project`);
+    this.model.updateProjectList(projects, (projectList) => {
+      this.view.renderProjectList(projectList);
+    });
   }
 
   /**
-   * Shows project form and get ready to edit.
-   * @param {Object} projectFormState
-   * @param {Boolean} projectFormState.isEditing
+   * Handles click event on button to open project form
    */
-  openProjectForm({ isEditing }) {
-    if (isEditing) {
-      confirm(MESSAGE.CREATE_NEW_PROJECT) && this.view.clearProjectForm();
+  handleProjectFormOpenButtonClick() {
+    const { isOpened } = this.model.findProjectFormState();
+
+    if (isOpened && confirm(MESSAGE.CREATE_NEW_PROJECT)) {
+      this.clearProjectForm();
     } else {
-      this.view.editProjectForm();
+      this.openProjectForm();
     }
   }
 
   /**
-   * Clear project form values and closes form
+   * Makes project form visible
    */
-  closeProjectForm() {
+  openProjectForm() {
+    this.model.updateProjectFormState({
+      isOpened: true,
+    }, (projectFormState) => {
+      this.view.setProjectFormVisibility(projectFormState.isOpened);
+    });
+  }
+
+  /**
+   * Handles click event on button to close project form
+   */
+  handleProjectFormCloseButtonClick() {
     if (!confirm(MESSAGE.CLOSE_PROJECT_FORM)) return;
 
-    this.view.clearProjectForm();
-    this.view.editProjectFormDone();
+    this.closeProjectForm();
+    this.clearProjectForm();
   }
 
   /**
-   * Submit project and close form
-   * @param {object} project
+   * Makes project form invisible
    */
-  async submitProjectForm(project) {
-    if (project.id) {
-      await this.updateProject(project);
-    } else {
-      await this.createProject(project);
-    }
+  closeProjectForm() {
+    this.model.updateProjectFormState({
+      isOpened: false,
+    }, (projectFormState) => {
+      this.view.setProjectFormVisibility(projectFormState.isOpened);
+    });
+  }
 
-    this.view.clearProjectForm();
-    this.view.editProjectFormDone();
+  clearProjectForm() {
+    this.model.updateProjectFormState({
+      title: '',
+    }, (projectFormState) => {
+      this.view.setProjectFormTitle(projectFormState);
+    });
   }
 
   /**
-   * Creates project
-   * @param {Object} project
+   * Handles title string value
+   * @param {String} title
    */
-  async createProject(project) {
-    await this.model.insertProject(project);
-  }
-
-  /**
-   * Updates project
-   * @param {Object} project
-   */
-  async updateProject(project) {
-    await this.model.updateProject(project);
-  }
-
-  /**
-   * Loads project and show details in project form
-   * @param {String} projectId
-   * @param {Object} projectFormState
-   * @param {Boolean} projectFormState.isEditing
-   */
-  async openProject(projectId, { isEditing }) {
-    if (isEditing) {
-      if (!confirm(MESSAGE.OPEN_PROJECT)) return;
-      const project = await this.model.findProject({ projectId });
-      this.view.clearProjectForm();
-      this.view.setProjectForm(project);
-    } else {
-      const project = await this.model.findProject({ projectId });
-      this.view.editProjectForm();
-      this.view.setProjectForm(project);
-    }
-  }
-
-  /**
-   * Removes project and show project list again excluding the project
-   * @param {String} projectId
-   * @param {Object} projectFormState
-   * @param {String} projectFormState.currentProjectId
-   */
-  async removeProject(projectId, { currentProjectId }) {
-    if (!confirm(MESSAGE.REMOVE_PROJECT)) return;
-
-    await this.model.deleteProject({ projectId });
-    const projects = await this.model.findAllProjects();
-    this.view.renderProjectList(projects);
-    if (projectId === currentProjectId) {
-      this.view.clearProjectForm();
-      this.view.editProjectFormDone();
-    }
+  handleProjectFormTitleInput(title) {
+    this.model.updateProjectFormState({ title });
   }
 }

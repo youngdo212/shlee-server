@@ -15,9 +15,45 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', (req, res) => {
-  db.query('SELECT * FROM project', (err, projects) => {
+  const fields = [
+    'id',
+    'title',
+    'thumbnail_image_url AS thumbnailImageUrl',
+    'quick_view_url AS quickViewUrl',
+    'header_image_url AS headerImageUrl',
+    'client',
+    'agency',
+    'role',
+    'category',
+    'snapshot_column AS snapshotColumn',
+    'image_url AS snapshotUrl',
+    'video_url AS videoUrl',
+  ];
+  const query = `SELECT ${fields.join()} FROM project LEFT JOIN snapshot ON project.id = snapshot.project_id LEFT JOIN video ON project.id = video.project_id`;
+
+  db.query(query, (err, projects) => {
     if (err) throw err;
-    res.send(projects);
+
+    const savedProjects = [];
+
+    projects.forEach((project) => {
+      const targetProject = savedProjects.find((savedProject) => savedProject.id === project.id);
+
+      if (targetProject) {
+        const { snapshotUrls, videoUrls } = targetProject;
+
+        if (snapshotUrls.indexOf(project.snapshotUrl) === -1) snapshotUrls.push(project.snapshotUrl);
+        if (videoUrls.indexOf(project.videoUrl) === -1) videoUrls.push(project.videoUrl);
+      } else {
+        project.snapshotUrls = project.snapshotUrl ? [project.snapshotUrl] : [];
+        project.videoUrls = project.videoUrl ? [project.videoUrl] : [];
+        delete project.snapshotUrl;
+        delete project.videoUrl;
+        savedProjects.push(project);
+      }
+    });
+
+    res.send(savedProjects);
   });
 });
 
