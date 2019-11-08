@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+module.exports = (env) => ({
+  mode: env.NODE_ENV,
   entry: {
     dashboard: './src/dashboard/index.js',
   },
@@ -9,4 +10,4 @@ module.exports = {
     filename: 'javascripts/[name]/bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
-}
+});

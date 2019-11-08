@@ -12,6 +12,8 @@ export default class View {
     this.$projectFormTitleInput = document.querySelector('#title');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
+    this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
+    this.$projectFormVideoUrlInputContainer = document.querySelector('.form__input-wrap--video');
   }
 
   /**
@@ -53,8 +55,48 @@ export default class View {
       if (target.files.length === 0) return;
 
       const file = target.files[0];
-      console.log(target.value);
       handler(file);
+    });
+  }
+
+  /**
+   * Adds handler to video url add button on click event
+   * @param {Function()} handler
+   */
+  onProjectFormVideoUrlAddButtonClick(handler) {
+    this.$projectFormVideoUrlAddButton.addEventListener('click', () => {
+      handler();
+    });
+  }
+
+  /**
+   * Adds handler to video url input container on input event
+   * @param {Function(Number, String)} handler Function called with index and video url on input event
+   */
+  onProjectFormVideoUrlInput(handler) {
+    this.$projectFormVideoUrlInputContainer.addEventListener('input', ({ target }) => {
+      const $addedInput = target.closest('.added-input');
+      const { index } = $addedInput.dataset;
+      const videoUrl = target.value;
+
+      handler(Number(index), videoUrl);
+    });
+  }
+
+  /**
+   * Add handlers to video url input container
+   * @param {Function(Number)} handler Called with index when remove button is clicked
+   */
+  onProjectFormVideoUrlRemoveButtonClick(handler) {
+    this.$projectFormVideoUrlInputContainer.addEventListener('click', ({ target }) => {
+      const $removeButton = target.closest('.added-input__button');
+
+      if (!$removeButton) return;
+
+      const $addedInput = target.closest('.added-input');
+      const { index } = $addedInput.dataset;
+
+      handler(Number(index));
     });
   }
 
@@ -84,6 +126,7 @@ export default class View {
   clearProjectForm() {
     this.$projectFormTitleInput.value = '';
     this.$projectFormThumbnailPreview.innerHTML = '';
+    this.$projectFormVideoUrlInputContainer.innerHTML = '';
   }
 
   /**
@@ -91,5 +134,12 @@ export default class View {
    */
   renderThumbnailPreview(url) {
     this.$projectFormThumbnailPreview.innerHTML = this.template.thumbnailPreviewImage(url);
+  }
+
+  /**
+   * @param {Array} videoUrls
+   */
+  renderVideoUrlInputs(videoUrls) {
+    this.$projectFormVideoUrlInputContainer.innerHTML = videoUrls.reduce((html, videoUrl, index) => html + this.template.videoUrlInput({ index, videoUrl }), '');
   }
 }

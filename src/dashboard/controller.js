@@ -15,6 +15,9 @@ export default class Controller {
     this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
     this.view.onProjectFormTitleInput(this.handleProjectFormTitleInput.bind(this));
     this.view.onProjectFormThumbnailInputChange(this.handleProjectFormThumbnailChange.bind(this));
+    this.view.onProjectFormVideoUrlAddButtonClick(this.handleProjectFormVideoUrlAddButtonClick.bind(this));
+    this.view.onProjectFormVideoUrlInput(this.handleProjectFormVideoUrlInput.bind(this));
+    this.view.onProjectFormVideoUrlRemoveButtonClick(this.handleProjectFormVideoUrlRemoveButtonClick.bind(this));
   }
 
   /**
@@ -79,6 +82,7 @@ export default class Controller {
     this.model.updateProjectFormState({
       title: '',
       thumbnail: null,
+      videoUrls: [],
     }, () => {
       this.view.clearProjectForm();
     });
@@ -101,6 +105,46 @@ export default class Controller {
     }, async ({ thumbnail }) => {
       const thumbnailDataUrl = await readFileAsDataUrl(thumbnail);
       this.view.renderThumbnailPreview(thumbnailDataUrl);
+    });
+  }
+
+  /**
+   * Adds a empty video url to both state and view
+   */
+  handleProjectFormVideoUrlAddButtonClick() {
+    const previousVideoUrls = this.model.findProjectFormState().videoUrls;
+
+    this.model.updateProjectFormState({
+      videoUrls: previousVideoUrls.concat(''),
+    }, ({ videoUrls }) => {
+      this.view.renderVideoUrlInputs(videoUrls);
+    });
+  }
+
+  /**
+   * Changes video url to have target index
+   * @param {Number} targetIndex
+   * @param {String} videoUrl
+   */
+  handleProjectFormVideoUrlInput(targetIndex, videoUrl) {
+    const { videoUrls: previousVideoUrls } = this.model.findProjectFormState();
+
+    this.model.updateProjectFormState({
+      videoUrls: previousVideoUrls.map((previousVideoUrl, index) => (index === targetIndex ? videoUrl : previousVideoUrl)),
+    });
+  }
+
+  /**
+   * Delete video url input with index
+   * @param {Number} targetIndex
+   */
+  handleProjectFormVideoUrlRemoveButtonClick(targetIndex) {
+    const { videoUrls: previousVideoUrls } = this.model.findProjectFormState();
+
+    this.model.updateProjectFormState({
+      videoUrls: previousVideoUrls.filter((previousVideoUrl, index) => index !== targetIndex),
+    }, ({ videoUrls }) => {
+      this.view.renderVideoUrlInputs(videoUrls);
     });
   }
 }

@@ -166,6 +166,14 @@ table {
   .form__input--radio {
     margin: 0px 5px;
     vertical-align: middle; }
+  .form__input--video-url {
+    width: 350px;
+    border: 1px solid #ccc;
+    font-size: 1.1rem;
+    font-weight: 100;
+    padding: 0px 5px; }
+    .form__input--video-url:focus {
+      outline: none; }
 
 .form__label--thumbnail, .form__label--header-image, .form__label--snapshot {
   position: absolute;
@@ -238,14 +246,10 @@ table {
     outline: none; }
 
 .added-input {
-  position: relative;
   margin-top: 5px; }
 
 .added-input__button {
   box-sizing: border-box;
-  position: absolute;
-  left: 100%;
-  top: 0px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
