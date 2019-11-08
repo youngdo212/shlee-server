@@ -18,6 +18,7 @@ export default class Controller {
     this.view.onProjectFormVideoUrlAddButtonClick(this.handleProjectFormVideoUrlAddButtonClick.bind(this));
     this.view.onProjectFormVideoUrlInput(this.handleProjectFormVideoUrlInput.bind(this));
     this.view.onProjectFormVideoUrlRemoveButtonClick(this.handleProjectFormVideoUrlRemoveButtonClick.bind(this));
+    this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
   }
 
   /**
@@ -83,6 +84,7 @@ export default class Controller {
       title: '',
       thumbnail: null,
       videoUrls: [],
+      snapshots: [],
     }, () => {
       this.view.clearProjectForm();
     });
@@ -145,6 +147,21 @@ export default class Controller {
       videoUrls: previousVideoUrls.filter((previousVideoUrl, index) => index !== targetIndex),
     }, ({ videoUrls }) => {
       this.view.renderVideoUrlInputs(videoUrls);
+    });
+  }
+
+  /**
+   * Stores snapshot file and renders added snapshot preview
+   * @param {File} file
+   */
+  handleProjectFormSnapshotAdded(file) {
+    const { snapshots } = this.model.findProjectFormState();
+
+    this.model.updateProjectFormState({
+      snapshots: snapshots.concat(file),
+    }, async () => {
+      const snapshotDataUrl = await readFileAsDataUrl(file);
+      this.view.addSnapshotPreview(snapshotDataUrl);
     });
   }
 }

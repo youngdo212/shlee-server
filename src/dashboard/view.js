@@ -14,6 +14,9 @@ export default class View {
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
     this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
     this.$projectFormVideoUrlInputContainer = document.querySelector('.form__input-wrap--video');
+    this.$projectFormSnapshotAddButton = document.querySelector('.snapshot-preview__add-button');
+    this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
+    this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
   }
 
   /**
@@ -101,6 +104,24 @@ export default class View {
   }
 
   /**
+   * Adds handler to trigger click event to snapshot input with add button.
+   * And adds handler with snapshot input button on change event.
+   * @param {Function(File)} handler
+   */
+  onProjectFormSnapshotAdded(handler) {
+    this.$projectFormSnapshotAddButton.addEventListener('click', () => {
+      this.$projectFormSnapshotAddInput.click();
+    });
+
+    this.$projectFormSnapshotAddInput.addEventListener('change', ({ target }) => {
+      if (target.files.length === 0) return;
+
+      const file = target.files[0];
+      handler(file);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -127,13 +148,14 @@ export default class View {
     this.$projectFormTitleInput.value = '';
     this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormVideoUrlInputContainer.innerHTML = '';
+    this.$projectFormSnapshotPreviewContainer.innerHTML = '';
   }
 
   /**
-   * @param {String} url Indicates image
+   * @param {String} imageUrl Indicates image
    */
-  renderThumbnailPreview(url) {
-    this.$projectFormThumbnailPreview.innerHTML = this.template.thumbnailPreviewImage(url);
+  renderThumbnailPreview(imageUrl) {
+    this.$projectFormThumbnailPreview.innerHTML = this.template.thumbnailPreviewImage(imageUrl);
   }
 
   /**
@@ -141,5 +163,13 @@ export default class View {
    */
   renderVideoUrlInputs(videoUrls) {
     this.$projectFormVideoUrlInputContainer.innerHTML = videoUrls.reduce((html, videoUrl, index) => html + this.template.videoUrlInput({ index, videoUrl }), '');
+  }
+
+  /**
+   * Renders preview using image url
+   * @param {String} imageUrl
+   */
+  addSnapshotPreview(imageUrl) {
+    this.$projectFormSnapshotPreviewContainer.insertAdjacentHTML('beforeend', this.template.snapshotPreview(imageUrl));
   }
 }

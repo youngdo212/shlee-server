@@ -27,4 +27,14 @@ export default {
         </button>
       </div>`;
   },
+
+  /**
+   * @param {String} url
+   */
+  snapshotPreview(url) {
+    return `
+    <div class="snapshot-preview__item">
+      <img class="snapshot-preview__image" src="${url}">
+    </div>`;
+  },
 };

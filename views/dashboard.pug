@@ -111,14 +111,10 @@ html(lang="ko")
             )
         div.snapshot-preview-wrap
           div.snapshot-preview
-          label.form__member-name.form__label.form__label--snapshot(for="snapshot")
-          input.form__input.form__input--file(
+          button.snapshot-preview__add-button(type="button") add
+          input.snapshot__input.snapshot__input--add(
             type="file"
-            id="snapshot"
-            name="snapshot"
             accept="image/*"
-            multiple
-            required
           )
         button.form__button.form__button--submit(type="submit") 제출
-    script(type="module" src="/javascripts/dashboard/bundle.js")
+    script(src="/javascripts/dashboard/bundle.js")
