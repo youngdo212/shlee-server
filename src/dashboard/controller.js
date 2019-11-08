@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MESSAGE from './msg';
+import { readFileAsDataUrl } from './helpers';
 
 export default class Controller {
   /**
@@ -13,6 +14,7 @@ export default class Controller {
     this.view.onProjectFormOpenButtonClick(this.handleProjectFormOpenButtonClick.bind(this));
     this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
     this.view.onProjectFormTitleInput(this.handleProjectFormTitleInput.bind(this));
+    this.view.onProjectFormThumbnailInputChange(this.handleProjectFormThumbnailChange.bind(this));
   }
 
   /**
@@ -70,11 +72,15 @@ export default class Controller {
     });
   }
 
+  /**
+   * Resets project form
+   */
   clearProjectForm() {
     this.model.updateProjectFormState({
       title: '',
-    }, (projectFormState) => {
-      this.view.setProjectFormTitle(projectFormState);
+      thumbnail: null,
+    }, () => {
+      this.view.clearProjectForm();
     });
   }
 
@@ -84,5 +90,17 @@ export default class Controller {
    */
   handleProjectFormTitleInput(title) {
     this.model.updateProjectFormState({ title });
+  }
+
+  /**
+   * @param {File} file File uploaded by input
+   */
+  handleProjectFormThumbnailChange(file) {
+    this.model.updateProjectFormState({
+      thumbnail: file,
+    }, async ({ thumbnail }) => {
+      const thumbnailDataUrl = await readFileAsDataUrl(thumbnail);
+      this.view.renderThumbnailPreview(thumbnailDataUrl);
+    });
   }
 }

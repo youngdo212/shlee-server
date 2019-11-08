@@ -10,4 +10,11 @@ export default {
         <div class="index-section__project-title">${title}</div>
       </li>`;
   },
+
+  /**
+   * @param {String} url
+   */
+  thumbnailPreviewImage(url) {
+    return `<img class="thumbnail-preview__image" src="${url}">`;
+  },
 };

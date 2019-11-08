@@ -10,6 +10,8 @@ export default class View {
     this.$projectFormCloseButton = document.querySelector('.form__close-button');
     this.$projectForm = document.querySelector('.form');
     this.$projectFormTitleInput = document.querySelector('#title');
+    this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
+    this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
   }
 
   /**
@@ -43,6 +45,20 @@ export default class View {
   }
 
   /**
+   * Adds handler to thumbnail input on change event
+   * @param {Function(File)} handler
+   */
+  onProjectFormThumbnailInputChange(handler) {
+    this.$projectFormThumbnailInput.addEventListener('change', ({ target }) => {
+      if (target.files.length === 0) return;
+
+      const file = target.files[0];
+      console.log(target.value);
+      handler(file);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -63,11 +79,17 @@ export default class View {
   }
 
   /**
-   * Change project form title input
-   * @param {Object} projectFormState
-   * @param {String} projectFormState.title
+   * Resets project form
    */
-  setProjectFormTitle({ title }) {
-    this.$projectFormTitleInput.value = title;
+  clearProjectForm() {
+    this.$projectFormTitleInput.value = '';
+    this.$projectFormThumbnailPreview.innerHTML = '';
+  }
+
+  /**
+   * @param {String} url Indicates image
+   */
+  renderThumbnailPreview(url) {
+    this.$projectFormThumbnailPreview.innerHTML = this.template.thumbnailPreviewImage(url);
   }
 }

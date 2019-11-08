@@ -7,11 +7,13 @@ export default class Model {
     this.projectFormState = {
       isOpened: false,
       title: '',
-      thumbnailImage: null,
+      thumbnail: null,
       quickViewUrl: '',
       client: '',
       agency: '',
       role: '',
+      videoUrls: [],
+      snapshots: [],
     };
   }
 
@@ -38,6 +40,7 @@ export default class Model {
    */
   updateProjectFormState(state, callback) {
     this.projectFormState = { ...this.projectFormState, ...state };
+    console.log(this.projectFormState);
     callback && callback({ ...this.projectFormState });
   }
 }
