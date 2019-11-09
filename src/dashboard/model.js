@@ -15,6 +15,7 @@ export default class Model {
       category: 'work',
       headerImage: null,
       videoUrls: [],
+      snapshotColumn: 1,
       snapshots: [],
     };
   }

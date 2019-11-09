@@ -27,6 +27,7 @@ export default class Controller {
     this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
     this.view.onProjectFormCategoryChange(this.handleProjectFormCategoryChange.bind(this));
     this.view.onProjectFormHeaderImageInputChange(this.handleProjectFormHeaderImageInputChange.bind(this));
+    this.view.onProjectFormSnapshotColumnInput(this.handleProjectFormSnapshotColumnInput.bind(this));
   }
 
   /**
@@ -99,6 +100,7 @@ export default class Controller {
       category: 'work',
       thumbnail: null,
       videoUrls: [],
+      snapshotColumn: 1,
       snapshots: [],
     }, () => {
       this.view.clearProjectForm();
@@ -257,5 +259,13 @@ export default class Controller {
       const headerImageDataUrl = await readFileAsDataUrl(file);
       this.view.renderHeaderImagePreview(headerImageDataUrl);
     });
+  }
+
+  /**
+   * Changes snapshot column value
+   * @param {Number} snapshotColumn
+   */
+  handleProjectFormSnapshotColumnInput(snapshotColumn) {
+    this.model.updateProjectFormState({ snapshotColumn });
   }
 }

@@ -25,6 +25,7 @@ export default class View {
     this.$projectFormCategoryInputContainer = document.querySelector('.form__input-wrap--category');
     this.$projectFormHeaderImageInput = document.querySelector('#header-image');
     this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
+    this.$projectFormSnapshotColumnInput = document.querySelector('#snapshot-column');
   }
 
   /**
@@ -236,6 +237,15 @@ export default class View {
   }
 
   /**
+   * @param {Function(Number)} handler
+   */
+  onProjectFormSnapshotColumnInput(handler) {
+    this.$projectFormSnapshotColumnInput.addEventListener('input', ({ target }) => {
+      handler(Number(target.value));
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -268,6 +278,7 @@ export default class View {
     this.$projectFormVideoUrlInputContainer.innerHTML = '';
     this.$projectFormSnapshotPreviewContainer.innerHTML = '';
     this.setProjectFormCategory('work');
+    this.$projectFormSnapshotColumnInput.value = 1;
   }
 
   /**
