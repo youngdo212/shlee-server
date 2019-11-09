@@ -6,4 +6,5 @@ export default {
   VALIDATION_THUMBNAIL: '썸네일을 선택하세요',
   VALIDATION_TITLE: '제목을 입력하세요',
   VALIDATION_HEADER_IMAGE: '헤더 이미지를 선택하세요',
+  VALIDATION_FORM: '누락되거나 잘못된 입력값이 있습니다',
 };

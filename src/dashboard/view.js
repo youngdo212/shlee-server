@@ -28,6 +28,7 @@ export default class View {
     this.$projectFormHeaderImageInput = document.querySelector('#header-image');
     this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
     this.$projectFormSnapshotColumnInput = document.querySelector('#snapshot-column');
+    this.$projectFormValidationMessage = document.querySelector('.form__validation-message');
   }
 
   /**
@@ -360,6 +361,16 @@ export default class View {
     this.$projectFormThumbnail.classList.remove('thumbnail-preview-wrap--invalid');
     this.$projectFormTitleInput.classList.remove('title--invalid');
     this.$projectFormHeaderImage.classList.remove('header-image-preview-wrap--invalid');
+    this.$projectFormValidationMessage.classList.remove('form__validation-message--invalid');
+  }
+
+  /**
+   * Shows validation message of form
+   * @param {String} message
+   */
+  setFormValidationMessage(message) {
+    this.$projectFormValidationMessage.classList.add('form__validation-message--invalid');
+    this.$projectFormValidationMessage.textContent = message;
   }
 
   /**

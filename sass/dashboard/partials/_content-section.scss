@@ -475,3 +475,14 @@ input#header-image {
   padding: 7px 5px;
   color: red;
 }
+
+.form__validation-message {
+  display: none;
+  color: red;
+  text-align: center;
+  margin-top: 15px;
+
+  &--invalid {
+    display: block;
+  }
+}

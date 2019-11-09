@@ -286,6 +286,7 @@ export default class Controller {
     if (validityState.ok) {
       console.log('success!');
     } else {
+      this.view.setFormValidationMessage(MESSAGE.VALIDATION_FORM);
       if (validityState.thumbnail === false) this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
       if (validityState.title === false) this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
       if (validityState.headerImage === false) this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
