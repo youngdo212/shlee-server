@@ -14,6 +14,10 @@ export default class Controller {
     this.view.onProjectFormOpenButtonClick(this.handleProjectFormOpenButtonClick.bind(this));
     this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
     this.view.onProjectFormTitleInput(this.handleProjectFormTitleInput.bind(this));
+    this.view.onProjectFormQuickViewUrlInput(this.handleProjectFormQuickViewUrlInput.bind(this));
+    this.view.onProjectFormClientInput(this.handleProjectFormClientInput.bind(this));
+    this.view.onProjectFormAgencyInput(this.handleProjectFormAgencyInput.bind(this));
+    this.view.onProjectFormRoleInput(this.handleProjectFormRoleInput.bind(this));
     this.view.onProjectFormThumbnailInputChange(this.handleProjectFormThumbnailChange.bind(this));
     this.view.onProjectFormVideoUrlAddButtonClick(this.handleProjectFormVideoUrlAddButtonClick.bind(this));
     this.view.onProjectFormVideoUrlInput(this.handleProjectFormVideoUrlInput.bind(this));
@@ -86,6 +90,10 @@ export default class Controller {
   clearProjectForm() {
     this.model.updateProjectFormState({
       title: '',
+      quickViewUrl: '',
+      client: '',
+      agency: '',
+      role: '',
       thumbnail: null,
       videoUrls: [],
       snapshots: [],
@@ -100,6 +108,34 @@ export default class Controller {
    */
   handleProjectFormTitleInput(title) {
     this.model.updateProjectFormState({ title });
+  }
+
+  /**
+   * @param {String} quickViewUrl
+   */
+  handleProjectFormQuickViewUrlInput(quickViewUrl) {
+    this.model.updateProjectFormState({ quickViewUrl });
+  }
+
+  /**
+   * @param {String} client
+   */
+  handleProjectFormClientInput(client) {
+    this.model.updateProjectFormState({ client });
+  }
+
+  /**
+   * @param {String} agency
+   */
+  handleProjectFormAgencyInput(agency) {
+    this.model.updateProjectFormState({ agency });
+  }
+
+  /**
+   * @param {String} role
+   */
+  handleProjectFormRoleInput(role) {
+    this.model.updateProjectFormState({ role });
   }
 
   /**

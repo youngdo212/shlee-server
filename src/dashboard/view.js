@@ -10,6 +10,10 @@ export default class View {
     this.$projectFormCloseButton = document.querySelector('.form__close-button');
     this.$projectForm = document.querySelector('.form');
     this.$projectFormTitleInput = document.querySelector('#title');
+    this.$projectFormQuickViewUrlInput = document.querySelector('#quick-view-url');
+    this.$projectFormClientInput = document.querySelector('#client');
+    this.$projectFormAgencyInput = document.querySelector('#agency');
+    this.$projectFormRoleInput = document.querySelector('#role');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
     this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
@@ -46,6 +50,46 @@ export default class View {
    */
   onProjectFormTitleInput(handler) {
     this.$projectFormTitleInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  /**
+   * Adds handler to project form quick view url input
+   * @param {Function(String)} handler Function called every input event
+   */
+  onProjectFormQuickViewUrlInput(handler) {
+    this.$projectFormQuickViewUrlInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  /**
+   * Adds handler to project form client input
+   * @param {Function(String)} handler Function called every input event
+   */
+  onProjectFormClientInput(handler) {
+    this.$projectFormClientInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  /**
+   * Adds handler to project form agency input
+   * @param {Function(String)} handler Function called every input event
+   */
+  onProjectFormAgencyInput(handler) {
+    this.$projectFormAgencyInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  /**
+   * Adds handler to project form role input
+   * @param {Function(String)} handler Function called every input event
+   */
+  onProjectFormRoleInput(handler) {
+    this.$projectFormRoleInput.addEventListener('input', ({ target }) => {
       handler(target.value);
     });
   }
@@ -191,6 +235,10 @@ export default class View {
    */
   clearProjectForm() {
     this.$projectFormTitleInput.value = '';
+    this.$projectFormQuickViewUrlInput.value = '';
+    this.$projectFormClientInput.value = '';
+    this.$projectFormAgencyInput.value = '';
+    this.$projectFormRoleInput.value = '';
     this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormVideoUrlInputContainer.innerHTML = '';
     this.$projectFormSnapshotPreviewContainer.innerHTML = '';
