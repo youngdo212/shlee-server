@@ -25,6 +25,7 @@ export default class Controller {
     this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
     this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
     this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
+    this.view.onProjectFormCategoryChange(this.handleProjectFormCategoryChange.bind(this));
   }
 
   /**
@@ -94,6 +95,7 @@ export default class Controller {
       client: '',
       agency: '',
       role: '',
+      category: 'work',
       thumbnail: null,
       videoUrls: [],
       snapshots: [],
@@ -233,5 +235,13 @@ export default class Controller {
       const snapshotPreviewDataUrl = await readFileAsDataUrl(file);
       this.view.updateSnapshotPreview(targetIndex, snapshotPreviewDataUrl);
     });
+  }
+
+  /**
+   * Change category
+   * @param {String} category
+   */
+  handleProjectFormCategoryChange(category) {
+    this.model.updateProjectFormState({ category });
   }
 }

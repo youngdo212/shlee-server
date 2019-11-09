@@ -12,6 +12,7 @@ export default class Model {
       client: '',
       agency: '',
       role: '',
+      category: 'work',
       videoUrls: [],
       snapshots: [],
     };

@@ -22,6 +22,7 @@ export default class View {
     this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
     this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
+    this.$projectFormCategoryInputContainer = document.querySelector('.form__input-wrap--category');
   }
 
   /**
@@ -211,6 +212,16 @@ export default class View {
   }
 
   /**
+   * Adds handler to catogory input container
+   * @param {Function(String)} handler Called with radio button value
+   */
+  onProjectFormCategoryChange(handler) {
+    this.$projectFormCategoryInputContainer.addEventListener('change', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -242,6 +253,7 @@ export default class View {
     this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormVideoUrlInputContainer.innerHTML = '';
     this.$projectFormSnapshotPreviewContainer.innerHTML = '';
+    this.setProjectFormCategory('work');
   }
 
   /**
@@ -285,5 +297,13 @@ export default class View {
     const $snapshotPreviewImage = $snapshotPreview.querySelector('img');
 
     $snapshotPreviewImage.src = imageUrl;
+  }
+
+  /**
+   * @param {String} category
+   */
+  setProjectFormCategory(category) {
+    const $categoryInput = this.$projectFormCategoryInputContainer.querySelector(`input[value="${category}"]`);
+    $categoryInput.checked = true;
   }
 }
