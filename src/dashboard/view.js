@@ -117,6 +117,7 @@ export default class View {
       if (target.files.length === 0) return;
 
       const file = target.files[0];
+      target.value = '';
       handler(file);
     });
   }
