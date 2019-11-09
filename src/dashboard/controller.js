@@ -95,13 +95,14 @@ export default class Controller {
    */
   clearProjectForm() {
     this.model.updateProjectFormState({
+      thumbnail: null,
       title: '',
       quickViewUrl: '',
       client: '',
       agency: '',
       role: '',
       category: 'work',
-      thumbnail: null,
+      headerImage: null,
       videoUrls: [],
       snapshotColumn: 1,
       snapshots: [],

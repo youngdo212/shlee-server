@@ -6,8 +6,8 @@ export default class Model {
     this.projectList = null;
     this.projectFormState = {
       isOpened: false,
-      title: '',
       thumbnail: null,
+      title: '',
       quickViewUrl: '',
       client: '',
       agency: '',

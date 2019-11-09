@@ -282,16 +282,17 @@ export default class View {
    * Resets project form
    */
   clearProjectForm() {
+    this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormTitleInput.value = '';
     this.$projectFormQuickViewUrlInput.value = '';
     this.$projectFormClientInput.value = '';
     this.$projectFormAgencyInput.value = '';
     this.$projectFormRoleInput.value = '';
-    this.$projectFormThumbnailPreview.innerHTML = '';
-    this.$projectFormVideoUrlInputContainer.innerHTML = '';
-    this.$projectFormSnapshotPreviewContainer.innerHTML = '';
     this.setProjectFormCategory('work');
+    this.$projectFormHeaderImagePreview.innerHTML = '';
+    this.$projectFormVideoUrlInputContainer.innerHTML = '';
     this.$projectFormSnapshotColumnInput.value = 1;
+    this.$projectFormSnapshotPreviewContainer.innerHTML = '';
   }
 
   /**
