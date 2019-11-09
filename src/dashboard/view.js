@@ -281,7 +281,7 @@ export default class View {
   /**
    * Resets project form
    */
-  clearProjectForm() {
+  clearProjectFormValues() {
     this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormTitleInput.value = '';
     this.$projectFormQuickViewUrlInput.value = '';

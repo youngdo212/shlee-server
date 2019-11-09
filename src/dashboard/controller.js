@@ -52,7 +52,7 @@ export default class Controller {
     if (isOpened) {
       if (!confirm(MESSAGE.CREATE_NEW_PROJECT)) return;
 
-      this.clearProjectForm();
+      this.resetProjectForm();
     } else {
       this.openProjectForm();
     }
@@ -76,7 +76,7 @@ export default class Controller {
     if (!confirm(MESSAGE.CLOSE_PROJECT_FORM)) return;
 
     this.closeProjectForm();
-    this.clearProjectForm();
+    this.resetProjectForm();
   }
 
   /**
@@ -93,7 +93,7 @@ export default class Controller {
   /**
    * Resets project form
    */
-  clearProjectForm() {
+  resetProjectForm() {
     this.model.updateProjectFormState({
       thumbnail: null,
       title: '',
@@ -107,7 +107,8 @@ export default class Controller {
       snapshotColumn: 1,
       snapshots: [],
     }, () => {
-      this.view.clearProjectForm();
+      this.view.clearProjectFormValues();
+      this.view.clearAllValidatonMessages();
     });
   }
 
