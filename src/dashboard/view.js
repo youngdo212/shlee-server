@@ -23,6 +23,8 @@ export default class View {
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
     this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
     this.$projectFormCategoryInputContainer = document.querySelector('.form__input-wrap--category');
+    this.$projectFormHeaderImageInput = document.querySelector('#header-image');
+    this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
   }
 
   /**
@@ -222,6 +224,18 @@ export default class View {
   }
 
   /**
+   * @param {Function(File)} handler
+   */
+  onProjectFormHeaderImageInputChange(handler) {
+    this.$projectFormHeaderImageInput.addEventListener('change', ({ target }) => {
+      if (!target.files.length) return;
+
+      const file = target.files[0];
+      handler(file);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -305,5 +319,12 @@ export default class View {
   setProjectFormCategory(category) {
     const $categoryInput = this.$projectFormCategoryInputContainer.querySelector(`input[value="${category}"]`);
     $categoryInput.checked = true;
+  }
+
+  /**
+   * @param {String} imageUrl
+   */
+  renderHeaderImagePreview(imageUrl) {
+    this.$projectFormHeaderImagePreview.innerHTML = this.template.headerImagePreview(imageUrl);
   }
 }

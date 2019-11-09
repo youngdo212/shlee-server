@@ -26,6 +26,7 @@ export default class Controller {
     this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
     this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
     this.view.onProjectFormCategoryChange(this.handleProjectFormCategoryChange.bind(this));
+    this.view.onProjectFormHeaderImageInputChange(this.handleProjectFormHeaderImageInputChange.bind(this));
   }
 
   /**
@@ -243,5 +244,18 @@ export default class Controller {
    */
   handleProjectFormCategoryChange(category) {
     this.model.updateProjectFormState({ category });
+  }
+
+  /**
+   * Changes header image file and renders preview
+   * @param {File} file
+   */
+  handleProjectFormHeaderImageInputChange(file) {
+    this.model.updateProjectFormState({
+      headerImage: file,
+    }, async () => {
+      const headerImageDataUrl = await readFileAsDataUrl(file);
+      this.view.renderHeaderImagePreview(headerImageDataUrl);
+    });
   }
 }

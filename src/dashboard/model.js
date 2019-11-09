@@ -13,6 +13,7 @@ export default class Model {
       agency: '',
       role: '',
       category: 'work',
+      headerImage: null,
       videoUrls: [],
       snapshots: [],
     };

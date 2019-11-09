@@ -41,4 +41,11 @@ export default {
       </div>
     </div>`;
   },
+
+  headerImagePreview(url) {
+    return `
+    <div class="header-image-preview__item">
+      <img class="header-image-preview__image" src="${url}">
+    </div>`;
+  },
 };
