@@ -27,23 +27,22 @@ html(lang="ko")
             id="thumbnail"
             name="thumbnail"
             accept="image/*"
-            required
           )
+          div.thumbnail__validation-message
         div.form__member
           label.form__member-name.form__label.form__label--text(for="title") Title
           div.form__input-wrap
-            input.form__input.form__input--text(
+            input.title.form__input.form__input--text(
               id="title"
               name="title"
-              required
             )
+            div.title__validation-message
         div.form__member
           label.form__member-name.form__label.form__label--text(for="quick-view-url") Quick View Url
           div.form__input-wrap
             input.form__input.form__input--text(
               id="quick-view-url"
               name="quick-view-url"
-              required
             )
         div.form__member
           label.form__member-name.form__label.form__label--text(for="client") Client
@@ -92,8 +91,8 @@ html(lang="ko")
             id="header-image"
             name="header-image"
             accept="image/*"
-            required
           )
+          div.header-image__validation-message
         div.form__member
           label.form__member-name.form__label.form__label--text(for="video-url") Video Url
           div.form__input-wrap.form__input-wrap--video

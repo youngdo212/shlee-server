@@ -6,10 +6,12 @@ export default class Controller {
   /**
    * @param {Model} model
    * @param {View} view
+   * @param {Function} validator
    */
-  constructor(model, view) {
+  constructor(model, view, validator) {
     this.model = model;
     this.view = view;
+    this.validator = validator;
 
     this.view.onProjectFormOpenButtonClick(this.handleProjectFormOpenButtonClick.bind(this));
     this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
@@ -28,6 +30,7 @@ export default class Controller {
     this.view.onProjectFormCategoryChange(this.handleProjectFormCategoryChange.bind(this));
     this.view.onProjectFormHeaderImageInputChange(this.handleProjectFormHeaderImageInputChange.bind(this));
     this.view.onProjectFormSnapshotColumnInput(this.handleProjectFormSnapshotColumnInput.bind(this));
+    this.view.onProjectFormSubmit(this.handleProjectFormSubmit.bind(this));
   }
 
   /**
@@ -267,5 +270,23 @@ export default class Controller {
    */
   handleProjectFormSnapshotColumnInput(snapshotColumn) {
     this.model.updateProjectFormState({ snapshotColumn });
+  }
+
+  /**
+   * Validates project form and submit
+   */
+  handleProjectFormSubmit() {
+    const projectFormState = this.model.findProjectFormState();
+    const validityState = this.validator(projectFormState);
+
+    this.view.clearAllValidatonMessages();
+
+    if (validityState.ok) {
+      console.log('success!');
+    } else {
+      if (validityState.thumbnail === false) this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
+      if (validityState.title === false) this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
+      if (validityState.headerImage === false) this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
+    }
   }
 }

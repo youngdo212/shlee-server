@@ -14,6 +14,7 @@ export default class View {
     this.$projectFormClientInput = document.querySelector('#client');
     this.$projectFormAgencyInput = document.querySelector('#agency');
     this.$projectFormRoleInput = document.querySelector('#role');
+    this.$projectFormThumbnail = document.querySelector('.thumbnail-preview-wrap');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
     this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
@@ -23,6 +24,7 @@ export default class View {
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
     this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
     this.$projectFormCategoryInputContainer = document.querySelector('.form__input-wrap--category');
+    this.$projectFormHeaderImage = document.querySelector('.header-image-preview-wrap');
     this.$projectFormHeaderImageInput = document.querySelector('#header-image');
     this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
     this.$projectFormSnapshotColumnInput = document.querySelector('#snapshot-column');
@@ -246,6 +248,17 @@ export default class View {
   }
 
   /**
+   * Adds handler to form
+   * @param {Function()} handler
+   */
+  onProjectFormSubmit(handler) {
+    this.$projectForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handler();
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -337,5 +350,47 @@ export default class View {
    */
   renderHeaderImagePreview(imageUrl) {
     this.$projectFormHeaderImagePreview.innerHTML = this.template.headerImagePreview(imageUrl);
+  }
+
+  /**
+   * Hides all validation messages
+   */
+  clearAllValidatonMessages() {
+    this.$projectFormThumbnail.classList.remove('thumbnail-preview-wrap--invalid');
+    this.$projectFormTitleInput.classList.remove('title--invalid');
+    this.$projectFormHeaderImage.classList.remove('header-image-preview-wrap--invalid');
+  }
+
+  /**
+   * Shows validation message of thumbnail
+   * @param {String} message
+   */
+  setThumbnailValidationMessage(message) {
+    const $thumbnailValidationMessage = this.$projectFormThumbnail.querySelector('.thumbnail__validation-message');
+
+    this.$projectFormThumbnail.classList.add('thumbnail-preview-wrap--invalid');
+    $thumbnailValidationMessage.textContent = message;
+  }
+
+  /**
+   * Shows validation message of title
+   * @param {String} message
+   */
+  setTitleValidationMessage(message) {
+    const $titleValidationMessage = this.$projectForm.querySelector('.title__validation-message');
+
+    this.$projectFormTitleInput.classList.add('title--invalid');
+    $titleValidationMessage.textContent = message;
+  }
+
+  /**
+   * Shows validation message of header image
+   * @param {String} message
+   */
+  setHeaderImageValidationMessage(message) {
+    const $headerImageValidationMessage = this.$projectFormHeaderImage.querySelector('.header-image__validation-message');
+
+    this.$projectFormHeaderImage.classList.add('header-image-preview-wrap--invalid');
+    $headerImageValidationMessage.textContent = message;
   }
 }
