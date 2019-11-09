@@ -17,6 +17,7 @@ export default class View {
     this.$projectFormSnapshotAddButton = document.querySelector('.snapshot-preview__add-button');
     this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
+    this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
   }
 
   /**
@@ -139,6 +140,33 @@ export default class View {
   }
 
   /**
+   * Adds handler to snapshot update input.
+   * And handler to trigger click event at snapshot update input to remove button
+   * @param {Function(index, File)} handler Called when snapshot update input is changed
+   */
+  onProjectFormSnapshotUpdated(handler) {
+    let index = 0;
+
+    this.$projectFormSnapshotPreviewContainer.addEventListener('click', ({ target }) => {
+      if (target.className !== 'snapshot-preview__update-button') return;
+
+      const $snapshotPreview = target.closest('.snapshot-preview__item');
+      const snapshotPreviews = [...this.$projectFormSnapshotPreviewContainer.children];
+      index = snapshotPreviews.indexOf($snapshotPreview);
+
+      this.$projectFormSnapshotUpdateInput.click();
+    });
+
+    this.$projectFormSnapshotUpdateInput.addEventListener('change', ({ target }) => {
+      if (target.files.length === 0) return;
+
+      const file = target.files[0];
+
+      handler(index, file);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -197,5 +225,17 @@ export default class View {
   removeSnapshotPreview(index) {
     const $snapshotPreview = this.$projectFormSnapshotPreviewContainer.children[index];
     this.$projectFormSnapshotPreviewContainer.removeChild($snapshotPreview);
+  }
+
+  /**
+   * Changes snapshot preview element src attribute at index
+   * @param {Number} index
+   * @param {String} imageUrl
+   */
+  updateSnapshotPreview(index, imageUrl) {
+    const $snapshotPreview = this.$projectFormSnapshotPreviewContainer.children[index];
+    const $snapshotPreviewImage = $snapshotPreview.querySelector('img');
+
+    $snapshotPreviewImage.src = imageUrl;
   }
 }

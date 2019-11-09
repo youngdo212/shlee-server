@@ -20,6 +20,7 @@ export default class Controller {
     this.view.onProjectFormVideoUrlRemoveButtonClick(this.handleProjectFormVideoUrlRemoveButtonClick.bind(this));
     this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
     this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
+    this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
   }
 
   /**
@@ -179,6 +180,22 @@ export default class Controller {
       snapshots: snapshots.filter((snapshot, index) => targetIndex !== index),
     }, () => {
       this.view.removeSnapshotPreview(targetIndex);
+    });
+  }
+
+  /**
+   * Change snapshot file and preview at target index into snapshot preview container
+   * @param {Number} targetIndex
+   * @param {File} file
+   */
+  handleProjectFormSnapshotUpdated(targetIndex, file) {
+    const { snapshots } = this.model.findProjectFormState();
+
+    this.model.updateProjectFormState({
+      snapshots: snapshots.map((snapshotFile, index) => (index === targetIndex ? file : snapshotFile)),
+    }, async () => {
+      const snapshotPreviewDataUrl = await readFileAsDataUrl(file);
+      this.view.updateSnapshotPreview(targetIndex, snapshotPreviewDataUrl);
     });
   }
 }

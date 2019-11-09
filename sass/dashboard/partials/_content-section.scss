@@ -336,7 +336,7 @@ input#header-image {
     margin-right: 0px;
   }
 
-  &:hover .snapshot-preview__remove-button {
+  &:hover .snapshot-preview__buttons {
     visibility: visible;
   }
 }
@@ -349,7 +349,7 @@ input#header-image {
   
 }
 
-.snapshot-preview__remove-button {
+.snapshot-preview__buttons {
   visibility: hidden;
   position: absolute;
   top: 0px; right: 0px;

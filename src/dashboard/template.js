@@ -35,7 +35,10 @@ export default {
     return `
     <div class="snapshot-preview__item">
       <img class="snapshot-preview__image" src="${url}">
-      <button class="snapshot-preview__remove-button" type="button">remove</button>
+      <div class="snapshot-preview__buttons">
+        <button class="snapshot-preview__update-button" type="button">update</button>
+        <button class="snapshot-preview__remove-button" type="button">remove</button>
+      </div>
     </div>`;
   },
 };
