@@ -123,6 +123,22 @@ export default class View {
   }
 
   /**
+   * Adds handler to snapshot preview container
+   * @param {Function(index)} handler Called when remove button is clicked
+   */
+  onProjectFormSnapshotRemoved(handler) {
+    this.$projectFormSnapshotPreviewContainer.addEventListener('click', ({ target }) => {
+      if (target.className !== 'snapshot-preview__remove-button') return;
+
+      const $snapshotPreview = target.closest('.snapshot-preview__item');
+      const snapshotPreviews = [...this.$projectFormSnapshotPreviewContainer.children];
+      const index = snapshotPreviews.indexOf($snapshotPreview);
+
+      handler(index);
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -172,5 +188,14 @@ export default class View {
    */
   addSnapshotPreview(imageUrl) {
     this.$projectFormSnapshotPreviewContainer.insertAdjacentHTML('beforeend', this.template.snapshotPreview(imageUrl));
+  }
+
+  /**
+   * Removes snapshot preview element at index into the snapshot preview container
+   * @param {Number} index
+   */
+  removeSnapshotPreview(index) {
+    const $snapshotPreview = this.$projectFormSnapshotPreviewContainer.children[index];
+    this.$projectFormSnapshotPreviewContainer.removeChild($snapshotPreview);
   }
 }

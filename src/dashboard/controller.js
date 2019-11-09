@@ -19,6 +19,7 @@ export default class Controller {
     this.view.onProjectFormVideoUrlInput(this.handleProjectFormVideoUrlInput.bind(this));
     this.view.onProjectFormVideoUrlRemoveButtonClick(this.handleProjectFormVideoUrlRemoveButtonClick.bind(this));
     this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
+    this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
   }
 
   /**
@@ -164,6 +165,20 @@ export default class Controller {
     }, async () => {
       const snapshotDataUrl = await readFileAsDataUrl(file);
       this.view.addSnapshotPreview(snapshotDataUrl);
+    });
+  }
+
+  /**
+   * Removes snapshot with index
+   * @param {Number} targetIndex
+   */
+  handleProjectFormSnapshotRemoved(targetIndex) {
+    const { snapshots } = this.model.findProjectFormState();
+
+    this.model.updateProjectFormState({
+      snapshots: snapshots.filter((snapshot, index) => targetIndex !== index),
+    }, () => {
+      this.view.removeSnapshotPreview(targetIndex);
     });
   }
 }

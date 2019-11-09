@@ -359,6 +359,7 @@ input#header-image {
   box-sizing: border-box; }
 
 .snapshot-preview__item {
+  position: relative;
   box-sizing: border-box;
   float: left;
   width: 225px;
@@ -370,10 +371,18 @@ input#header-image {
     margin-top: 0px; }
   .snapshot-preview__item:nth-child(4n) {
     margin-right: 0px; }
+  .snapshot-preview__item:hover .snapshot-preview__remove-button {
+    visibility: visible; }
 
 .snapshot-preview__image {
   width: 100%;
   height: 100%; }
+
+.snapshot-preview__remove-button {
+  visibility: hidden;
+  position: absolute;
+  top: 0px;
+  right: 0px; }
 
 .snapshot__input {
   position: absolute;
