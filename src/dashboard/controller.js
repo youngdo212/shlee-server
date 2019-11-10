@@ -203,16 +203,16 @@ export default class Controller {
 
   /**
    * Stores snapshot file and renders added snapshot preview
-   * @param {File} file
+   * @param {File[]} files
    */
-  handleProjectFormSnapshotAdded(file) {
+  handleProjectFormSnapshotAdded(files) {
     const { snapshots } = this.model.findProjectFormState();
 
     this.model.updateProjectFormState({
-      snapshots: snapshots.concat(file),
+      snapshots: snapshots.concat(files),
     }, async () => {
-      const snapshotDataUrl = await readFileAsDataUrl(file);
-      this.view.addSnapshotPreview(snapshotDataUrl);
+      const snapshotDataUrls = await Promise.all(files.map((file) => readFileAsDataUrl(file)));
+      snapshotDataUrls.forEach((snapshotDataUrl) => this.view.addSnapshotPreview(snapshotDataUrl));
     });
   }
 

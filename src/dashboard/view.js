@@ -158,7 +158,7 @@ export default class View {
   /**
    * Adds handler to trigger click event to snapshot input with add button.
    * And adds handler with snapshot input button on change event.
-   * @param {Function(File)} handler
+   * @param {Function(File[])} handler
    */
   onProjectFormSnapshotAdded(handler) {
     this.$projectFormSnapshotAddButton.addEventListener('click', () => {
@@ -168,9 +168,8 @@ export default class View {
     this.$projectFormSnapshotAddInput.addEventListener('change', ({ target }) => {
       if (target.files.length === 0) return;
 
-      const file = target.files[0];
-      target.value = '';
-      handler(file);
+      const { files } = target;
+      handler([...files]);
     });
   }
 
