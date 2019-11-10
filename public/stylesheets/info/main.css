@@ -198,7 +198,7 @@ table {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../../images/Pingpong.jpg") center/100% no-repeat;
+    background: url("../../assets/Pingpong.jpg") center/100% no-repeat;
     z-index: -1;
     opacity: 0.6; }
     @media only screen and (max-width: 425px) {
