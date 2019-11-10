@@ -314,8 +314,22 @@ export default class Controller {
   /**
    * @param {Object} projectFormState
    */
-  async updateProject(projectFormState) {
-    console.log('project updated!');
+  async updateProject({
+    id, thumbnail, title, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
+  }) {
+    await axios.put(`/project/${id}`, createFormData({
+      thumbnail,
+      title,
+      quickViewUrl,
+      client,
+      agency,
+      role,
+      category,
+      headerImage,
+      snapshotColumn,
+    }));
+    await axios.put(`/project/${id}/videos`, { videoUrls });
+    await axios.put(`/project/${id}/snapshots`, createFormData({ snapshots }));
   }
 
   /**
