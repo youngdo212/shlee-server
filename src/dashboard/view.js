@@ -264,10 +264,27 @@ export default class View {
    */
   onProjectClick(handler) {
     this.$projectList.addEventListener('click', ({ target }) => {
+      if (target.className === 'index-section__project-remove-button') return;
+
       const $project = target.closest('.index-section__project');
 
       if (!$project) return;
 
+      const projectId = $project.dataset.id;
+
+      handler(Number(projectId));
+    });
+  }
+
+  /**
+   * Adds handler to project list
+   * @param {Function(Number)} handler Called with project id
+   */
+  onProjectRemoveButtonClick(handler) {
+    this.$projectList.addEventListener('click', ({ target }) => {
+      if (target.className !== 'index-section__project-remove-button') return;
+
+      const $project = target.closest('.index-section__project');
       const projectId = $project.dataset.id;
 
       handler(Number(projectId));

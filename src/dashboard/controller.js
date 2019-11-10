@@ -32,6 +32,7 @@ export default class Controller {
     this.view.onProjectFormSnapshotColumnInput(this.handleProjectFormSnapshotColumnInput.bind(this));
     this.view.onProjectFormSubmit(this.handleProjectFormSubmit.bind(this));
     this.view.onProjectClick(this.handleProjectClick.bind(this));
+    this.view.onProjectRemoveButtonClick(this.handleProjectRemoveButtonClick.bind(this));
   }
 
   /**
@@ -340,7 +341,7 @@ export default class Controller {
   }
 
   /**
-   *
+   * Sets project form with project values and images
    * @param {Number} projectId
    */
   async handleProjectClick(projectId) {
@@ -376,6 +377,11 @@ export default class Controller {
     });
   }
 
+  /**
+   * Converts project to project form state
+   * @param {Object} project
+   * @returns {Object} Represents project form state
+   */
   async convertProjectToProjectFormState(project) {
     const projectFormState = { ...project };
 
@@ -394,5 +400,25 @@ export default class Controller {
     delete projectFormState.snapshotUrls;
 
     return projectFormState;
+  }
+
+  /**
+   * Removes project using project id
+   * @param {Number} projectId
+   */
+  async handleProjectRemoveButtonClick(projectId) {
+    if (!confirm(MESSAGE.REMOVE_PROJECT)) return;
+
+    const { id } = this.model.findProjectFormState();
+
+    if (projectId === id) {
+      this.closeProjectForm();
+      this.resetProjectForm();
+    }
+
+    await axios.delete(`${document.location.origin}/project/${projectId}/videos`);
+    await axios.delete(`${document.location.origin}/project/${projectId}/snapshots`);
+    await axios.delete(`${document.location.origin}/project/${projectId}`);
+    await this.setView();
   }
 }

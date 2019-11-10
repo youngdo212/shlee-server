@@ -81,6 +81,7 @@ table {
   margin-top: 40px; }
 
 .index-section__project {
+  position: relative;
   height: 40px;
   padding: 7px 20px;
   font-weight: 300;
@@ -101,6 +102,12 @@ table {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
+
+.index-section__project-remove-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate3d(0, -50%, 0); }
 
 .content-section {
   box-sizing: border-box;

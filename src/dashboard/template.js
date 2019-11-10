@@ -8,6 +8,7 @@ export default {
     return `
       <li class="index-section__project" data-id="${id}">
         <div class="index-section__project-title">${title}</div>
+        <button class="index-section__project-remove-button">삭제</button>
       </li>`;
   },
 

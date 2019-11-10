@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const db = require('../lib/db.js');
+const { deleteFiles } = require('../lib/helpers.js');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -145,13 +146,57 @@ router.post('/:id/snapshots', upload.array('snapshots'), (req, res) => {
   });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
 
-  db.query('DELETE FROM project WHERE id = ?', [id], (err) => {
-    if (err) throw err;
+  db.query('SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?', [id], (error, [project]) => {
+    if (error) throw error;
+    if (!project) return next();
+
+    const { thumbnailImageUrl, headerImageUrl } = project;
+
+    deleteFiles([`public/${thumbnailImageUrl}`, `public/${headerImageUrl}`], (error) => {
+      if (error) throw error;
+
+      db.query('DELETE FROM project WHERE id = ?', [id], (err) => {
+        if (err) throw err;
+
+        res.send();
+      });
+    });
+  });
+});
+
+router.delete('/:id/videos', (req, res) => {
+  const { id } = req.params;
+
+  db.query('DELETE FROM video WHERE project_id = ?', [id], (error) => {
+    if (error) throw error;
 
     res.send();
+  });
+});
+
+router.delete('/:id/snapshots', (req, res) => {
+  const { id } = req.params;
+
+  db.query('SELECT * FROM snapshot WHERE project_id = ?', [id], (error, results) => {
+    if (error) throw error;
+    if (!results.length) return res.send();
+
+    const snapshotUrls = results
+      .map((result) => result.image_url)
+      .map((snapshotUrl) => `public/${snapshotUrl}`);
+
+    deleteFiles(snapshotUrls, (error) => {
+      if (error) throw error;
+
+      db.query('DELETE FROM snapshot WHERE project_id = ?', [id], (error) => {
+        if (error) throw error;
+
+        res.send();
+      });
+    });
   });
 });
 

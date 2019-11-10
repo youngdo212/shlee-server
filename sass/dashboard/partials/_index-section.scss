@@ -56,6 +56,7 @@
 }
 
 .index-section__project {
+  position: relative;
   height: $index-section-project-height;
   padding: 7px 20px;
   font-weight: 300;
@@ -83,4 +84,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.index-section__project-remove-button {
+  position: absolute;
+  top: 50%; right: 10px;
+  transform: translate3d(0, -50%, 0);
 }

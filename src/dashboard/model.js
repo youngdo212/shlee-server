@@ -43,7 +43,6 @@ export default class Model {
    */
   updateProjectList(projects, callback) {
     this.projectList = projects;
-    console.log(this.projectList);
     callback(this.projectList.slice());
   }
 
