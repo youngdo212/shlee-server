@@ -6,6 +6,7 @@ export default class Model {
     this.projectList = null;
     this.projectFormState = {
       isOpened: false,
+      id: '',
       thumbnail: null,
       title: '',
       quickViewUrl: '',

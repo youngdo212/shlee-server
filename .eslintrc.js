@@ -20,5 +20,6 @@ module.exports = {
         "no-restricted-globals": "warn",
         "consistent-return": "warn",
         "no-unused-vars": "warn",
+        "class-methods-use-this": "off",
     }
 };

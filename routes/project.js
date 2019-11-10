@@ -95,19 +95,17 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.post('', upload.fields([{ name: 'thumbnail' }, { name: 'header-image' }, { name: 'snapshot' }]), (req, res, next) => {
-  const snapshotUrls = req.files.snapshot.map((snapshot) => snapshot.path.replace('public/', '/'));
-  const videoUrls = req.body['video-url'] instanceof Array ? req.body['video-url'] : [req.body['video-url']];
+router.post('', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]), (req, res) => {
   const project = {
     title: req.body.title,
     thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
-    quick_view_url: req.body['quick-view-url'],
-    header_image_url: req.files['header-image'][0].path.replace('public/', '/'),
+    quick_view_url: req.body.quickViewUrl,
+    header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
     client: req.body.client,
     agency: req.body.agency,
     role: req.body.role,
     category: req.body.category,
-    snapshot_column: req.body['snapshot-column'],
+    snapshot_column: req.body.snapshotColumn,
   };
 
   db.query('INSERT INTO project SET ?', project, (err, results) => {
@@ -115,15 +113,34 @@ router.post('', upload.fields([{ name: 'thumbnail' }, { name: 'header-image' }, 
 
     const newProjectId = results.insertId;
 
-    db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [snapshotUrls.map((snapshotUrl) => [newProjectId, snapshotUrl])], (err) => {
-      if (err) throw err;
+    db.query('SELECT * FROM PROJECT WHERE id = ?', [newProjectId], (error, projects) => {
+      if (error) throw error;
 
-      db.query('INSERT INTO video (project_id, video_url) VALUES ?', [videoUrls.map((videoUrl) => [newProjectId, videoUrl])], (err) => {
-        if (err) throw err;
-
-        res.redirect(302, '/dashboard');
-      });
+      res.send(projects[0]);
     });
+  });
+});
+
+router.post('/:id/videos', (req, res) => {
+  const projectId = req.params.id;
+  const { videoUrls } = req.body;
+
+  db.query('INSERT INTO video (project_id, video_url) VALUES ?', [videoUrls.map((videoUrl) => [projectId, videoUrl])], (error) => {
+    if (error) throw error;
+
+    res.send();
+  });
+});
+
+router.post('/:id/snapshots', upload.array('snapshots'), (req, res) => {
+  const projectId = req.params.id;
+  const snapshots = req.files;
+  const snapshotUrls = snapshots.map((snapshot) => snapshot.path.replace('public/', '/'));
+
+  db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [snapshotUrls.map((snapshotUrl) => [projectId, snapshotUrl])], (error) => {
+    if (error) throw error;
+
+    res.send();
   });
 });
 

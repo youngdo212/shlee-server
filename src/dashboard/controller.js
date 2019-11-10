@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MESSAGE from './msg';
-import { readFileAsDataUrl } from './helpers';
+import { readFileAsDataUrl, createFormData } from './helpers';
 
 export default class Controller {
   /**
@@ -95,6 +95,7 @@ export default class Controller {
    */
   resetProjectForm() {
     this.model.updateProjectFormState({
+      id: '',
       thumbnail: null,
       title: '',
       quickViewUrl: '',
@@ -277,19 +278,63 @@ export default class Controller {
   /**
    * Validates project form and submit
    */
-  handleProjectFormSubmit() {
+  async handleProjectFormSubmit() {
     const projectFormState = this.model.findProjectFormState();
     const validityState = this.validator(projectFormState);
 
     this.view.clearAllValidatonMessages();
 
     if (validityState.ok) {
-      console.log('success!');
+      await this.submitProjectForm(projectFormState);
+      this.closeProjectForm();
+      this.resetProjectForm();
+      await this.setView();
     } else {
       this.view.setFormValidationMessage(MESSAGE.VALIDATION_FORM);
       if (validityState.thumbnail === false) this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
       if (validityState.title === false) this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
       if (validityState.headerImage === false) this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
     }
+  }
+
+  /**
+   * Creates new project or updates project using project form state
+   * @param {Object} projectFormState
+   */
+  async submitProjectForm(projectFormState) {
+    if (projectFormState.id) {
+      await this.updateProject(projectFormState);
+    } else {
+      await this.createProject(projectFormState);
+    }
+  }
+
+  /**
+   * @param {Object} projectFormState
+   */
+  async updateProject(projectFormState) {
+    console.log('project updated!');
+  }
+
+  /**
+   * @param {Object} projectFormState
+   */
+  async createProject({
+    thumbnail, title, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
+  }) {
+    const { data: project } = await axios.post('/project', createFormData({
+      thumbnail,
+      title,
+      quickViewUrl,
+      client,
+      agency,
+      role,
+      category,
+      headerImage,
+      snapshotColumn,
+    }));
+
+    if (videoUrls.length) await axios.post(`/project/${project.id}/videos`, { videoUrls });
+    if (snapshots.length) await axios.post(`/project/${project.id}/snapshots`, createFormData({ snapshots }));
   }
 }

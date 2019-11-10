@@ -8,6 +8,21 @@ export async function readFileAsDataUrl(file) {
   });
 }
 
-export function any() {
-  return 'test';
+/**
+ * @param {Object} formState
+ */
+export function createFormData(formState) {
+  const formData = new FormData();
+
+  Object.entries(formState).forEach(([name, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((eachValue) => {
+        formData.append(name, eachValue);
+      });
+    } else {
+      formData.append(name, value);
+    }
+  });
+
+  return formData;
 }
