@@ -155,7 +155,7 @@ router.delete('/:id', (req, res, next) => {
 
     const { thumbnailImageUrl, headerImageUrl } = project;
 
-    deleteFiles([`public/${thumbnailImageUrl}`, `public/${headerImageUrl}`], (error) => {
+    deleteFiles([`public${thumbnailImageUrl}`, `public${headerImageUrl}`], (error) => {
       if (error) throw error;
 
       db.query('DELETE FROM project WHERE id = ?', [id], (err) => {
@@ -186,7 +186,7 @@ router.delete('/:id/snapshots', (req, res) => {
 
     const snapshotUrls = results
       .map((result) => result.image_url)
-      .map((snapshotUrl) => `public/${snapshotUrl}`);
+      .map((snapshotUrl) => `public${snapshotUrl}`);
 
     deleteFiles(snapshotUrls, (error) => {
       if (error) throw error;
@@ -220,7 +220,7 @@ router.put('/:id', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }
 
     const { thumbnailImageUrl, headerImageUrl } = project;
 
-    deleteFiles([`public/${thumbnailImageUrl}`, `public/${headerImageUrl}`], (error) => {
+    deleteFiles([`public${thumbnailImageUrl}`, `public${headerImageUrl}`], (error) => {
       if (error) throw error;
 
       db.query('UPDATE project SET ? WHERE id = ?', [updatedProject, id], (error) => {
@@ -256,7 +256,7 @@ router.put('/:id/snapshots', upload.array('snapshots'), (req, res) => {
   db.query('SELECT * FROM snapshot WHERE project_id = ?', [id], (error, snapshots) => {
     if (error) throw error;
 
-    const snapshotUrls = snapshots.map((snapshot) => `public/${snapshot.image_url}`);
+    const snapshotUrls = snapshots.map((snapshot) => `public${snapshot.image_url}`);
 
     deleteFiles(snapshotUrls, (error) => {
       if (error) throw error;
