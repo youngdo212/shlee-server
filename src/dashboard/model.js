@@ -3,10 +3,10 @@ export default class Model {
    * Instanciates model object
    */
   constructor() {
-    this.projectList = null;
+    this.projectList = [];
     this.projectFormState = {
       isOpened: false,
-      id: '',
+      id: 0,
       thumbnail: null,
       title: '',
       quickViewUrl: '',
@@ -22,12 +22,28 @@ export default class Model {
   }
 
   /**
+   * Gets project using id
+   * @param {Number} id
+   * @returns {Object} Object represents project
+   */
+  findProject(id) {
+    if (!this.projectList.length) return null;
+
+    const targetProject = this.projectList.find((project) => project.id === id);
+
+    if (!targetProject) return null;
+
+    return { ...targetProject };
+  }
+
+  /**
    * Updates project list in app state and excute callback function
    * @param {Array} projects
    * @param {Funcion(projectList)} callback Function called after app state is updated
    */
   updateProjectList(projects, callback) {
     this.projectList = projects;
+    console.log(this.projectList);
     callback(this.projectList.slice());
   }
 

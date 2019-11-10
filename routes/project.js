@@ -41,9 +41,10 @@ router.get('/', (req, res) => {
 
       if (targetProject) {
         const { snapshotUrls, videoUrls } = targetProject;
+        const { snapshotUrl, videoUrl } = project;
 
-        if (snapshotUrls.indexOf(project.snapshotUrl) === -1) snapshotUrls.push(project.snapshotUrl);
-        if (videoUrls.indexOf(project.videoUrl) === -1) videoUrls.push(project.videoUrl);
+        if (snapshotUrl && snapshotUrls.indexOf(snapshotUrl) === -1) snapshotUrls.push(project.snapshotUrl);
+        if (videoUrl && videoUrls.indexOf(videoUrl) === -1) videoUrls.push(project.videoUrl);
       } else {
         project.snapshotUrls = project.snapshotUrl ? [project.snapshotUrl] : [];
         project.videoUrls = project.videoUrl ? [project.videoUrl] : [];

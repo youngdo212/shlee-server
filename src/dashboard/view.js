@@ -259,6 +259,22 @@ export default class View {
   }
 
   /**
+   * Adds handler to project list
+   * @param {Function(Number)} handler Called with project id
+   */
+  onProjectClick(handler) {
+    this.$projectList.addEventListener('click', ({ target }) => {
+      const $project = target.closest('.index-section__project');
+
+      if (!$project) return;
+
+      const projectId = $project.dataset.id;
+
+      handler(Number(projectId));
+    });
+  }
+
+  /**
    * Renders project list again
    * @param {Array} projectList
    */
@@ -403,5 +419,26 @@ export default class View {
 
     this.$projectFormHeaderImage.classList.add('header-image-preview-wrap--invalid');
     $headerImageValidationMessage.textContent = message;
+  }
+
+  /**
+   * Sets project form input value
+   * @param {Object} values
+   * @param {String} values.title
+   * @param {String} values.quickViewUrl
+   * @param {String} values.client
+   * @param {String} values.agency
+   * @param {String} values.role
+   * @param {Number} values.snapshotColumn
+   */
+  setProjectFormInputValue({
+    title, quickViewUrl, client, agency, role, snapshotColumn,
+  }) {
+    this.$projectFormTitleInput.value = title;
+    this.$projectFormQuickViewUrlInput.value = quickViewUrl;
+    this.$projectFormClientInput.value = client;
+    this.$projectFormAgencyInput.value = agency;
+    this.$projectFormRoleInput.value = role;
+    this.$projectFormSnapshotColumnInput.value = snapshotColumn;
   }
 }

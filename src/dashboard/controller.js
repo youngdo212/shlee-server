@@ -31,6 +31,7 @@ export default class Controller {
     this.view.onProjectFormHeaderImageInputChange(this.handleProjectFormHeaderImageInputChange.bind(this));
     this.view.onProjectFormSnapshotColumnInput(this.handleProjectFormSnapshotColumnInput.bind(this));
     this.view.onProjectFormSubmit(this.handleProjectFormSubmit.bind(this));
+    this.view.onProjectClick(this.handleProjectClick.bind(this));
   }
 
   /**
@@ -95,7 +96,7 @@ export default class Controller {
    */
   resetProjectForm() {
     this.model.updateProjectFormState({
-      id: '',
+      id: 0,
       thumbnail: null,
       title: '',
       quickViewUrl: '',
@@ -336,5 +337,62 @@ export default class Controller {
 
     if (videoUrls.length) await axios.post(`/project/${project.id}/videos`, { videoUrls });
     if (snapshots.length) await axios.post(`/project/${project.id}/snapshots`, createFormData({ snapshots }));
+  }
+
+  /**
+   *
+   * @param {Number} projectId
+   */
+  async handleProjectClick(projectId) {
+    // handleProjectFormOpenButtonClick
+    const { isOpened } = this.model.findProjectFormState();
+
+    if (isOpened) {
+      if (!confirm(MESSAGE.CREATE_NEW_PROJECT)) return;
+
+      this.resetProjectForm();
+    } else {
+      this.openProjectForm();
+    }
+    // handleProjectFormOpenButtonClick
+
+    const project = this.model.findProject(projectId);
+    const projectFormState = await this.convertProjectToProjectFormState(project);
+
+    this.model.updateProjectFormState(projectFormState, async ({
+      thumbnail, title, quickViewUrl, client, agency, role, category, headerImage, videoUrls, snapshotColumn, snapshots,
+    }) => {
+      const thumbnailDataUrl = await readFileAsDataUrl(thumbnail);
+      this.view.renderThumbnailPreview(thumbnailDataUrl);
+      this.view.setProjectFormInputValue({
+        title, quickViewUrl, client, agency, role, snapshotColumn,
+      });
+      this.view.setProjectFormCategory(category);
+      const headerImageDataUrl = await readFileAsDataUrl(headerImage);
+      this.view.renderHeaderImagePreview(headerImageDataUrl);
+      this.view.renderVideoUrlInputs(videoUrls);
+      const snapshotDataUrls = await Promise.all(snapshots.map((snapshot) => readFileAsDataUrl(snapshot)));
+      snapshotDataUrls.forEach((snapshotDataUrl) => this.view.addSnapshotPreview(snapshotDataUrl));
+    });
+  }
+
+  async convertProjectToProjectFormState(project) {
+    const projectFormState = { ...project };
+
+    projectFormState.videoUrls = project.videoUrls.slice();
+
+    const { data: thumbnail } = await axios(`${document.location.origin}${project.thumbnailImageUrl}`, { responseType: 'blob' });
+    projectFormState.thumbnail = thumbnail;
+    delete projectFormState.thumbnailImageUrl;
+
+    const { data: headerImage } = await axios(`${document.location.origin}${project.headerImageUrl}`, { responseType: 'blob' });
+    projectFormState.headerImage = headerImage;
+    delete projectFormState.headerImageUrl;
+
+    const snapshotResponses = await Promise.all(project.snapshotUrls.map((snapshotUrl) => axios(`${document.location.origin}${snapshotUrl}`, { responseType: 'blob' })));
+    projectFormState.snapshots = snapshotResponses.map((snapshotResponse) => snapshotResponse.data);
+    delete projectFormState.snapshotUrls;
+
+    return projectFormState;
   }
 }
