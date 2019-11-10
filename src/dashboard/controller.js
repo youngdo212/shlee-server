@@ -349,7 +349,7 @@ export default class Controller {
     const { isOpened } = this.model.findProjectFormState();
 
     if (isOpened) {
-      if (!confirm(MESSAGE.CREATE_NEW_PROJECT)) return;
+      if (!confirm(MESSAGE.OPEN_PROJECT)) return;
 
       this.resetProjectForm();
     } else {
