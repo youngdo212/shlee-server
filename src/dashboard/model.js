@@ -1,3 +1,5 @@
+import { assignObject } from './helpers';
+
 export default class Model {
   /**
    * Instanciates model object
@@ -54,11 +56,11 @@ export default class Model {
   }
 
   /**
-   * @param {Boolean} state
+   * @param {Object} state
    * @param {Function(projectFormState)} [callback] Function called with updated project form state
    */
   updateProjectFormState(state, callback) {
-    this.projectFormState = { ...this.projectFormState, ...state };
+    this.projectFormState = assignObject(this.projectFormState, state);
     console.log(this.projectFormState);
     callback && callback({ ...this.projectFormState });
   }

@@ -349,10 +349,18 @@ export default class View {
 
   /**
    * Renders preview using image url
-   * @param {String} imageUrl
+   * @param {String} url
+   * @param {Object} options
+   * @param {Boolean} options.mutable Enables snapshot to change
    */
-  addSnapshotPreview(imageUrl) {
-    this.$projectFormSnapshotPreviewContainer.insertAdjacentHTML('beforeend', this.template.snapshotPreview(imageUrl));
+  addSnapshotPreview(url, options = { mutable: true }) {
+    this.$projectFormSnapshotPreviewContainer.insertAdjacentHTML(
+      'beforeend',
+      this.template.snapshotPreview({
+        url,
+        cover: !options.mutable,
+      }),
+    );
   }
 
   /**
@@ -462,5 +470,21 @@ export default class View {
     this.$projectFormAgencyInput.value = agency;
     this.$projectFormRoleInput.value = role;
     this.$projectFormSnapshotColumnInput.value = snapshotColumn;
+  }
+
+  /**
+   *
+   * @param {Number} index
+   * @param {Boolean} mutablility
+   */
+  setSnapshotPreviewMutability(index, mutablility) {
+    const $snapshotPreview = this.$projectFormSnapshotPreviewContainer.children[index];
+    const $snapshotCover = $snapshotPreview.querySelector('.snapshot-preview__cover');
+
+    if (mutablility === true) {
+      $snapshotCover.classList.add('snapshot-preview__cover--hide');
+    } else {
+      $snapshotCover.classList.remove('snapshot-preview__cover--hide');
+    }
   }
 }

@@ -26,3 +26,18 @@ export function createFormData(formState) {
 
   return formData;
 }
+/**
+ * @param {Object} target
+ * @param {Object} source
+ * @returns new object only including target properies
+ */
+export function assignObject(target, source) {
+  const newObject = {};
+
+  Object.keys(target).forEach((property) => {
+    const has = Object.prototype.hasOwnProperty;
+    newObject[property] = has.call(source, property) ? source[property] : target[property];
+  });
+
+  return newObject;
+}
