@@ -78,7 +78,6 @@ export default class Controller {
     if (!confirm(MESSAGE.CLOSE_PROJECT_FORM)) return;
 
     this.closeProjectForm();
-    this.resetProjectForm();
   }
 
   /**
@@ -89,6 +88,7 @@ export default class Controller {
       isOpened: false,
     }, (projectFormState) => {
       this.view.setProjectFormVisibility(projectFormState.isOpened);
+      this.resetProjectForm();
     });
   }
 
@@ -280,23 +280,26 @@ export default class Controller {
   /**
    * Validates project form and submit
    */
-  async handleProjectFormSubmit() {
+  handleProjectFormSubmit() {
     const projectFormState = this.model.findProjectFormState();
     const validityState = this.validator(projectFormState);
 
-    this.view.clearAllValidatonMessages();
-
     if (validityState.ok) {
-      await this.submitProjectForm(projectFormState);
-      this.closeProjectForm();
-      this.resetProjectForm();
-      await this.setView();
+      this.submitProjectForm(projectFormState);
     } else {
-      this.view.setFormValidationMessage(MESSAGE.VALIDATION_FORM);
-      if (validityState.thumbnail === false) this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
-      if (validityState.title === false) this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
-      if (validityState.headerImage === false) this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
+      this.showValidationMessage(validityState);
     }
+  }
+
+  /**
+   * @param {Object} validityState
+   */
+  showValidationMessage(validityState) {
+    this.view.clearAllValidatonMessages();
+    this.view.setFormValidationMessage(MESSAGE.VALIDATION_FORM);
+    validityState.thumbnail || this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
+    validityState.title || this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
+    validityState.headerImage || this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
   }
 
   /**
@@ -309,6 +312,9 @@ export default class Controller {
     } else {
       await this.createProject(projectFormState);
     }
+
+    this.closeProjectForm();
+    await this.setView();
   }
 
   /**
@@ -427,7 +433,6 @@ export default class Controller {
 
     if (projectId === id) {
       this.closeProjectForm();
-      this.resetProjectForm();
     }
 
     await axios.delete(`${document.location.origin}/project/${projectId}/videos`);
