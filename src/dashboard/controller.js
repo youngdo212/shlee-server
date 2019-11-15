@@ -379,15 +379,9 @@ export default class Controller {
 
     const project = this.model.findProject(projectId);
 
-    this.view.renderThumbnailPreview(project.thumbnailImageUrl, { mutable: false });
-    this.view.renderHeaderImagePreview(project.headerImageUrl, { mutable: false });
-    project.snapshotUrls.forEach((snapshotUrl) => {
-      this.view.addSnapshotPreview(snapshotUrl, { mutable: false });
+    this.model.updateProjectFormState(project, () => {
+      this.view.setProjectForm(project, { mutable: false });
     });
-    this.view.renderVideoUrlInputs(project.videoUrls);
-    this.view.setProjectFormInputValue(project);
-
-    this.model.updateProjectFormState(project);
 
     project.snapshotUrls.forEach(async (snapshotUrl, index) => {
       const { data: snapshot } = await axios(`${document.location.origin}${snapshotUrl}`, { responseType: 'blob' });

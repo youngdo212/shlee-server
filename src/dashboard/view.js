@@ -487,4 +487,20 @@ export default class View {
       $snapshotCover.classList.remove('snapshot-preview__cover--hide');
     }
   }
+
+  /**
+   * Sets up all project form values with opened project
+   * @param {Object} project
+   * @param {Object} options
+   * @param {Boolean} options.mutable Represents whether preview can be updated or not
+   */
+  setProjectForm({
+    thumbnailImageUrl, headerImageUrl, snapshotUrls, videoUrls, ...project
+  }, options = { mutable: true }) {
+    this.renderThumbnailPreview(thumbnailImageUrl, options);
+    this.renderHeaderImagePreview(headerImageUrl, options);
+    snapshotUrls.forEach((snapshotUrl) => this.addSnapshotPreview(snapshotUrl, options));
+    this.renderVideoUrlInputs(videoUrls);
+    this.setProjectFormInputValue(project);
+  }
 }
