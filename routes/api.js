@@ -27,7 +27,7 @@ router.get('/project/:id', (req, res) => {
   });
 });
 
-router.get('/project/snapshot/:id', (req, res, next) => {
+router.get('/project/:id/snapshot', (req, res, next) => {
   const projectId = Number(req.params.id);
   const {limit, offset} = req.query;
 
