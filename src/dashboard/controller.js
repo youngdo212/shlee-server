@@ -16,6 +16,7 @@ export default class Controller {
     this.view.onProjectFormOpenButtonClick(this.handleProjectFormOpenButtonClick.bind(this));
     this.view.onProjectFormCloseButtonClick(this.handleProjectFormCloseButtonClick.bind(this));
     this.view.onProjectFormTitleInput(this.handleProjectFormTitleInput.bind(this));
+    this.view.onProjectFormHeaderInput(this.handleProjectFormHeaderInput.bind(this));
     this.view.onProjectFormQuickViewUrlInput(this.handleProjectFormQuickViewUrlInput.bind(this));
     this.view.onProjectFormClientInput(this.handleProjectFormClientInput.bind(this));
     this.view.onProjectFormAgencyInput(this.handleProjectFormAgencyInput.bind(this));
@@ -100,6 +101,7 @@ export default class Controller {
       id: 0,
       thumbnail: null,
       title: '',
+      header: '',
       quickViewUrl: '',
       client: '',
       agency: '',
@@ -121,6 +123,10 @@ export default class Controller {
    */
   handleProjectFormTitleInput(title) {
     this.model.updateProjectFormState({ title });
+  }
+
+  handleProjectFormHeaderInput(header) {
+    this.model.updateProjectFormState({ header });
   }
 
   /**
@@ -321,11 +327,12 @@ export default class Controller {
    * @param {Object} projectFormState
    */
   async updateProject({
-    id, thumbnail, title, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
+    id, thumbnail, title, header, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
   }) {
     await axios.put(`/project/${id}`, createFormData({
       thumbnail,
       title,
+      header,
       quickViewUrl,
       client,
       agency,
@@ -342,11 +349,12 @@ export default class Controller {
    * @param {Object} projectFormState
    */
   async createProject({
-    thumbnail, title, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
+    thumbnail, title, header, quickViewUrl, client, agency, role, category, headerImage, snapshotColumn, videoUrls, snapshots,
   }) {
     const { data: project } = await axios.post('/project', createFormData({
       thumbnail,
       title,
+      header,
       quickViewUrl,
       client,
       agency,

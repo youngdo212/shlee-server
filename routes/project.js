@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
   const fields = [
     'id',
     'title',
+    'header',
     'thumbnail_image_url AS thumbnailImageUrl',
     'quick_view_url AS quickViewUrl',
     'header_image_url AS headerImageUrl',
@@ -65,7 +66,7 @@ router.get('/:id', (req, res, next) => {
   db.query('SELECT * FROM menu', (err, menuItems) => {
     if (err) throw err;
 
-    db.query('SELECT title, header_image_url as headerImageUrl, client, agency, role, snapshot_column as snapshotColumn FROM project WHERE id = ?', [projectId], (err, projects) => {
+    db.query('SELECT title, header, header_image_url as headerImageUrl, client, agency, role, snapshot_column as snapshotColumn FROM project WHERE id = ?', [projectId], (err, projects) => {
       if (err) throw err;
       if (!projects.length) {
         next(new Error('project id not found'));
@@ -74,7 +75,7 @@ router.get('/:id', (req, res, next) => {
 
       const project = projects[0];
       const {
-        title, headerImageUrl, client, agency, role, snapshotColumn,
+        title, header, headerImageUrl, client, agency, role, snapshotColumn,
       } = project;
 
       db.query('SELECT video_url as videoUrl from video WHERE project_id = ?', [projectId], (err, videos) => {
@@ -85,6 +86,7 @@ router.get('/:id', (req, res, next) => {
         res.render('project', {
           menuItems,
           title,
+          header,
           headerImageUrl,
           client,
           agency,
@@ -100,6 +102,7 @@ router.get('/:id', (req, res, next) => {
 router.post('', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]), (req, res) => {
   const project = {
     title: req.body.title,
+    header: req.body.header,
     thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
     quick_view_url: req.body.quickViewUrl,
     header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
@@ -205,6 +208,7 @@ router.put('/:id', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }
   const updatedProject = {
     thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
     title: req.body.title,
+    header: req.body.header,
     quick_view_url: req.body.quickViewUrl,
     client: req.body.client,
     agency: req.body.agency,

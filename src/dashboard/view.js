@@ -10,6 +10,7 @@ export default class View {
     this.$projectFormCloseButton = document.querySelector('.form__close-button');
     this.$projectForm = document.querySelector('.form');
     this.$projectFormTitleInput = document.querySelector('#title');
+    this.$projectFormHeaderInput = document.querySelector('#header');
     this.$projectFormQuickViewUrlInput = document.querySelector('#quick-view-url');
     this.$projectFormClientInput = document.querySelector('#client');
     this.$projectFormAgencyInput = document.querySelector('#agency');
@@ -57,6 +58,12 @@ export default class View {
    */
   onProjectFormTitleInput(handler) {
     this.$projectFormTitleInput.addEventListener('input', ({ target }) => {
+      handler(target.value);
+    });
+  }
+
+  onProjectFormHeaderInput(handler) {
+    this.$projectFormHeaderInput.addEventListener('input', ({ target }) => {
       handler(target.value);
     });
   }
@@ -322,6 +329,7 @@ export default class View {
   clearProjectFormValues() {
     this.$projectFormThumbnailPreview.innerHTML = '';
     this.$projectFormTitleInput.value = '';
+    this.$projectFormHeaderInput.value = '';
     this.$projectFormQuickViewUrlInput.value = '';
     this.$projectFormClientInput.value = '';
     this.$projectFormAgencyInput.value = '';
@@ -462,9 +470,10 @@ export default class View {
    * @param {Number} values.snapshotColumn
    */
   setProjectFormInputValue({
-    title, quickViewUrl, client, agency, role, snapshotColumn,
+    title, header, quickViewUrl, client, agency, role, snapshotColumn,
   }) {
     this.$projectFormTitleInput.value = title;
+    this.$projectFormHeaderInput.value = header;
     this.$projectFormQuickViewUrlInput.value = quickViewUrl;
     this.$projectFormClientInput.value = client;
     this.$projectFormAgencyInput.value = agency;

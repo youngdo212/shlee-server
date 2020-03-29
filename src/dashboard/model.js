@@ -11,6 +11,7 @@ export default class Model {
       id: 0,
       thumbnail: null,
       title: '',
+      header: '',
       quickViewUrl: '',
       client: '',
       agency: '',
