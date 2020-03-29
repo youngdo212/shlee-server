@@ -12,7 +12,8 @@ html(lang="en")
       div.header__content
         img.header__image(src=headerImageUrl alt="header-image")
         div.header__title #{title}
-        div.header__text!=header.split('\n').join('<br>')
+        if header
+          div.header__text!=header.split('\n').join('<br>')
     include navigation.pug
     each videoUrl in videoUrls
       div.video-wrap
