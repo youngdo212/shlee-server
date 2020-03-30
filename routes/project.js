@@ -30,8 +30,9 @@ router.get('/', (req, res) => {
     'snapshot_column AS snapshotColumn',
     'image_url AS snapshotUrl',
     'video_url AS videoUrl',
+    'sort_index',
   ];
-  const query = `SELECT ${fields.join()} FROM project LEFT JOIN snapshot ON project.id = snapshot.project_id LEFT JOIN video ON project.id = video.project_id`;
+  const query = `SELECT ${fields.join()} FROM project LEFT JOIN snapshot ON project.id = snapshot.project_id LEFT JOIN video ON project.id = video.project_id ORDER BY sort_index, id desc`;
 
   db.query(query, (err, projects) => {
     if (err) throw err;
@@ -276,6 +277,17 @@ router.put('/:id/snapshots', upload.array('snapshots'), (req, res) => {
         });
       });
     });
+  });
+});
+
+router.put('/:id/sort-index', (req, res) => {
+  const { id } = req.params;
+  const { index } = req.body;
+
+  db.query('UPDATE project SET sort_index = ? WHERE id = ?', [index, id], (error) => {
+    if (error) throw error;
+
+    res.send();
   });
 });
 

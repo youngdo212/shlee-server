@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MESSAGE from './msg';
-import { readFileAsDataUrl, createFormData } from './helpers';
+import { readFileAsDataUrl, createFormData, moveArrayElement } from './helpers';
 
 export default class Controller {
   /**
@@ -34,6 +34,7 @@ export default class Controller {
     this.view.onProjectFormSubmit(this.handleProjectFormSubmit.bind(this));
     this.view.onProjectClick(this.handleProjectClick.bind(this));
     this.view.onProjectRemoveButtonClick(this.handleProjectRemoveButtonClick.bind(this));
+    this.view.onProjectSorted(this.handleProjectSorted.bind(this));
   }
 
   /**
@@ -42,6 +43,7 @@ export default class Controller {
   async setView() {
     const { data: projects } = await axios.get(`${document.location.origin}/project`);
     this.model.updateProjectList(projects, (projectList) => {
+      console.log(projectList);
       this.view.renderProjectList(projectList);
     });
   }
@@ -435,5 +437,24 @@ export default class Controller {
     await axios.delete(`${document.location.origin}/project/${projectId}/snapshots`);
     await axios.delete(`${document.location.origin}/project/${projectId}`);
     await this.setView();
+  }
+
+  /**
+   * Sorts project list
+   *
+   * @param {Number} oldIndex
+   * @param {Number} newIndex
+   */
+  handleProjectSorted(oldIndex, newIndex) {
+    const oldProjectList = this.model.findProjectList();
+    const sortedProjectList = moveArrayElement(oldProjectList, oldIndex, newIndex);
+
+    this.model.updateProjectList(sortedProjectList, (projectList) => {
+      projectList.forEach((project, index) => {
+        axios.put(`${document.location.origin}/project/${project.id}/sort-index`, {
+          index,
+        });
+      });
+    });
   }
 }

@@ -39,6 +39,10 @@ export default class Model {
     return { ...targetProject };
   }
 
+  findProjectList() {
+    return this.projectList.slice();
+  }
+
   /**
    * Updates project list in app state and excute callback function
    * @param {Array} projects
@@ -62,7 +66,6 @@ export default class Model {
    */
   updateProjectFormState(state, callback) {
     this.projectFormState = assignObject(this.projectFormState, state);
-    console.log(this.projectFormState);
     callback && callback({ ...this.projectFormState });
   }
 }

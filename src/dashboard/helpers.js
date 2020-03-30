@@ -41,3 +41,20 @@ export function assignObject(target, source) {
 
   return newObject;
 }
+
+/**
+ * Moves array element to new index
+ *
+ * @param {Array} targetArray
+ * @param {Number} oldIndex
+ * @param {Number} newIndex
+ * @returns {Array}
+ */
+export function moveArrayElement(targetArray, oldIndex, newIndex) {
+  const element = targetArray[oldIndex];
+  const newArray = targetArray.filter((e, index) => index !== oldIndex);
+
+  newArray.splice(newIndex, 0, element);
+
+  return newArray;
+}

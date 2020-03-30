@@ -1,3 +1,5 @@
+import { Sortable } from '@shopify/draggable';
+
 export default class View {
   /**
    * Instanciates view object
@@ -30,6 +32,9 @@ export default class View {
     this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
     this.$projectFormSnapshotColumnInput = document.querySelector('#snapshot-column');
     this.$projectFormValidationMessage = document.querySelector('.form__validation-message');
+
+    this.handleProjectSorted = null;
+    this.sortableProjectList = null;
   }
 
   /**
@@ -303,12 +308,22 @@ export default class View {
     });
   }
 
+  onProjectSorted(handler) {
+    this.handleProjectSorted = handler;
+  }
+
   /**
    * Renders project list again
    * @param {Array} projectList
    */
   renderProjectList(projectList) {
+    if (this.sortableProjectList) this.sortableProjectList.destroy();
+
     this.$projectList.innerHTML = projectList.reduce((html, project) => html + this.template.projectListItem(project), '');
+    this.sortableProjectList = new Sortable(this.$projectList, {
+      draggable: 'li',
+    });
+    this.sortableProjectList.on('sortable:stop', ({ oldIndex, newIndex }) => this.handleProjectSorted(oldIndex, newIndex));
   }
 
   /**

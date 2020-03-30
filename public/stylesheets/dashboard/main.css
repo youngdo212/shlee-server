@@ -78,19 +78,21 @@ table {
     transform: scale(0.97); }
 
 .index-section__project-list {
-  margin-top: 40px; }
+  margin-top: 40px;
+  border: 1px solid #ccc; }
 
 .index-section__project {
   position: relative;
+  width: 236px;
   height: 40px;
   padding: 7px 20px;
   font-weight: 300;
-  border-width: 1px 1px 0px 1px;
+  border-width: 1px 1px 1px 1px;
   border-color: #ccc;
   border-style: solid;
+  background-color: #fff;
+  margin: 5px;
   cursor: pointer; }
-  .index-section__project:last-child {
-    border-bottom: 1px solid #ccc; }
   .index-section__project:hover {
     background: #f8f8f8; }
   .index-section__project:active {
