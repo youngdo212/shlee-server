@@ -14,7 +14,9 @@ html(lang="ko")
         span |
         a.index-section__logout(href="/auth/logout") 로그아웃
       div.index-section__create-button 프로젝트 생성
+      div#like_button_container(data-commentid=1)
       ul.index-section__project-list
+      div#like_button_container(data-commentid=2)
     div.gutter
     div.content-section
       form.form.form--hide(action="/project" method="post" enctype="multipart/form-data")
@@ -129,4 +131,6 @@ html(lang="ko")
           )
         button.form__button.form__button--submit(type="submit") 제출
         div.form__validation-message 이것은 테스트 메시지 입니다
+    script(src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin)
+    script(src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin)
     script(src="/javascripts/dashboard/bundle.js")
