@@ -1,4 +1,6 @@
-/* global React, ReactDOM */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
 
 class LikeButton extends React.Component {
   constructor(props) {
@@ -12,9 +14,12 @@ class LikeButton extends React.Component {
     }
 
     return (
-      <button onClick={() => this.setState({ liked: true })}>
+      <Button
+        onClick={() => this.setState({ liked: true })}
+        variant="contained" color="primary"
+      >
         Like it!
-      </button>
+      </Button>
     );
   }
 }
