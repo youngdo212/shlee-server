@@ -39,8 +39,8 @@ export default {
     <div class="snapshot-preview__item">
       <img class="snapshot-preview__image" src="${url}">
       <div class="snapshot-preview__buttons">
-        <button class="snapshot-preview__update-button" type="button">update</button>
-        <button class="snapshot-preview__remove-button" type="button">remove</button>
+        <div class="snapshot-update-button-container"></div>
+        <div class="snapshot-remove-button-container"></div>
       </div>
       <div class="snapshot-preview__cover ${cover ? '' : 'snapshot-preview__cover--hide'}"></div>
     </div>`;
