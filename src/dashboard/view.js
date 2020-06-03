@@ -5,6 +5,9 @@ import './components/ProjectFormSubmitButton';
 import SnapshotAddButton from './components/SnapshotAddButton';
 import SnapshotUpdateButtons from './components/SnapshotUpdateButtons';
 import SnapshotRemoveButtons from './components/SnapshotRemoveButtons';
+import ProjectListRemoveButtons from './components/ProjectListRemoveButtons';
+import VideoUrlAddButton from './components/VideoUrlAddButton';
+import VideoUrlRemoveButtons from './components/VideoUrlRemoveButtons';
 
 export default class View {
   /**
@@ -26,7 +29,7 @@ export default class View {
     this.$projectFormThumbnail = document.querySelector('.thumbnail-preview-wrap');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
-    this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
+    this.$projectFormVideoUrlAddButton = new VideoUrlAddButton();
     this.$projectFormVideoUrlInputContainer = document.querySelector('.form__input-wrap--video');
     this.$projectFormSnapshotAddButton = new SnapshotAddButton();
     this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
@@ -163,7 +166,7 @@ export default class View {
    */
   onProjectFormVideoUrlRemoveButtonClick(handler) {
     this.$projectFormVideoUrlInputContainer.addEventListener('click', ({ target }) => {
-      const $removeButton = target.closest('.added-input__button');
+      const $removeButton = target.closest('.video-url-remove-button-container');
 
       if (!$removeButton) return;
 
@@ -287,7 +290,7 @@ export default class View {
    */
   onProjectClick(handler) {
     this.$projectList.addEventListener('click', ({ target }) => {
-      if (target.className === 'index-section__project-remove-button') return;
+      if (target.closest('.project-list-remove-button-container')) return;
 
       const $project = target.closest('.index-section__project');
 
@@ -305,7 +308,7 @@ export default class View {
    */
   onProjectRemoveButtonClick(handler) {
     this.$projectList.addEventListener('click', ({ target }) => {
-      if (target.className !== 'index-section__project-remove-button') return;
+      if (!target.closest('.project-list-remove-button-container')) return;
 
       const $project = target.closest('.index-section__project');
       const projectId = $project.dataset.id;
@@ -330,6 +333,7 @@ export default class View {
       draggable: 'li',
     });
     this.sortableProjectList.on('sortable:stop', ({ oldIndex, newIndex }) => this.handleProjectSorted(oldIndex, newIndex));
+    ProjectListRemoveButtons.update();
   }
 
   /**
@@ -357,7 +361,8 @@ export default class View {
     this.$projectFormRoleInput.value = '';
     this.setProjectFormCategory('work');
     this.$projectFormHeaderImagePreview.innerHTML = '';
-    this.$projectFormVideoUrlInputContainer.innerHTML = '';
+    // Removes all video url inputs
+    this.renderVideoUrlInputs([]);
     this.$projectFormSnapshotColumnInput.value = 1;
     // Remove all snapshot previews
     while (this.$projectFormSnapshotPreviewContainer.children.length) {
@@ -377,6 +382,7 @@ export default class View {
    */
   renderVideoUrlInputs(videoUrls) {
     this.$projectFormVideoUrlInputContainer.innerHTML = videoUrls.reduce((html, videoUrl, index) => html + this.template.videoUrlInput({ index, videoUrl }), '');
+    VideoUrlRemoveButtons.update();
   }
 
   /**

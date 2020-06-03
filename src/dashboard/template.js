@@ -8,7 +8,7 @@ export default {
     return `
       <li class="index-section__project" data-id="${id}">
         <div class="index-section__project-title">${title}</div>
-        <button class="index-section__project-remove-button">삭제</button>
+        <div class="project-list-remove-button-container"></div>
       </li>`;
   },
 
@@ -23,9 +23,7 @@ export default {
     return `
       <div class="added-input" data-index="${index}">
         <input class="form__input form__input--video-url" id="video-url" name="video-url" value="${videoUrl}">
-        <button class="added-input__button" type="button">
-          <i class="fas fa-minus-circle"></i>
-        </button>
+        <div class="video-url-remove-button-container"></div>
       </div>`;
   },
 
