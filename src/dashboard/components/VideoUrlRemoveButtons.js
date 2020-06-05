@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IconButton from '@material-ui/core/IconButton';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import RemoveCircleIcon from '../icons/removeCircle.svg';
+import IconButton from './IconButton';
 
 export default {
   /** @type {HTMLElement[]} */
@@ -17,7 +17,7 @@ export default {
     containers.forEach(function (container) {
       ReactDOM.render(React.createElement(
         IconButton,
-        null,
+        { tooltip: 'URL \uC0AD\uC81C', type: 'button' },
         React.createElement(RemoveCircleIcon, null)
       ), container);
     });

@@ -16,7 +16,7 @@ export default class ProjectFormOpenButton {
     if (eventName !== 'click') return;
 
     ReactDOM.render(
-      <Button variant="contained" size="large" onClick={handler}>프로젝트 생성</Button>,
+      <Button variant="outlined" size="large" onClick={handler}>프로젝트 생성</Button>,
       this.container,
     );
   }

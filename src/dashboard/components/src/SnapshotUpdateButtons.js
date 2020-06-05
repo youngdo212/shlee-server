@@ -11,7 +11,7 @@ export default {
       if (container.dataset.mounted === 'true') return;
 
       ReactDOM.render(
-        <Button variant="contained" color="primary" size="small">변경</Button>,
+        <Button variant="filled" size="small" type="button">변경</Button>,
         container,
       );
 

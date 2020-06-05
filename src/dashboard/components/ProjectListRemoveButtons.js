@@ -2,7 +2,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '../icons/delete.svg';
 import IconButton from './IconButton';
 
 export default {
@@ -22,7 +22,7 @@ export default {
     containers.forEach(function (container) {
       ReactDOM.render(React.createElement(
         IconButton,
-        null,
+        { tooltip: '\uD504\uB85C\uC81D\uD2B8 \uC0AD\uC81C' },
         React.createElement(DeleteIcon, null)
       ), container);
     });

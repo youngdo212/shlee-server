@@ -16,7 +16,7 @@ export default class ProjectFormCloseButton {
     if (eventName !== 'click') return;
 
     ReactDOM.render(
-      <Button variant="contained" size="small" onClick={handler} type="button">업로드</Button>,
+      <Button variant="filled" size="small" onClick={handler} type="button">업로드</Button>,
       this.container,
     );
   }

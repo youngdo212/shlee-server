@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '../icons/delete.svg';
 import IconButton from './IconButton';
 
 export default {
@@ -17,7 +17,7 @@ export default {
 
     containers.forEach((container) => {
       ReactDOM.render(
-        <IconButton>
+        <IconButton tooltip="프로젝트 삭제">
           <DeleteIcon />
         </IconButton>,
         container,

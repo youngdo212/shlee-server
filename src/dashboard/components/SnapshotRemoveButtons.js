@@ -12,7 +12,7 @@ export default {
 
       ReactDOM.render(React.createElement(
         Button,
-        { variant: 'contained', color: 'secondary', size: 'small' },
+        { variant: 'filled', size: 'small', type: 'button' },
         '\uC0AD\uC81C'
       ), container);
 

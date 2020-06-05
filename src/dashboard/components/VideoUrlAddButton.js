@@ -4,8 +4,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from '../icons/addCircle.svg';
+import IconButton from './IconButton';
 
 var VideoUrlAddButton = function () {
   /** Creates instance with container property */
@@ -29,7 +29,7 @@ var VideoUrlAddButton = function () {
 
       ReactDOM.render(React.createElement(
         IconButton,
-        { onClick: handler },
+        { onClick: handler, tooltip: 'URL \uCD94\uAC00', type: 'button' },
         React.createElement(AddCircleIcon, null)
       ), this.container);
     }

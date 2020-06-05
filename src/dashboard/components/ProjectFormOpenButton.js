@@ -27,7 +27,7 @@ var ProjectFormOpenButton = function () {
 
       ReactDOM.render(React.createElement(
         Button,
-        { variant: 'contained', size: 'large', onClick: handler },
+        { variant: 'outlined', size: 'large', onClick: handler },
         '\uD504\uB85C\uC81D\uD2B8 \uC0DD\uC131'
       ), this.container);
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddCircleIcon from '../icons/addCircle.svg';
+import IconButton from './IconButton';
 
 export default class VideoUrlAddButton {
   /** Creates instance with container property */
@@ -18,7 +18,7 @@ export default class VideoUrlAddButton {
     if (eventName !== 'click') return;
 
     ReactDOM.render(
-      <IconButton onClick={handler}>
+      <IconButton onClick={handler} tooltip="URL 추가" type="button">
         <AddCircleIcon />
       </IconButton>,
       this.container,

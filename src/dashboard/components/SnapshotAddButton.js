@@ -27,7 +27,7 @@ var ProjectFormCloseButton = function () {
 
       ReactDOM.render(React.createElement(
         Button,
-        { variant: 'contained', size: 'small', onClick: handler, type: 'button' },
+        { variant: 'filled', size: 'small', onClick: handler, type: 'button' },
         '\uC5C5\uB85C\uB4DC'
       ), this.container);
     }
