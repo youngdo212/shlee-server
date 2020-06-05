@@ -14,7 +14,7 @@ export default {
 
     containers.forEach((container) => {
       ReactDOM.render(
-        <IconButton tooltip="URL 삭제" type="button">
+        <IconButton type="button">
           <RemoveCircleIcon />
         </IconButton>,
         container,

@@ -29,7 +29,7 @@ var VideoUrlAddButton = function () {
 
       ReactDOM.render(React.createElement(
         IconButton,
-        { onClick: handler, tooltip: 'URL \uCD94\uAC00', type: 'button' },
+        { onClick: handler, type: 'button' },
         React.createElement(AddCircleIcon, null)
       ), this.container);
     }

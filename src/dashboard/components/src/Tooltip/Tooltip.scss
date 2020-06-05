@@ -1,0 +1,24 @@
+.tooltip-container {
+  display: inline-flex;
+  position: relative;
+
+  &:hover .tooltip {
+    display: block;
+  }
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -5px; left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -100%);
+  padding: 5px 8px;
+  background: rgba(97, 97, 97, 0.9);
+  border-radius: 4px;
+  font-family: Roboto, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}

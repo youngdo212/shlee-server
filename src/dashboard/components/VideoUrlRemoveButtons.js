@@ -17,7 +17,7 @@ export default {
     containers.forEach(function (container) {
       ReactDOM.render(React.createElement(
         IconButton,
-        { tooltip: 'URL \uC0AD\uC81C', type: 'button' },
+        { type: 'button' },
         React.createElement(RemoveCircleIcon, null)
       ), container);
     });

@@ -18,7 +18,7 @@ export default class VideoUrlAddButton {
     if (eventName !== 'click') return;
 
     ReactDOM.render(
-      <IconButton onClick={handler} tooltip="URL 추가" type="button">
+      <IconButton onClick={handler} type="button">
         <AddCircleIcon />
       </IconButton>,
       this.container,

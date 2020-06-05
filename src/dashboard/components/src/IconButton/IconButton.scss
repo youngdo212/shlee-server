@@ -1,0 +1,17 @@
+.icon-button {
+  display: inline-flex;
+  padding: 7px;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: transparent;
+  font-size: 1.5rem;
+  line-height: 1em;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
