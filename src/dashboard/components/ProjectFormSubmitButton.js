@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from './Button';
 
-var container = document.querySelector('.project-form-submit-button');
+const container = document.querySelector('.project-form-submit-button');
 
-ReactDOM.render(React.createElement(
-  Button,
-  { variant: 'outlined', size: 'large', type: 'submit' },
-  '\uC81C\uCD9C'
-), container);
+ReactDOM.render(
+  <Button variant="outlined" size="large" type="submit">제출</Button>,
+  container,
+);

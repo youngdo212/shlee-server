@@ -1,15 +1,9 @@
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from './Button';
 
-var ProjectFormCloseButton = function () {
-  function ProjectFormCloseButton() {
-    _classCallCheck(this, ProjectFormCloseButton);
-
+export default class ProjectFormCloseButton {
+  constructor() {
     this.container = document.querySelector('.snapshot-add-button-container');
   }
 
@@ -18,22 +12,12 @@ var ProjectFormCloseButton = function () {
    * @param {string} eventName 'click'
    * @param {function} handler
    */
+  addEventListener(eventName, handler) {
+    if (eventName !== 'click') return;
 
-
-  _createClass(ProjectFormCloseButton, [{
-    key: 'addEventListener',
-    value: function addEventListener(eventName, handler) {
-      if (eventName !== 'click') return;
-
-      ReactDOM.render(React.createElement(
-        Button,
-        { variant: 'filled', size: 'small', onClick: handler, type: 'button' },
-        '\uC5C5\uB85C\uB4DC'
-      ), this.container);
-    }
-  }]);
-
-  return ProjectFormCloseButton;
-}();
-
-export default ProjectFormCloseButton;
+    ReactDOM.render(
+      <Button variant="filled" size="small" onClick={handler} type="button">업로드</Button>,
+      this.container,
+    );
+  }
+}

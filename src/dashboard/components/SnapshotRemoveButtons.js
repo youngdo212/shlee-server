@@ -4,28 +4,26 @@ import Button from './Button';
 
 export default {
   /** Creates react element */
-  update: function update() {
-    var containers = document.querySelectorAll('.snapshot-remove-button-container');
+  update() {
+    const containers = document.querySelectorAll('.snapshot-remove-button-container');
 
-    containers.forEach(function (container) {
+    containers.forEach((container) => {
       if (container.dataset.mounted === 'true') return;
 
-      ReactDOM.render(React.createElement(
-        Button,
-        { variant: 'filled', size: 'small', type: 'button' },
-        '\uC0AD\uC81C'
-      ), container);
+      ReactDOM.render(
+        <Button variant="filled" size="small" type="button">삭제</Button>,
+        container,
+      );
 
       container.dataset.mounted = true;
     });
   },
 
-
   /**
    * Unmount react element
    * @param {HTMLElement} container
    */
-  remove: function remove(container) {
-    var result = ReactDOM.unmountComponentAtNode(container);
-  }
+  remove(container) {
+    const result = ReactDOM.unmountComponentAtNode(container);
+  },
 };

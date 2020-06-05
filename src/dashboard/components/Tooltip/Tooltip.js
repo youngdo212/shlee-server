@@ -3,23 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Tooltip(props) {
-  var children = props.children,
-      title = props.title;
+  const { children, title } = props;
 
-
-  return React.createElement(
-    'div',
-    { className: 'tooltip-container' },
-    children,
-    React.createElement(
-      'div',
-      { className: 'tooltip' },
-      title
-    )
+  return (
+    <div className="tooltip-container">
+      {children}
+      <div className="tooltip">{title}</div>
+    </div>
   );
 }
 
 Tooltip.propTypes = {
   children: PropTypes.element.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };

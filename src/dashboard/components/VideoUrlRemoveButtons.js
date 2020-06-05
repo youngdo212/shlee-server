@@ -7,21 +7,20 @@ export default {
   /** @type {HTMLElement[]} */
   containers: [],
 
-  update: function update() {
-    if (this.containers.length) this.containers.forEach(function (container) {
-      return ReactDOM.unmountComponentAtNode(container);
-    });
+  update() {
+    if (this.containers.length) this.containers.forEach((container) => ReactDOM.unmountComponentAtNode(container));
 
-    var containers = document.querySelectorAll('.video-url-remove-button-container');
+    const containers = document.querySelectorAll('.video-url-remove-button-container');
 
-    containers.forEach(function (container) {
-      ReactDOM.render(React.createElement(
-        IconButton,
-        { type: 'button' },
-        React.createElement(RemoveCircleIcon, null)
-      ), container);
+    containers.forEach((container) => {
+      ReactDOM.render(
+        <IconButton type="button">
+          <RemoveCircleIcon />
+        </IconButton>,
+        container,
+      );
     });
 
     this.containers = containers;
-  }
+  },
 };

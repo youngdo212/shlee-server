@@ -1,3 +1,6 @@
+import 'core-js';
+import 'regenerator-runtime/runtime.js';
+
 if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.msMatchesSelector
                               || Element.prototype.webkitMatchesSelector;
