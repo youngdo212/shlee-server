@@ -13,14 +13,12 @@ html(lang="ko")
         span.index-section__nickname=nickname
         span |
         a.index-section__logout(href="/auth/logout") 로그아웃
-      div.index-section__create-button 프로젝트 생성
-      div#like_button_container(data-commentid=1)
+      div.project-form-open-button-container
       ul.index-section__project-list
-      div#like_button_container(data-commentid=2)
     div.gutter
     div.content-section
       form.form.form--hide(action="/project" method="post" enctype="multipart/form-data")
-        button.form__close-button(type="button") close
+        div.project-form-close-button-container
         div.thumbnail-preview-wrap
           div.thumbnail-preview
           label.form__label.form__label--thumbnail(for="thumbnail")
@@ -105,8 +103,7 @@ html(lang="ko")
         div.form__member
           label.form__member-name.form__label.form__label--text(for="video-url") Video Url
           div.form__input-wrap.form__input-wrap--video
-          div.form__button.form__button--add
-            i.fas.fa-plus-circle
+          div.video-url-add-button-container
         div.form__member
           label.form__member-name.form__label.form__label--text(for="snapshot-column") Snapshot Column
           div.form__input-wrap
@@ -119,7 +116,7 @@ html(lang="ko")
             )
         div.snapshot-preview-wrap
           div.snapshot-preview
-          button.snapshot-preview__add-button(type="button") add
+          div.snapshot-add-button-container
           input.snapshot__input.snapshot__input--add(
             type="file"
             accept="image/*"
@@ -129,6 +126,6 @@ html(lang="ko")
             type="file"
             accept="image/*"
           )
-        button.form__button.form__button--submit(type="submit") 제출
+        div.project-form-submit-button
         div.form__validation-message 이것은 테스트 메시지 입니다
     script(src="/javascripts/dashboard/bundle.js")

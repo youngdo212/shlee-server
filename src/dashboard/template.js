@@ -8,7 +8,7 @@ export default {
     return `
       <li class="index-section__project" data-id="${id}">
         <div class="index-section__project-title">${title}</div>
-        <button class="index-section__project-remove-button">삭제</button>
+        <div class="project-list-remove-button-container"></div>
       </li>`;
   },
 
@@ -23,9 +23,7 @@ export default {
     return `
       <div class="added-input" data-index="${index}">
         <input class="form__input form__input--video-url" id="video-url" name="video-url" value="${videoUrl}">
-        <button class="added-input__button" type="button">
-          <i class="fas fa-minus-circle"></i>
-        </button>
+        <div class="video-url-remove-button-container"></div>
       </div>`;
   },
 
@@ -39,8 +37,8 @@ export default {
     <div class="snapshot-preview__item">
       <img class="snapshot-preview__image" src="${url}">
       <div class="snapshot-preview__buttons">
-        <button class="snapshot-preview__update-button" type="button">update</button>
-        <button class="snapshot-preview__remove-button" type="button">remove</button>
+        <div class="snapshot-update-button-container"></div>
+        <div class="snapshot-remove-button-container"></div>
       </div>
       <div class="snapshot-preview__cover ${cover ? '' : 'snapshot-preview__cover--hide'}"></div>
     </div>`;

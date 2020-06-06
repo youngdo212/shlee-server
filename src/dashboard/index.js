@@ -4,7 +4,6 @@ import View from './view';
 import Controller from './controller';
 import template from './template';
 import validator from './validator';
-import './components/LikeButton';
 
 const model = new Model();
 const view = new View(template);

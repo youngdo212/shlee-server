@@ -1,4 +1,13 @@
 import { Sortable } from '@shopify/draggable';
+import ProjectFormOpenButton from './components/ProjectFormOpenButton';
+import ProjectFormCloseButton from './components/ProjectFormCloseButton';
+import './components/ProjectFormSubmitButton';
+import SnapshotAddButton from './components/SnapshotAddButton';
+import SnapshotUpdateButtons from './components/SnapshotUpdateButtons';
+import SnapshotRemoveButtons from './components/SnapshotRemoveButtons';
+import ProjectListRemoveButtons from './components/ProjectListRemoveButtons';
+import VideoUrlAddButton from './components/VideoUrlAddButton';
+import VideoUrlRemoveButtons from './components/VideoUrlRemoveButtons';
 
 export default class View {
   /**
@@ -8,8 +17,8 @@ export default class View {
   constructor(template) {
     this.template = template;
     this.$projectList = document.querySelector('.index-section__project-list');
-    this.$projectFormOpenButton = document.querySelector('.index-section__create-button');
-    this.$projectFormCloseButton = document.querySelector('.form__close-button');
+    this.$projectFormOpenButton = new ProjectFormOpenButton();
+    this.$projectFormCloseButton = new ProjectFormCloseButton();
     this.$projectForm = document.querySelector('.form');
     this.$projectFormTitleInput = document.querySelector('#title');
     this.$projectFormHeaderInput = document.querySelector('#header');
@@ -20,9 +29,9 @@ export default class View {
     this.$projectFormThumbnail = document.querySelector('.thumbnail-preview-wrap');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
-    this.$projectFormVideoUrlAddButton = document.querySelector('.form__button--add');
+    this.$projectFormVideoUrlAddButton = new VideoUrlAddButton();
     this.$projectFormVideoUrlInputContainer = document.querySelector('.form__input-wrap--video');
-    this.$projectFormSnapshotAddButton = document.querySelector('.snapshot-preview__add-button');
+    this.$projectFormSnapshotAddButton = new SnapshotAddButton();
     this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
     this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
@@ -157,7 +166,7 @@ export default class View {
    */
   onProjectFormVideoUrlRemoveButtonClick(handler) {
     this.$projectFormVideoUrlInputContainer.addEventListener('click', ({ target }) => {
-      const $removeButton = target.closest('.added-input__button');
+      const $removeButton = target.closest('.video-url-remove-button-container');
 
       if (!$removeButton) return;
 
@@ -194,7 +203,7 @@ export default class View {
    */
   onProjectFormSnapshotRemoved(handler) {
     this.$projectFormSnapshotPreviewContainer.addEventListener('click', ({ target }) => {
-      if (target.className !== 'snapshot-preview__remove-button') return;
+      if (!target.closest('.snapshot-remove-button-container')) return;
 
       const $snapshotPreview = target.closest('.snapshot-preview__item');
       const snapshotPreviews = [...this.$projectFormSnapshotPreviewContainer.children];
@@ -213,7 +222,7 @@ export default class View {
     let index = 0;
 
     this.$projectFormSnapshotPreviewContainer.addEventListener('click', ({ target }) => {
-      if (target.className !== 'snapshot-preview__update-button') return;
+      if (!target.closest('.snapshot-update-button-container')) return;
 
       const $snapshotPreview = target.closest('.snapshot-preview__item');
       const snapshotPreviews = [...this.$projectFormSnapshotPreviewContainer.children];
@@ -281,7 +290,7 @@ export default class View {
    */
   onProjectClick(handler) {
     this.$projectList.addEventListener('click', ({ target }) => {
-      if (target.className === 'index-section__project-remove-button') return;
+      if (target.closest('.project-list-remove-button-container')) return;
 
       const $project = target.closest('.index-section__project');
 
@@ -299,7 +308,7 @@ export default class View {
    */
   onProjectRemoveButtonClick(handler) {
     this.$projectList.addEventListener('click', ({ target }) => {
-      if (target.className !== 'index-section__project-remove-button') return;
+      if (!target.closest('.project-list-remove-button-container')) return;
 
       const $project = target.closest('.index-section__project');
       const projectId = $project.dataset.id;
@@ -324,6 +333,7 @@ export default class View {
       draggable: 'li',
     });
     this.sortableProjectList.on('sortable:stop', ({ oldIndex, newIndex }) => this.handleProjectSorted(oldIndex, newIndex));
+    ProjectListRemoveButtons.update();
   }
 
   /**
@@ -351,9 +361,13 @@ export default class View {
     this.$projectFormRoleInput.value = '';
     this.setProjectFormCategory('work');
     this.$projectFormHeaderImagePreview.innerHTML = '';
-    this.$projectFormVideoUrlInputContainer.innerHTML = '';
+    // Removes all video url inputs
+    this.renderVideoUrlInputs([]);
     this.$projectFormSnapshotColumnInput.value = 1;
-    this.$projectFormSnapshotPreviewContainer.innerHTML = '';
+    // Remove all snapshot previews
+    while (this.$projectFormSnapshotPreviewContainer.children.length) {
+      this.removeSnapshotPreview(0);
+    }
   }
 
   /**
@@ -368,6 +382,7 @@ export default class View {
    */
   renderVideoUrlInputs(videoUrls) {
     this.$projectFormVideoUrlInputContainer.innerHTML = videoUrls.reduce((html, videoUrl, index) => html + this.template.videoUrlInput({ index, videoUrl }), '');
+    VideoUrlRemoveButtons.update();
   }
 
   /**
@@ -384,6 +399,9 @@ export default class View {
         cover: !options.mutable,
       }),
     );
+
+    SnapshotUpdateButtons.update();
+    SnapshotRemoveButtons.update();
   }
 
   /**
@@ -392,6 +410,11 @@ export default class View {
    */
   removeSnapshotPreview(index) {
     const $snapshotPreview = this.$projectFormSnapshotPreviewContainer.children[index];
+    const $snapshotUpdateButtonContainer = $snapshotPreview.querySelector('.snapshot-update-button-container');
+    const $snapshotRemoveButtonContainer = $snapshotPreview.querySelector('.snapshot-remove-button-container');
+
+    SnapshotUpdateButtons.remove($snapshotUpdateButtonContainer);
+    SnapshotRemoveButtons.remove($snapshotRemoveButtonContainer);
     this.$projectFormSnapshotPreviewContainer.removeChild($snapshotPreview);
   }
 

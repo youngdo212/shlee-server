@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => ({
   mode: env.NODE_ENV,
@@ -10,5 +9,34 @@ module.exports = (env) => ({
   output: {
     filename: 'javascripts/[name]/bundle.js',
     path: path.resolve(__dirname, 'public'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              icon: true,
+              svgProps: { fill: 'currentColor' },
+            },
+          },
+        ],
+      },
+    ],
   },
 });
