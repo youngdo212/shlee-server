@@ -2,9 +2,7 @@ import './Tooltip.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Tooltip(props) {
-  const { children, title } = props;
-
+export default function Tooltip({ children, title }) {
   return (
     <div className="tooltip-container">
       {children}

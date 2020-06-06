@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ButtonBase from '../ButtonBase';
 
-export default function Button(props) {
-  const {
-    children, variant, size, ...restProps
-  } = props;
-
+export default function Button({
+  children,
+  variant = 'text',
+  size = 'medium',
+  ...restProps
+}) {
   return (
     <ButtonBase
       className={classNames(
@@ -35,9 +36,4 @@ Button.propTypes = {
     'medium',
     'large',
   ]),
-};
-
-Button.defaultProps = {
-  variant: 'text',
-  size: 'medium',
 };

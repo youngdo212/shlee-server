@@ -3,9 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default function ButtonBase(props) {
-  const { children, className, ...restProps } = props;
-
+export default function ButtonBase({
+  children,
+  className,
+  ...restProps
+}) {
   return (
     <button
       className={classNames(
