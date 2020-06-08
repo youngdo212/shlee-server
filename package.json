@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack --env.NODE_ENV=production",
-    "build:dev": "webpack --env.NODE_ENV=development"
+    "build:dev": "webpack --env.NODE_ENV=development",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
@@ -36,6 +38,10 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "@svgr/webpack": "^5.4.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",

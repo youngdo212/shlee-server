@@ -24,7 +24,16 @@ module.exports = {
         "consistent-return": "warn",
         "no-unused-vars": "warn",
         "class-methods-use-this": "off",
-        "react/prop-types": "warn"
+        "react/prop-types": "warn",
+        "import/no-extraneous-dependencies": [
+            'error',
+            {
+                devDependencies: [
+                    '.storybook/**',
+                    'stories/**' 
+                ]
+            }
+        ]
     },
     "settings": {
         "react": {
