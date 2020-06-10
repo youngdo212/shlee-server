@@ -29,49 +29,12 @@ html(lang="ko")
             accept="image/*"
           )
           div.thumbnail__validation-message
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="title") Title
-          div.form__input-wrap
-            input.title.form__input.form__input--text(
-              id="title"
-              name="title"
-            )
-            div.title__validation-message
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="header") Header
-          div.form__input-wrap
-            textarea.form__input.form__input--text(
-              id="header"
-              name="header"
-            )
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="quick-view-url") Quick View Url
-          div.form__input-wrap
-            input.form__input.form__input--text(
-              id="quick-view-url"
-              name="quick-view-url"
-            )
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="client") Client
-          div.form__input-wrap
-            input.form__input.form__input--text(
-              id="client"
-              name="client"
-            )
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="agency") Agency
-          div.form__input-wrap
-            input.form__input.form__input--text(
-              id="agency"
-              name="agency"
-            )
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="role") Role
-          div.form__input-wrap
-            input.form__input.form__input--text(
-              id="role"
-              name="role"
-            )
+        div.project-form-title-input-container.form__member
+        div.project-form-header-input-container.form__member
+        div.project-form-quick-view-url-input-container.form__member
+        div.project-form-client-input-container.form__member
+        div.project-form-agency-input-container.form__member
+        div.project-form-role-input-container.form__member
         div.form__member
           span.form__member-name Catogory
           div.form__input-wrap.form__input-wrap--category
@@ -101,19 +64,11 @@ html(lang="ko")
           )
           div.header-image__validation-message
         div.form__member
-          label.form__member-name.form__label.form__label--text(for="video-url") Video Url
-          div.form__input-wrap.form__input-wrap--video
+          //- label.form__member-name.form__label.form__label--text(for="video-url") Video Url
+          div.project-form-video-url-input-list-container
+          //- div.form__input-wrap.form__input-wrap--video
           div.video-url-add-button-container
-        div.form__member
-          label.form__member-name.form__label.form__label--text(for="snapshot-column") Snapshot Column
-          div.form__input-wrap
-            input.form__input.form__input--number(
-              type="number"
-              id="snapshot-column"
-              name="snapshot-column"
-              value="1"
-              min="0"
-            )
+        div.project-form-snapshot-column-input-container
         div.snapshot-preview-wrap
           div.snapshot-preview
           div.snapshot-add-button-container
