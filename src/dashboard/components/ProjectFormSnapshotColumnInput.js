@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import TextField from './TextField';
 
 export default class ProjectFormSnapshotColumnInput {
   constructor() {
     this.$container = document.querySelector('.project-form-snapshot-column-input-container');
     this.props = {
       label: 'Snapshot Column',
-      variant: 'outlined',
-      onInput: null,
-      fullWidth: true,
+      onChange: null,
       type: 'number',
       error: false,
-      helperText: '',
+      errorMessage: '',
       value: 1,
     };
   }
@@ -25,10 +23,10 @@ export default class ProjectFormSnapshotColumnInput {
   addEventListener(eventName, handler) {
     if (eventName !== 'input') return;
 
-    this.props.onInput = (e) => handler(e);
+    this.props.onChange = (e) => handler(e);
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -41,7 +39,7 @@ export default class ProjectFormSnapshotColumnInput {
     this.props = { ...this.props, value };
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -49,13 +47,13 @@ export default class ProjectFormSnapshotColumnInput {
   /**
    * Rerender the component with error and error message
    * @param {boolean} [error=false]
-   * @param {string} [helperText='']
+   * @param {string} [errorMessage='']
    */
-  setError(error = false, helperText = '') {
-    this.props = { ...this.props, error, helperText };
+  setError(error = false, errorMessage = '') {
+    this.props = { ...this.props, error, errorMessage };
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }

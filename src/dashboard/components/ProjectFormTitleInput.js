@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import TextField from './TextField';
 
 export default class ProjectFormTitleInput {
   constructor() {
     this.$container = document.querySelector('.project-form-title-input-container');
     this.props = {
       label: 'Title',
-      variant: 'outlined',
-      onInput: null,
+      onChange: null,
       value: '',
-      fullWidth: true,
       error: false,
-      helperText: '',
+      errorMessage: '',
     };
   }
 
@@ -24,10 +22,10 @@ export default class ProjectFormTitleInput {
   addEventListener(eventName, handler) {
     if (eventName !== 'input') return;
 
-    this.props.onInput = (e) => handler(e);
+    this.props.onChange = (e) => handler(e);
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -40,7 +38,7 @@ export default class ProjectFormTitleInput {
     this.props = { ...this.props, value };
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -48,13 +46,13 @@ export default class ProjectFormTitleInput {
   /**
    * Rerender the component with error and error message
    * @param {boolean} [error=true]
-   * @param {string} [helperText='']
+   * @param {string} [errorMessage='']
    */
-  setError(error = false, helperText = '') {
-    this.props = { ...this.props, error, helperText };
+  setError(error = false, errorMessage = '') {
+    this.props = { ...this.props, error, errorMessage };
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }

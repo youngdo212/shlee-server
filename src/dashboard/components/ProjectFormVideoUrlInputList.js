@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import TextField from './TextField';
 import IconButton from './IconButton';
 import RemoveCircleIcon from '../icons/removeCircle.svg';
 
@@ -9,7 +9,7 @@ export default class ProjectFormVideoUrlInputList {
     this.$container = document.querySelector('.project-form-video-url-input-list-container');
     this.props = {
       label: 'Video Url',
-      variant: 'outlined',
+      width: 300,
     };
     this.handleInput = null;
     this.handleClick = null;
@@ -54,12 +54,12 @@ export default class ProjectFormVideoUrlInputList {
    */
   renderInput(value, index) {
     const props = {
-      ...this.props, value, onInput: this.handleInput(index),
+      ...this.props, value, onChange: this.handleInput(index),
     };
 
     return (
       <div key={index}>
-        <Input {...props} />
+        <TextField {...props} />
         <IconButton onClick={this.handleClick(index)} type="button"><RemoveCircleIcon /></IconButton>
       </div>
     );

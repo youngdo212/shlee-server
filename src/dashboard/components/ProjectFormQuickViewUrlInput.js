@@ -1,23 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import TextField from './TextField';
 
 export default class ProjectFormQuickViewUrlInput {
   constructor() {
     this.$container = document.querySelector('.project-form-quick-view-url-input-container');
     this.props = {
       label: 'Quick View Url',
-      variant: 'outlined',
-      fullWidth: true,
       value: '',
-      onInput: null,
+      onChange: null,
     };
   }
 
   /** Mounts react compoenent with props */
   render() {
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -30,7 +28,7 @@ export default class ProjectFormQuickViewUrlInput {
   addEventListener(eventName, handler) {
     if (eventName !== 'input') return;
 
-    this.props.onInput = (e) => handler(e);
+    this.props.onChange = (e) => handler(e);
 
     this.render();
   }

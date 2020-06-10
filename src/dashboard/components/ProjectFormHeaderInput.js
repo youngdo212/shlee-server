@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import TextField from './TextField';
 
 export default class ProjectFormHeaderInput {
   constructor() {
     this.$container = document.querySelector('.project-form-header-input-container');
     this.props = {
       label: 'Header',
-      variant: 'outlined',
-      onInput: null,
+      onChange: null,
       value: '',
-      fullWidth: true,
-      multiline: true,
+      multiLine: true,
       rows: 3,
     };
   }
@@ -24,9 +22,9 @@ export default class ProjectFormHeaderInput {
   addEventListener(eventName, handler) {
     if (eventName !== 'input') return;
 
-    this.props.onInput = (e) => handler(e);
+    this.props.onChange = (e) => handler(e);
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
@@ -39,7 +37,7 @@ export default class ProjectFormHeaderInput {
     this.props = { ...this.props, value };
 
     ReactDOM.render(
-      <Input {...this.props} />,
+      <TextField {...this.props} />,
       this.$container,
     );
   }
