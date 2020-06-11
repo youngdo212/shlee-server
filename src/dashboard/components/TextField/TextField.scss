@@ -1,0 +1,64 @@
+.text-field {
+  position: relative;
+  background-color: #fff;
+}
+
+.text-field__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  outline: 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 11px 14px;
+  font-size: 1.1rem;
+  font-family: Roboto, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+  &:hover {
+    border-color: #000;
+  }
+
+  &:focus {
+    border-color: rgb(25, 118, 210);
+    box-shadow: inset 0px 0px 0px 1px rgb(25, 118, 210);
+  }
+
+  &--tag-textarea {
+    resize: none;
+  }
+
+  .text-field--error > &, .text-field--error > &:hover {
+    border-color: rgb(244, 67, 54);
+  }
+
+  .text-field--error > &:focus {
+    border-color: rgb(244, 67, 54);
+    box-shadow: inset 0px 0px 0px 1px rgb(244, 67, 54);
+  }
+}
+
+.text-field__error-message {
+  font-size: .85rem;
+  color: rgb(244, 67, 54);
+  margin-top: 5px;
+  padding: 0px 15px;
+}
+
+.text-field__label {
+  position: absolute;
+  background-color: #fff;
+  padding: 0px 5px;
+  top: -6px;
+  left: 10px;
+  font-size: .9rem;
+  color: #777;
+
+  .text-field__input:focus + & {
+    color: rgb(25, 118, 210)
+  }
+
+  .text-field--error > &, .text-field--error > .text-field__input:focus + & {
+    color: rgb(244, 67, 54);
+  }
+}

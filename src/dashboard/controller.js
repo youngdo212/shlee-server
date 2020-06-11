@@ -124,39 +124,55 @@ export default class Controller {
    * @param {String} title
    */
   handleProjectFormTitleInput(title) {
-    this.model.updateProjectFormState({ title });
+    this.model.updateProjectFormState({
+      title,
+    }, (formState) => {
+      this.view.setProjectFormInputValue({ title: formState.title });
+    });
   }
 
   handleProjectFormHeaderInput(header) {
-    this.model.updateProjectFormState({ header });
+    this.model.updateProjectFormState({
+      header,
+    }, (formState) => {
+      this.view.setProjectFormInputValue({ header: formState.header });
+    });
   }
 
   /**
    * @param {String} quickViewUrl
    */
   handleProjectFormQuickViewUrlInput(quickViewUrl) {
-    this.model.updateProjectFormState({ quickViewUrl });
+    this.model.updateProjectFormState({ quickViewUrl }, (formState) => {
+      this.view.setProjectFormInputValue({ quickViewUrl: formState.quickViewUrl });
+    });
   }
 
   /**
    * @param {String} client
    */
   handleProjectFormClientInput(client) {
-    this.model.updateProjectFormState({ client });
+    this.model.updateProjectFormState({ client }, (formState) => {
+      this.view.setProjectFormInputValue({ client: formState.client });
+    });
   }
 
   /**
    * @param {String} agency
    */
   handleProjectFormAgencyInput(agency) {
-    this.model.updateProjectFormState({ agency });
+    this.model.updateProjectFormState({ agency }, (formState) => {
+      this.view.setProjectFormInputValue({ agency: formState.agency });
+    });
   }
 
   /**
    * @param {String} role
    */
   handleProjectFormRoleInput(role) {
-    this.model.updateProjectFormState({ role });
+    this.model.updateProjectFormState({ role }, (formState) => {
+      this.view.setProjectFormInputValue({ role: formState.role });
+    });
   }
 
   /**
@@ -186,14 +202,16 @@ export default class Controller {
 
   /**
    * Changes video url to have target index
-   * @param {Number} targetIndex
    * @param {String} videoUrl
+   * @param {Number} targetIndex
    */
-  handleProjectFormVideoUrlInput(targetIndex, videoUrl) {
+  handleProjectFormVideoUrlInput(videoUrl, targetIndex) {
     const { videoUrls: previousVideoUrls } = this.model.findProjectFormState();
 
     this.model.updateProjectFormState({
       videoUrls: previousVideoUrls.map((previousVideoUrl, index) => (index === targetIndex ? videoUrl : previousVideoUrl)),
+    }, ({ videoUrls }) => {
+      this.view.renderVideoUrlInputs(videoUrls);
     });
   }
 
@@ -282,7 +300,9 @@ export default class Controller {
    * @param {Number} snapshotColumn
    */
   handleProjectFormSnapshotColumnInput(snapshotColumn) {
-    this.model.updateProjectFormState({ snapshotColumn });
+    this.model.updateProjectFormState({ snapshotColumn }, (formState) => {
+      this.view.setProjectFormInputValue({ snapshotColumn: formState.snapshotColumn });
+    });
   }
 
   /**
@@ -308,6 +328,7 @@ export default class Controller {
     validityState.thumbnail || this.view.setThumbnailValidationMessage(MESSAGE.VALIDATION_THUMBNAIL);
     validityState.title || this.view.setTitleValidationMessage(MESSAGE.VALIDATION_TITLE);
     validityState.headerImage || this.view.setHeaderImageValidationMessage(MESSAGE.VALIDATION_HEADER_IMAGE);
+    validityState.snapshotColumn || this.view.setSnapshotColumnValidationMessage(MESSAGE.VALIDATION_SNAPSHOT_COLUMN);
   }
 
   /**

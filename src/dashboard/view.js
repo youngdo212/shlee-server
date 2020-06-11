@@ -7,7 +7,15 @@ import SnapshotUpdateButtons from './components/SnapshotUpdateButtons';
 import SnapshotRemoveButtons from './components/SnapshotRemoveButtons';
 import ProjectListRemoveButtons from './components/ProjectListRemoveButtons';
 import VideoUrlAddButton from './components/VideoUrlAddButton';
-import VideoUrlRemoveButtons from './components/VideoUrlRemoveButtons';
+import ProjectFormTitleInput from './components/ProjectFormTitleInput';
+import ProjectFormHeaderInput from './components/ProjectFormHeaderInput';
+import ProjectFormSnapshotColumnInput from './components/ProjectFormSnapshotColumnInput';
+import ProjectFormQuickViewUrlInput from './components/ProjectFormQuickViewUrlInput';
+import ProjectFormClientInput from './components/ProjectFormClientInput';
+import ProjectFormAgencyInput from './components/ProjectFormAgencyInput';
+import ProjectFormRoleInput from './components/ProjectFormRoleInput';
+import ProjectFormVideoUrlInputList from './components/ProjectFormVideoUrlInputList';
+
 
 export default class View {
   /**
@@ -20,17 +28,17 @@ export default class View {
     this.$projectFormOpenButton = new ProjectFormOpenButton();
     this.$projectFormCloseButton = new ProjectFormCloseButton();
     this.$projectForm = document.querySelector('.form');
-    this.$projectFormTitleInput = document.querySelector('#title');
-    this.$projectFormHeaderInput = document.querySelector('#header');
-    this.$projectFormQuickViewUrlInput = document.querySelector('#quick-view-url');
-    this.$projectFormClientInput = document.querySelector('#client');
-    this.$projectFormAgencyInput = document.querySelector('#agency');
-    this.$projectFormRoleInput = document.querySelector('#role');
+    this.$projectFormTitleInput = new ProjectFormTitleInput();
+    this.$projectFormHeaderInput = new ProjectFormHeaderInput();
+    this.$projectFormQuickViewUrlInput = new ProjectFormQuickViewUrlInput();
+    this.$projectFormClientInput = new ProjectFormClientInput();
+    this.$projectFormAgencyInput = new ProjectFormAgencyInput();
+    this.$projectFormRoleInput = new ProjectFormRoleInput();
     this.$projectFormThumbnail = document.querySelector('.thumbnail-preview-wrap');
     this.$projectFormThumbnailInput = document.querySelector('#thumbnail');
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
     this.$projectFormVideoUrlAddButton = new VideoUrlAddButton();
-    this.$projectFormVideoUrlInputContainer = document.querySelector('.form__input-wrap--video');
+    this.$projectFormVideoUrlInputList = new ProjectFormVideoUrlInputList();
     this.$projectFormSnapshotAddButton = new SnapshotAddButton();
     this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
@@ -39,7 +47,7 @@ export default class View {
     this.$projectFormHeaderImage = document.querySelector('.header-image-preview-wrap');
     this.$projectFormHeaderImageInput = document.querySelector('#header-image');
     this.$projectFormHeaderImagePreview = document.querySelector('.header-image-preview');
-    this.$projectFormSnapshotColumnInput = document.querySelector('#snapshot-column');
+    this.$projectFormSnapshotColumnInput = new ProjectFormSnapshotColumnInput();
     this.$projectFormValidationMessage = document.querySelector('.form__validation-message');
 
     this.handleProjectSorted = null;
@@ -151,12 +159,8 @@ export default class View {
    * @param {Function(Number, String)} handler Function called with index and video url on input event
    */
   onProjectFormVideoUrlInput(handler) {
-    this.$projectFormVideoUrlInputContainer.addEventListener('input', ({ target }) => {
-      const $addedInput = target.closest('.added-input');
-      const { index } = $addedInput.dataset;
-      const videoUrl = target.value;
-
-      handler(Number(index), videoUrl);
+    this.$projectFormVideoUrlInputList.addEventListener('input', (videoUrl, index) => {
+      handler(videoUrl, index);
     });
   }
 
@@ -165,15 +169,8 @@ export default class View {
    * @param {Function(Number)} handler Called with index when remove button is clicked
    */
   onProjectFormVideoUrlRemoveButtonClick(handler) {
-    this.$projectFormVideoUrlInputContainer.addEventListener('click', ({ target }) => {
-      const $removeButton = target.closest('.video-url-remove-button-container');
-
-      if (!$removeButton) return;
-
-      const $addedInput = target.closest('.added-input');
-      const { index } = $addedInput.dataset;
-
-      handler(Number(index));
+    this.$projectFormVideoUrlInputList.addEventListener('click', (index) => {
+      handler(index);
     });
   }
 
@@ -269,7 +266,7 @@ export default class View {
    */
   onProjectFormSnapshotColumnInput(handler) {
     this.$projectFormSnapshotColumnInput.addEventListener('input', ({ target }) => {
-      handler(Number(target.value));
+      handler(target.value);
     });
   }
 
@@ -353,17 +350,17 @@ export default class View {
    */
   clearProjectFormValues() {
     this.$projectFormThumbnailPreview.innerHTML = '';
-    this.$projectFormTitleInput.value = '';
-    this.$projectFormHeaderInput.value = '';
-    this.$projectFormQuickViewUrlInput.value = '';
-    this.$projectFormClientInput.value = '';
-    this.$projectFormAgencyInput.value = '';
-    this.$projectFormRoleInput.value = '';
+    this.$projectFormTitleInput.setValue('');
+    this.$projectFormHeaderInput.setValue('');
+    this.$projectFormQuickViewUrlInput.setValue('');
+    this.$projectFormClientInput.setValue('');
+    this.$projectFormAgencyInput.setValue('');
+    this.$projectFormRoleInput.setValue('');
     this.setProjectFormCategory('work');
     this.$projectFormHeaderImagePreview.innerHTML = '';
     // Removes all video url inputs
     this.renderVideoUrlInputs([]);
-    this.$projectFormSnapshotColumnInput.value = 1;
+    this.$projectFormSnapshotColumnInput.setValue(1);
     // Remove all snapshot previews
     while (this.$projectFormSnapshotPreviewContainer.children.length) {
       this.removeSnapshotPreview(0);
@@ -381,8 +378,7 @@ export default class View {
    * @param {Array} videoUrls
    */
   renderVideoUrlInputs(videoUrls) {
-    this.$projectFormVideoUrlInputContainer.innerHTML = videoUrls.reduce((html, videoUrl, index) => html + this.template.videoUrlInput({ index, videoUrl }), '');
-    VideoUrlRemoveButtons.update();
+    this.$projectFormVideoUrlInputList.render(videoUrls);
   }
 
   /**
@@ -450,9 +446,10 @@ export default class View {
    */
   clearAllValidatonMessages() {
     this.$projectFormThumbnail.classList.remove('thumbnail-preview-wrap--invalid');
-    this.$projectFormTitleInput.classList.remove('title--invalid');
+    this.$projectFormTitleInput.setError(false);
     this.$projectFormHeaderImage.classList.remove('header-image-preview-wrap--invalid');
     this.$projectFormValidationMessage.classList.remove('form__validation-message--invalid');
+    this.$projectFormSnapshotColumnInput.setError(false);
   }
 
   /**
@@ -480,10 +477,7 @@ export default class View {
    * @param {String} message
    */
   setTitleValidationMessage(message) {
-    const $titleValidationMessage = this.$projectForm.querySelector('.title__validation-message');
-
-    this.$projectFormTitleInput.classList.add('title--invalid');
-    $titleValidationMessage.textContent = message;
+    this.$projectFormTitleInput.setError(true, message);
   }
 
   /**
@@ -495,6 +489,14 @@ export default class View {
 
     this.$projectFormHeaderImage.classList.add('header-image-preview-wrap--invalid');
     $headerImageValidationMessage.textContent = message;
+  }
+
+  /**
+   * Shows validation message of snapshot column
+   * @param {string} message
+   */
+  setSnapshotColumnValidationMessage(message) {
+    this.$projectFormSnapshotColumnInput.setError(true, message);
   }
 
   /**
@@ -510,13 +512,13 @@ export default class View {
   setProjectFormInputValue({
     title, header, quickViewUrl, client, agency, role, snapshotColumn,
   }) {
-    this.$projectFormTitleInput.value = title;
-    this.$projectFormHeaderInput.value = header;
-    this.$projectFormQuickViewUrlInput.value = quickViewUrl;
-    this.$projectFormClientInput.value = client;
-    this.$projectFormAgencyInput.value = agency;
-    this.$projectFormRoleInput.value = role;
-    this.$projectFormSnapshotColumnInput.value = snapshotColumn;
+    (title !== undefined) && this.$projectFormTitleInput.setValue(title);
+    (header !== undefined) && this.$projectFormHeaderInput.setValue(header);
+    (quickViewUrl !== undefined) && this.$projectFormQuickViewUrlInput.setValue(quickViewUrl);
+    (client !== undefined) && this.$projectFormClientInput.setValue(client);
+    (agency !== undefined) && this.$projectFormAgencyInput.setValue(agency);
+    (role !== undefined) && this.$projectFormRoleInput.setValue(role);
+    (snapshotColumn !== undefined) && this.$projectFormSnapshotColumnInput.setValue(snapshotColumn);
   }
 
   /**

@@ -67,5 +67,6 @@ export default class Model {
   updateProjectFormState(state, callback) {
     this.projectFormState = assignObject(this.projectFormState, state);
     callback && callback({ ...this.projectFormState });
+    console.log(this.projectFormState);
   }
 }
