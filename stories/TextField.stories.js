@@ -17,7 +17,7 @@ export const Default = () => <TextField {...actionData} />;
 
 export const Label = () => <TextField label="Label" {...actionData} />;
 
-export const MultiLine = () => <TextField label="Multi Line" multiLine={true} rows={3} {...actionData} />;
+export const MultiLine = () => <TextField label="Multi Line" multiLine rows={3} {...actionData} />;
 
 export const Width = () => <TextField label="Width: 200px" width={200} {...actionData} />;
 
@@ -25,10 +25,10 @@ export const Placeholder = () => <TextField placeholder="Placeholder" {...action
 
 export const Value = () => <TextField value="Value(cannot change)" {...actionData} />;
 
-export const Error = () => <TextField error={true} label="Error" {...actionData} />;
+export const Error = () => <TextField error label="Error" {...actionData} />;
 
-export const ErrorWithMessage = () => <TextField error={true} errorMessage="Error Message" label="Error" {...actionData} />;
+export const ErrorWithMessage = () => <TextField error errorMessage="Error Message" label="Error" {...actionData} />;
 
 export const Number = () => <TextField type="number" label="Number" {...actionData} />;
 
-export const Autofocus = () => <TextField label="Autofocus" autofocus={true} />;
+export const AutoFocus = () => <TextField label="Auto Focus" autoFocus {...actionData}/>;

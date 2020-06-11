@@ -3,75 +3,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default class TextField extends React.Component {
-  renderInput({
-    placeholder,
-    value,
-    type = 'text',
-    autofocus = false,
-    ...restProps
-  }) {
-    return (
-      <input
-        className={classnames(
-          'text-field__input',
-          'text-field__input--tag-input',
-        )}
-        placeholder={placeholder}
-        value={value}
-        type={type}
-        autoFocus={autofocus}
-        {...restProps}
-      />
-    );
-  }
+export default function TextField({
+  autoFocus = false,
+  error = false,
+  errorMessage,
+  label,
+  multiLine = false,
+  placeholder,
+  rows = 1,
+  type = 'text',
+  value,
+  width,
+  ...restProps
+}) {
+  const InputComponent = multiLine ? 'textarea' : 'input';
 
-  renderTextarea({
-    rows = 1,
-    placeholder,
-    value,
-    autofocus = false,
-    ...restProps
-  }) {
-    return (
-      <textarea
+  return (
+    <div
+      className={classnames(
+        'text-field',
+        error && 'text-field--error',
+      )}
+      style={{ width }}
+    >
+      <InputComponent
         className={classnames(
           'text-field__input',
-          'text-field__input--tag-textarea',
+          `text-field__input--tag-${InputComponent}`,
         )}
+        autoFocus={autoFocus}
+        placeholder={placeholder}
         rows={rows}
-        placeholder={placeholder}
+        type={type}
         value={value}
-        autoFocus={autofocus}
         {...restProps}
       />
-    );
-  }
-
-  render() {
-    const {
-      label,
-      multiLine = false,
-      width,
-      error = false,
-      errorMessage,
-      ...restProps
-    } = this.props;
-
-    return (
-      <div
-        className={classnames(
-          'text-field',
-          error && 'text-field--error',
-        )}
-        style={{ width }}
-      >
-        {multiLine ? this.renderTextarea(restProps) : this.renderInput(restProps)}
-        {error && errorMessage && <div className="text-field__error-message">{errorMessage}</div>}
-        {label && <div className="text-field__label">{label}</div>}
-      </div>
-    );
-  }
+      {error && errorMessage && <div className="text-field__error-message">{errorMessage}</div>}
+      {label && <div className="text-field__label">{label}</div>}
+    </div>
+  );
 }
 
 TextField.propTypes = {
@@ -87,5 +57,5 @@ TextField.propTypes = {
   error: PropTypes.bool,
   errorMessage: PropTypes.string,
   type: PropTypes.oneOf(['text', 'number']),
-  autofocus: PropTypes.bool,
+  autoFocus: PropTypes.bool,
 };
