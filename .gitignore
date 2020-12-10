@@ -4,3 +4,4 @@ node_modules
 /lib/auth.js
 /public/images
 .vscode/
+.env
