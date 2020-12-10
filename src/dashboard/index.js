@@ -12,3 +12,8 @@ const controller = new Controller(model, view, validator);
 window.addEventListener('DOMContentLoaded', () => {
   controller.setView();
 });
+
+/* global Dropzone */
+Dropzone.options.snapshots = {
+  paramName: 'upload',
+};

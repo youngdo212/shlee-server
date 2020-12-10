@@ -25,9 +25,9 @@ export default class Controller {
     this.view.onProjectFormVideoUrlAddButtonClick(this.handleProjectFormVideoUrlAddButtonClick.bind(this));
     this.view.onProjectFormVideoUrlInput(this.handleProjectFormVideoUrlInput.bind(this));
     this.view.onProjectFormVideoUrlRemoveButtonClick(this.handleProjectFormVideoUrlRemoveButtonClick.bind(this));
-    this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
-    this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
-    this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
+    // this.view.onProjectFormSnapshotAdded(this.handleProjectFormSnapshotAdded.bind(this));
+    // this.view.onProjectFormSnapshotRemoved(this.handleProjectFormSnapshotRemoved.bind(this));
+    // this.view.onProjectFormSnapshotUpdated(this.handleProjectFormSnapshotUpdated.bind(this));
     this.view.onProjectFormCategoryChange(this.handleProjectFormCategoryChange.bind(this));
     this.view.onProjectFormHeaderImageInputChange(this.handleProjectFormHeaderImageInputChange.bind(this));
     this.view.onProjectFormSnapshotColumnInput(this.handleProjectFormSnapshotColumnInput.bind(this));
@@ -424,7 +424,7 @@ export default class Controller {
       this.model.updateProjectFormState({
         snapshots: snapshotCopy,
       }, () => {
-        this.view.setSnapshotPreviewMutability(index, true);
+        // this.view.setSnapshotPreviewMutability(index, true);
       });
     });
 

@@ -2,9 +2,9 @@ import { Sortable } from '@shopify/draggable';
 import ProjectFormOpenButton from './components/ProjectFormOpenButton';
 import ProjectFormCloseButton from './components/ProjectFormCloseButton';
 import './components/ProjectFormSubmitButton';
-import SnapshotAddButton from './components/SnapshotAddButton';
-import SnapshotUpdateButtons from './components/SnapshotUpdateButtons';
-import SnapshotRemoveButtons from './components/SnapshotRemoveButtons';
+// import SnapshotAddButton from './components/SnapshotAddButton';
+// import SnapshotUpdateButtons from './components/SnapshotUpdateButtons';
+// import SnapshotRemoveButtons from './components/SnapshotRemoveButtons';
 import ProjectListRemoveButtons from './components/ProjectListRemoveButtons';
 import VideoUrlAddButton from './components/VideoUrlAddButton';
 import ProjectFormTitleInput from './components/ProjectFormTitleInput';
@@ -39,8 +39,8 @@ export default class View {
     this.$projectFormThumbnailPreview = document.querySelector('.thumbnail-preview');
     this.$projectFormVideoUrlAddButton = new VideoUrlAddButton();
     this.$projectFormVideoUrlInputList = new ProjectFormVideoUrlInputList();
-    this.$projectFormSnapshotAddButton = new SnapshotAddButton();
-    this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
+    // this.$projectFormSnapshotAddButton = new SnapshotAddButton();
+    // this.$projectFormSnapshotAddInput = document.querySelector('.snapshot__input--add');
     this.$projectFormSnapshotPreviewContainer = document.querySelector('.snapshot-preview');
     this.$projectFormSnapshotUpdateInput = document.querySelector('.snapshot__input--update');
     this.$projectFormCategoryInputContainer = document.querySelector('.form__input-wrap--category');
@@ -175,6 +175,8 @@ export default class View {
   }
 
   /**
+   * DEPRECATED
+   *
    * Adds handler to trigger click event to snapshot input with add button.
    * And adds handler with snapshot input button on change event.
    * @param {Function(File[])} handler
@@ -195,6 +197,8 @@ export default class View {
   }
 
   /**
+   * DEPRECATED
+   *
    * Adds handler to snapshot preview container
    * @param {Function(index)} handler Called when remove button is clicked
    */
@@ -211,6 +215,8 @@ export default class View {
   }
 
   /**
+   * DEPRECATED
+   *
    * Adds handler to snapshot update input.
    * And handler to trigger click event at snapshot update input to remove button
    * @param {Function(index, File)} handler Called when snapshot update input is changed
@@ -362,9 +368,9 @@ export default class View {
     this.renderVideoUrlInputs([]);
     this.$projectFormSnapshotColumnInput.setValue(1);
     // Remove all snapshot previews
-    while (this.$projectFormSnapshotPreviewContainer.children.length) {
-      this.removeSnapshotPreview(0);
-    }
+    // while (this.$projectFormSnapshotPreviewContainer.children.length) {
+    //   this.removeSnapshotPreview(0);
+    // }
   }
 
   /**
@@ -382,6 +388,8 @@ export default class View {
   }
 
   /**
+   * DEPRECATED
+   *
    * Renders preview using image url
    * @param {String} url
    * @param {Object} options
@@ -396,11 +404,13 @@ export default class View {
       }),
     );
 
-    SnapshotUpdateButtons.update();
-    SnapshotRemoveButtons.update();
+    // SnapshotUpdateButtons.update();
+    // SnapshotRemoveButtons.update();
   }
 
   /**
+   * DEPRECATED
+   *
    * Removes snapshot preview element at index into the snapshot preview container
    * @param {Number} index
    */
@@ -409,12 +419,14 @@ export default class View {
     const $snapshotUpdateButtonContainer = $snapshotPreview.querySelector('.snapshot-update-button-container');
     const $snapshotRemoveButtonContainer = $snapshotPreview.querySelector('.snapshot-remove-button-container');
 
-    SnapshotUpdateButtons.remove($snapshotUpdateButtonContainer);
-    SnapshotRemoveButtons.remove($snapshotRemoveButtonContainer);
+    // SnapshotUpdateButtons.remove($snapshotUpdateButtonContainer);
+    // SnapshotRemoveButtons.remove($snapshotRemoveButtonContainer);
     this.$projectFormSnapshotPreviewContainer.removeChild($snapshotPreview);
   }
 
   /**
+   * DEPRECATED
+   *
    * Changes snapshot preview element src attribute at index
    * @param {Number} index
    * @param {String} imageUrl
@@ -522,6 +534,7 @@ export default class View {
   }
 
   /**
+   * DEPRECATED
    *
    * @param {Number} index
    * @param {Boolean} mutablility
@@ -548,7 +561,7 @@ export default class View {
   }, options = { mutable: true }) {
     this.renderThumbnailPreview(thumbnailImageUrl, options);
     this.renderHeaderImagePreview(headerImageUrl, options);
-    snapshotUrls.forEach((snapshotUrl) => this.addSnapshotPreview(snapshotUrl, options));
+    // snapshotUrls.forEach((snapshotUrl) => this.addSnapshotPreview(snapshotUrl, options));
     this.renderVideoUrlInputs(videoUrls);
     this.setProjectFormInputValue(project);
   }
