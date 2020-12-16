@@ -190,7 +190,7 @@ router.put('/:id', (req, res) => {
     ];
 
     db.query(
-      `SELECT ${fields.join()} FROM PROJECT WHERE id = ?`,
+      `SELECT ${fields.join()} FROM project WHERE id = ?`,
       [id],
       (error3, projects) => {
         if (error3) throw error3;
@@ -266,118 +266,6 @@ router.delete('/:id/snapshots', (req, res) => {
           if (error2) throw error2;
 
           res.send();
-        });
-      });
-    }
-  );
-});
-
-// router.put(
-//   '/:id',
-//   upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]),
-//   (req, res, next) => {
-//     const { id } = req.params;
-//     const updatedProject = {
-//       thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
-//       title: req.body.title,
-//       header: req.body.header,
-//       quick_view_url: req.body.quickViewUrl,
-//       client: req.body.client,
-//       agency: req.body.agency,
-//       role: req.body.role,
-//       category: req.body.category,
-//       header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
-//       snapshot_column: req.body.snapshotColumn,
-//     };
-
-//     db.query(
-//       'SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?',
-//       [id],
-//       (error, [project]) => {
-//         if (error) throw error;
-//         if (!project) return next();
-
-//         const { thumbnailImageUrl, headerImageUrl } = project;
-
-//         deleteFiles(
-//           [`public${thumbnailImageUrl}`, `public${headerImageUrl}`],
-//           error1 => {
-//             if (error1) throw error1;
-
-//             db.query(
-//               'UPDATE project SET ? WHERE id = ?',
-//               [updatedProject, id],
-//               error2 => {
-//                 if (error2) throw error2;
-
-//                 res.send();
-//               }
-//             );
-//           }
-//         );
-//       }
-//     );
-//   }
-// );
-
-router.put('/:id/videos', (req, res) => {
-  const { id } = req.params;
-  const { videoUrls } = req.body;
-
-  db.query('DELETE FROM video WHERE project_id = ?', [id], error => {
-    if (error) throw error;
-    if (!videoUrls.length) return res.send();
-
-    db.query(
-      'INSERT INTO video (project_id, video_url) VALUES ?',
-      [videoUrls.map(videoUrl => [id, videoUrl])],
-      error1 => {
-        if (error1) throw error1;
-
-        res.send();
-      }
-    );
-  });
-});
-
-router.put('/:id/snapshots', upload.array('snapshots'), (req, res) => {
-  const { id } = req.params;
-  const updatedSnapshots = req.files;
-  const updatedSnapshotUrls = updatedSnapshots.map(updatedSnapshot =>
-    updatedSnapshot.path.replace('public/', '/')
-  );
-
-  db.query(
-    'SELECT * FROM snapshot WHERE project_id = ?',
-    [id],
-    (error, snapshots) => {
-      if (error) throw error;
-
-      const snapshotUrls = snapshots.map(
-        snapshot => `public${snapshot.image_url}`
-      );
-
-      deleteFiles(snapshotUrls, error1 => {
-        if (error1) throw error1;
-
-        db.query('DELETE FROM snapshot WHERE project_id = ?', [id], error2 => {
-          if (error2) throw error2;
-          if (!updatedSnapshotUrls.length) return res.send();
-
-          db.query(
-            'INSERT INTO snapshot (project_id, image_url) VALUES ?',
-            [
-              updatedSnapshotUrls.map(updatedSnapshotUrl => [
-                id,
-                updatedSnapshotUrl,
-              ]),
-            ],
-            error3 => {
-              if (error3) throw error3;
-
-              res.send();
-            }
-          );
         });
       });
     }
