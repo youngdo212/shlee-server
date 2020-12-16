@@ -1,9 +1,8 @@
 const path = require('path');
 
-module.exports = (env) => ({
+module.exports = env => ({
   mode: env.NODE_ENV,
   entry: {
-    dashboard: './src/dashboard/index.js',
     project: './src/project/index.js',
   },
   output: {
@@ -19,11 +18,7 @@ module.exports = (env) => ({
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.svg$/,

@@ -32,22 +32,26 @@ router.get('/', (req, res) => {
     'video_url AS videoUrl',
     'sort_index',
   ];
-  const query = `SELECT ${fields.join()} FROM project LEFT JOIN snapshot ON project.id = snapshot.project_id LEFT JOIN video ON project.id = video.project_id ORDER BY sort_index, id desc`;
+  const query = `SELECT ${fields.join()} FROM project LEFT JOIN snapshot ON project.id = snapshot.project_id LEFT JOIN video ON project.id = video.project_id WHERE temp IS false ORDER BY sort_index, id desc`;
 
   db.query(query, (err, projects) => {
     if (err) throw err;
 
     const savedProjects = [];
 
-    projects.forEach((project) => {
-      const targetProject = savedProjects.find((savedProject) => savedProject.id === project.id);
+    projects.forEach(project => {
+      const targetProject = savedProjects.find(
+        savedProject => savedProject.id === project.id
+      );
 
       if (targetProject) {
         const { snapshotUrls, videoUrls } = targetProject;
         const { snapshotUrl, videoUrl } = project;
 
-        if (snapshotUrl && snapshotUrls.indexOf(snapshotUrl) === -1) snapshotUrls.push(project.snapshotUrl);
-        if (videoUrl && videoUrls.indexOf(videoUrl) === -1) videoUrls.push(project.videoUrl);
+        if (snapshotUrl && snapshotUrls.indexOf(snapshotUrl) === -1)
+          snapshotUrls.push(project.snapshotUrl);
+        if (videoUrl && videoUrls.indexOf(videoUrl) === -1)
+          videoUrls.push(project.videoUrl);
       } else {
         project.snapshotUrls = project.snapshotUrl ? [project.snapshotUrl] : [];
         project.videoUrls = project.videoUrl ? [project.videoUrl] : [];
@@ -67,25 +71,18 @@ router.get('/:id', (req, res, next) => {
   db.query('SELECT * FROM menu', (err, menuItems) => {
     if (err) throw err;
 
-    db.query('SELECT title, header, header_image_url as headerImageUrl, client, agency, role, snapshot_column as snapshotColumn FROM project WHERE id = ?', [projectId], (err, projects) => {
-      if (err) throw err;
-      if (!projects.length) {
-        next(new Error('project id not found'));
-        return;
-      }
+    db.query(
+      'SELECT title, header, header_image_url as headerImageUrl, client, agency, role, snapshot_column as snapshotColumn FROM project WHERE id = ?',
+      [projectId],
+      (err1, projects) => {
+        if (err1) throw err1;
+        if (!projects.length) {
+          next(new Error('project id not found'));
+          return;
+        }
 
-      const project = projects[0];
-      const {
-        title, header, headerImageUrl, client, agency, role, snapshotColumn,
-      } = project;
-
-      db.query('SELECT video_url as videoUrl from video WHERE project_id = ?', [projectId], (err, videos) => {
-        if (err) throw err;
-
-        const videoUrls = videos.map((video) => video.videoUrl);
-
-        res.render('project', {
-          menuItems,
+        const project = projects[0];
+        const {
           title,
           header,
           headerImageUrl,
@@ -93,88 +90,155 @@ router.get('/:id', (req, res, next) => {
           agency,
           role,
           snapshotColumn,
-          videoUrls,
-        });
-      });
-    });
+        } = project;
+
+        db.query(
+          'SELECT video_url as videoUrl from video WHERE project_id = ?',
+          [projectId],
+          (err2, videos) => {
+            if (err2) throw err2;
+
+            const videoUrls = videos.map(video => video.videoUrl);
+
+            res.render('project', {
+              menuItems,
+              title,
+              header,
+              headerImageUrl,
+              client,
+              agency,
+              role,
+              snapshotColumn,
+              videoUrls,
+            });
+          }
+        );
+      }
+    );
   });
 });
 
-router.post('', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]), (req, res) => {
-  const project = {
-    title: req.body.title,
-    header: req.body.header,
-    thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
-    quick_view_url: req.body.quickViewUrl,
-    header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
-    client: req.body.client,
-    agency: req.body.agency,
-    role: req.body.role,
-    category: req.body.category,
-    snapshot_column: req.body.snapshotColumn,
-  };
+function queryPromise(sqlString, values) {
+  return new Promise(resolve => {
+    db.query(sqlString, values, error => {
+      resolve(error);
+    });
+  });
+}
 
-  db.query('INSERT INTO project SET ?', project, (err, results) => {
+router.post('', (req, res) => {
+  db.query('INSERT INTO project VALUES ()', (err, results) => {
     if (err) throw err;
 
     const newProjectId = results.insertId;
 
-    db.query('SELECT * FROM PROJECT WHERE id = ?', [newProjectId], (error, projects) => {
-      if (error) throw error;
-
-      res.send(projects[0]);
+    res.send({
+      id: newProjectId,
     });
   });
 });
 
-router.post('/:id/videos', (req, res) => {
-  const projectId = req.params.id;
-  const { videoUrls } = req.body;
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const values = {
+    thumbnail_image_url: req.body.thumbnailImageUrl,
+    title: req.body.title,
+    header: req.body.header,
+    quick_view_url: req.body.quickViewUrl,
+    client: req.body.client,
+    agency: req.body.agency,
+    role: req.body.role,
+    category: req.body.category,
+    header_image_url: req.body.headerImageUrl,
+    snapshot_column: req.body.snapshotColumn,
+    temp: false,
+  };
+  const { videoUrls, snapshotUrls } = req.body;
 
-  db.query('INSERT INTO video (project_id, video_url) VALUES ?', [videoUrls.map((videoUrl) => [projectId, videoUrl])], (error) => {
-    if (error) throw error;
+  db.query('UPDATE project SET ? WHERE id = ?', [values, id], async err => {
+    if (err) throw err;
 
-    res.send();
-  });
-});
+    await queryPromise('DELETE FROM video WHERE project_id = ?', [id]);
+    await queryPromise('DELETE FROM snapshot WHERE project_id = ?', [id]);
 
-router.post('/:id/snapshots', upload.array('snapshots'), (req, res) => {
-  const projectId = req.params.id;
-  const snapshots = req.files;
-  const snapshotUrls = snapshots.map((snapshot) => snapshot.path.replace('public/', '/'));
+    if (videoUrls.length) {
+      await queryPromise('INSERT INTO video (project_id, video_url) VALUES ?', [
+        videoUrls.map(videoUrl => [id, videoUrl]),
+      ]);
+    }
 
-  db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [snapshotUrls.map((snapshotUrl) => [projectId, snapshotUrl])], (error) => {
-    if (error) throw error;
+    if (snapshotUrls.length) {
+      await queryPromise(
+        'INSERT INTO snapshot (project_id, image_url) VALUES ?',
+        [snapshotUrls.map(snapshotUrl => [id, snapshotUrl])]
+      );
+    }
 
-    res.send();
+    const fields = [
+      'id',
+      'title',
+      'header',
+      'thumbnail_image_url AS thumbnailImageUrl',
+      'quick_view_url AS quickViewUrl',
+      'header_image_url AS headerImageUrl',
+      'client',
+      'agency',
+      'role',
+      'category',
+      'snapshot_column AS snapshotColumn',
+      'sort_index',
+    ];
+
+    db.query(
+      `SELECT ${fields.join()} FROM PROJECT WHERE id = ?`,
+      [id],
+      (error3, projects) => {
+        if (error3) throw error3;
+
+        const [project] = projects;
+
+        res.send({
+          ...project,
+          videoUrls,
+          snapshotUrls,
+        });
+      }
+    );
   });
 });
 
 router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
 
-  db.query('SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?', [id], (error, [project]) => {
-    if (error) throw error;
-    if (!project) return next();
-
-    const { thumbnailImageUrl, headerImageUrl } = project;
-
-    deleteFiles([`public${thumbnailImageUrl}`, `public${headerImageUrl}`], (error) => {
+  db.query(
+    'SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?',
+    [id],
+    (error, [project]) => {
       if (error) throw error;
+      if (!project) return next();
 
-      db.query('DELETE FROM project WHERE id = ?', [id], (err) => {
-        if (err) throw err;
+      const { thumbnailImageUrl, headerImageUrl } = project;
 
-        res.send();
-      });
-    });
-  });
+      deleteFiles(
+        [`public${thumbnailImageUrl}`, `public${headerImageUrl}`],
+        error1 => {
+          if (error1) throw error1;
+
+          db.query('DELETE FROM project WHERE id = ?', [id], err => {
+            if (err) throw err;
+
+            res.send();
+          });
+        }
+      );
+    }
+  );
 });
 
 router.delete('/:id/videos', (req, res) => {
   const { id } = req.params;
 
-  db.query('DELETE FROM video WHERE project_id = ?', [id], (error) => {
+  db.query('DELETE FROM video WHERE project_id = ?', [id], error => {
     if (error) throw error;
 
     res.send();
@@ -184,111 +248,155 @@ router.delete('/:id/videos', (req, res) => {
 router.delete('/:id/snapshots', (req, res) => {
   const { id } = req.params;
 
-  db.query('SELECT * FROM snapshot WHERE project_id = ?', [id], (error, results) => {
-    if (error) throw error;
-    if (!results.length) return res.send();
-
-    const snapshotUrls = results
-      .map((result) => result.image_url)
-      .map((snapshotUrl) => `public${snapshotUrl}`);
-
-    deleteFiles(snapshotUrls, (error) => {
+  db.query(
+    'SELECT * FROM snapshot WHERE project_id = ?',
+    [id],
+    (error, results) => {
       if (error) throw error;
+      if (!results.length) return res.send();
 
-      db.query('DELETE FROM snapshot WHERE project_id = ?', [id], (error) => {
-        if (error) throw error;
+      const snapshotUrls = results
+        .map(result => result.image_url)
+        .map(snapshotUrl => `public${snapshotUrl}`);
 
-        res.send();
+      deleteFiles(snapshotUrls, error1 => {
+        if (error1) throw error1;
+
+        db.query('DELETE FROM snapshot WHERE project_id = ?', [id], error2 => {
+          if (error2) throw error2;
+
+          res.send();
+        });
       });
-    });
-  });
+    }
+  );
 });
 
-router.put('/:id', upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]), (req, res, next) => {
-  const { id } = req.params;
-  const updatedProject = {
-    thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
-    title: req.body.title,
-    header: req.body.header,
-    quick_view_url: req.body.quickViewUrl,
-    client: req.body.client,
-    agency: req.body.agency,
-    role: req.body.role,
-    category: req.body.category,
-    header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
-    snapshot_column: req.body.snapshotColumn,
-  };
+// router.put(
+//   '/:id',
+//   upload.fields([{ name: 'thumbnail' }, { name: 'headerImage' }]),
+//   (req, res, next) => {
+//     const { id } = req.params;
+//     const updatedProject = {
+//       thumbnail_image_url: req.files.thumbnail[0].path.replace('public/', '/'),
+//       title: req.body.title,
+//       header: req.body.header,
+//       quick_view_url: req.body.quickViewUrl,
+//       client: req.body.client,
+//       agency: req.body.agency,
+//       role: req.body.role,
+//       category: req.body.category,
+//       header_image_url: req.files.headerImage[0].path.replace('public/', '/'),
+//       snapshot_column: req.body.snapshotColumn,
+//     };
 
-  db.query('SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?', [id], (error, [project]) => {
-    if (error) throw error;
-    if (!project) return next();
+//     db.query(
+//       'SELECT thumbnail_image_url as thumbnailImageUrl, header_image_url as headerImageUrl FROM project WHERE id = ?',
+//       [id],
+//       (error, [project]) => {
+//         if (error) throw error;
+//         if (!project) return next();
 
-    const { thumbnailImageUrl, headerImageUrl } = project;
+//         const { thumbnailImageUrl, headerImageUrl } = project;
 
-    deleteFiles([`public${thumbnailImageUrl}`, `public${headerImageUrl}`], (error) => {
-      if (error) throw error;
+//         deleteFiles(
+//           [`public${thumbnailImageUrl}`, `public${headerImageUrl}`],
+//           error1 => {
+//             if (error1) throw error1;
 
-      db.query('UPDATE project SET ? WHERE id = ?', [updatedProject, id], (error) => {
-        if (error) throw error;
+//             db.query(
+//               'UPDATE project SET ? WHERE id = ?',
+//               [updatedProject, id],
+//               error2 => {
+//                 if (error2) throw error2;
 
-        res.send();
-      });
-    });
-  });
-});
+//                 res.send();
+//               }
+//             );
+//           }
+//         );
+//       }
+//     );
+//   }
+// );
 
 router.put('/:id/videos', (req, res) => {
   const { id } = req.params;
   const { videoUrls } = req.body;
 
-  db.query('DELETE FROM video WHERE project_id = ?', [id], (error) => {
+  db.query('DELETE FROM video WHERE project_id = ?', [id], error => {
     if (error) throw error;
     if (!videoUrls.length) return res.send();
 
-    db.query('INSERT INTO video (project_id, video_url) VALUES ?', [videoUrls.map((videoUrl) => [id, videoUrl])], (error) => {
-      if (error) throw error;
+    db.query(
+      'INSERT INTO video (project_id, video_url) VALUES ?',
+      [videoUrls.map(videoUrl => [id, videoUrl])],
+      error1 => {
+        if (error1) throw error1;
 
-      res.send();
-    });
+        res.send();
+      }
+    );
   });
 });
 
 router.put('/:id/snapshots', upload.array('snapshots'), (req, res) => {
   const { id } = req.params;
   const updatedSnapshots = req.files;
-  const updatedSnapshotUrls = updatedSnapshots.map((updatedSnapshot) => updatedSnapshot.path.replace('public/', '/'));
+  const updatedSnapshotUrls = updatedSnapshots.map(updatedSnapshot =>
+    updatedSnapshot.path.replace('public/', '/')
+  );
 
-  db.query('SELECT * FROM snapshot WHERE project_id = ?', [id], (error, snapshots) => {
-    if (error) throw error;
-
-    const snapshotUrls = snapshots.map((snapshot) => `public${snapshot.image_url}`);
-
-    deleteFiles(snapshotUrls, (error) => {
+  db.query(
+    'SELECT * FROM snapshot WHERE project_id = ?',
+    [id],
+    (error, snapshots) => {
       if (error) throw error;
 
-      db.query('DELETE FROM snapshot WHERE project_id = ?', [id], (error) => {
-        if (error) throw error;
-        if (!updatedSnapshotUrls.length) return res.send();
+      const snapshotUrls = snapshots.map(
+        snapshot => `public${snapshot.image_url}`
+      );
 
-        db.query('INSERT INTO snapshot (project_id, image_url) VALUES ?', [updatedSnapshotUrls.map((updatedSnapshotUrl) => [id, updatedSnapshotUrl])], (error) => {
-          if (error) throw error;
+      deleteFiles(snapshotUrls, error1 => {
+        if (error1) throw error1;
 
-          res.send();
+        db.query('DELETE FROM snapshot WHERE project_id = ?', [id], error2 => {
+          if (error2) throw error2;
+          if (!updatedSnapshotUrls.length) return res.send();
+
+          db.query(
+            'INSERT INTO snapshot (project_id, image_url) VALUES ?',
+            [
+              updatedSnapshotUrls.map(updatedSnapshotUrl => [
+                id,
+                updatedSnapshotUrl,
+              ]),
+            ],
+            error3 => {
+              if (error3) throw error3;
+
+              res.send();
+            }
+          );
         });
       });
-    });
-  });
+    }
+  );
 });
 
 router.put('/:id/sort-index', (req, res) => {
   const { id } = req.params;
   const { index } = req.body;
 
-  db.query('UPDATE project SET sort_index = ? WHERE id = ?', [index, id], (error) => {
-    if (error) throw error;
+  db.query(
+    'UPDATE project SET sort_index = ? WHERE id = ?',
+    [index, id],
+    error => {
+      if (error) throw error;
 
-    res.send();
-  });
+      res.send();
+    }
+  );
 });
 
 module.exports = router;
