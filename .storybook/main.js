@@ -1,16 +1,8 @@
-const path = require('path');
-
-module.exports = env => ({
-  mode: env.NODE_ENV,
-  entry: {
-    project: './src/project/index.js',
-  },
-  output: {
-    filename: 'javascripts/[name]/bundle.js',
-    path: path.resolve(__dirname, 'public'),
-  },
-  module: {
-    rules: [
+module.exports = {
+  stories: ['../stories/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  webpackFinal: async config => {
+    config.module.rules = [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -18,7 +10,11 @@ module.exports = env => ({
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.svg$/,
@@ -32,6 +28,8 @@ module.exports = env => ({
           },
         ],
       },
-    ],
+    ];
+
+    return config;
   },
-});
+};

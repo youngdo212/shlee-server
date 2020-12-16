@@ -79,6 +79,7 @@
 }
 
 .index-section__project-title {
+  float: left;
   box-sizing: border-box;
   line-height: $index-section-project-height;
   overflow: hidden;
@@ -86,7 +87,7 @@
   text-overflow: ellipsis;
 }
 
-.index-section__project-remove-button {
+.project-list-remove-button-container {
   position: absolute;
   top: 50%; right: 10px;
   transform: translate3d(0, -50%, 0);

@@ -99,13 +99,14 @@ table {
     background: #eee; }
 
 .index-section__project-title {
+  float: left;
   box-sizing: border-box;
   line-height: 40px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
 
-.index-section__project-remove-button {
+.project-list-remove-button-container {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -313,7 +314,8 @@ table {
 .added-input {
   margin-top: 5px; }
 
-.added-input__button {
+.video-url-remove-button-container {
+  display: inline;
   box-sizing: border-box;
   width: 20px;
   height: 20px;
@@ -324,7 +326,7 @@ table {
   outline: none;
   font-size: 20px;
   color: #777; }
-  .added-input__button:hover {
+  .video-url-remove-button-container:hover {
     color: #000; }
 
 .thumbnail-preview-wrap {
