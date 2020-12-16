@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.get('/project', (req, res, next) => {
   const { limit, offset, category } = req.query;
-  const whereClause = category ? `WHERE category = ${db.escape(category)}` : '';
+  const whereClause = category
+    ? `WHERE category = ${db.escape(category)} AND temp = false`
+    : 'WHERE temp = false';
   const limitClause = `LIMIT ${Number(limit)} OFFSET ${Number(offset)}`;
   const orderClause = 'ORDER BY sort_index, id desc';
   const sql = `SELECT id, title, thumbnail_image_url as thumbnailImageUrl, quick_view_url as quickViewUrl, sort_index FROM project ${whereClause} ${orderClause} ${limitClause}`;
@@ -20,23 +22,31 @@ router.get('/project', (req, res, next) => {
 router.get('/project/:id', (req, res) => {
   const projectId = Number(req.params.id);
 
-  db.query('SELECT id, title, thumbnail_image_url as thumbnailImageUrl, quick_view_url as quickViewUrl, header_image_url as headerImageUrl, client, agency, role from project WHERE id = ?', [projectId], (err, results) => {
-    if (err) throw err;
+  db.query(
+    'SELECT id, title, thumbnail_image_url as thumbnailImageUrl, quick_view_url as quickViewUrl, header_image_url as headerImageUrl, client, agency, role from project WHERE id = ?',
+    [projectId],
+    (err, results) => {
+      if (err) throw err;
 
-    const project = results[0];
-    res.send(project);
-  });
+      const project = results[0];
+      res.send(project);
+    }
+  );
 });
 
 router.get('/project/:id/snapshot', (req, res, next) => {
   const projectId = Number(req.params.id);
   const { limit, offset } = req.query;
 
-  db.query('SELECT image_url as imageUrl FROM snapshot WHERE project_id = ? LIMIT ? OFFSET ?', [projectId, Number(limit), Number(offset)], (err, images) => {
-    if (err) throw err;
+  db.query(
+    'SELECT image_url as imageUrl FROM snapshot WHERE project_id = ? LIMIT ? OFFSET ?',
+    [projectId, Number(limit), Number(offset)],
+    (err, images) => {
+      if (err) throw err;
 
-    res.send(images);
-  });
+      res.send(images);
+    }
+  );
 });
 
 module.exports = router;
