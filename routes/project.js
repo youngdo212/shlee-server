@@ -158,6 +158,9 @@ router.put('/:id', (req, res) => {
   db.query('UPDATE project SET ? WHERE id = ?', [values, id], async err => {
     if (err) throw err;
 
+    await queryPromise('DELETE FROM video WHERE project_id = ?', [id]);
+    await queryPromise('DELETE FROM snapshot WHERE project_id = ?', [id]);
+
     if (videoUrls.length) {
       await queryPromise('INSERT INTO video (project_id, video_url) VALUES ?', [
         videoUrls.map(videoUrl => [id, videoUrl]),

@@ -3,15 +3,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../lib/auth');
 
-router.get('/login', (req, res, next) => {
-  if (auth.isAuthorized(req)) {
-    res.redirect('/dashboard');
-    return;
-  }
-
-  res.render('login');
-});
-
 /**
  *
  * @param {object} param

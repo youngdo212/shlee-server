@@ -14,7 +14,6 @@ const projectRouter = require('./routes/project.js');
 const workRouter = require('./routes/work');
 const labRouter = require('./routes/lab');
 const infoRouter = require('./routes/info.js');
-const dashboardRouter = require('./routes/dashboard');
 const authRouter = require('./routes/auth');
 const uploadRouter = require('./routes/upload');
 
@@ -71,13 +70,12 @@ app.use('/project', projectRouter);
 app.use('/work', workRouter);
 app.use('/lab', labRouter);
 app.use('/info', infoRouter);
-app.use('/dashboard', dashboardRouter);
 app.use('/auth', authRouter);
 app.use('/upload', uploadRouter);
 
-// TODO: 대시보드로 변경하기
-app.use('/mando', express.static(path.join(__dirname, 'build')));
-app.get('/mando/*', (req, res) => {
+// Dashboard SPA 리액트 앱을 위한 라우팅
+app.use('/dashboard', express.static(path.join(__dirname, 'build')));
+app.get('/dashboard/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
